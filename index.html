@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="keywords" content="Jw个人博客">
-<meta name="description" content="温故而知新">
+<meta name="description" content="">
 <meta name="theme-color" content="#000">
 <title>Jw&#39;Blogs</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1589001345644">
+<link rel="shortcut icon" href="/favicon.ico?v=1589001816512">
 <link rel="stylesheet" href="/styles/main.css">
 <link rel="stylesheet" href="/media/css/gemini.css">
 
@@ -70,6 +70,8 @@
           
             
             
+              
+            
             <li class="nav-item nav-item-active">
               
               
@@ -80,6 +82,8 @@
             </li>
           
             
+            
+              
             
             <li class="nav-item ">
               
@@ -92,6 +96,8 @@
           
             
             
+              
+            
             <li class="nav-item ">
               
               
@@ -101,6 +107,16 @@
               
             </li>
           
+          
+            
+              <li class="nav-item ">
+                <a href="/friends/" target="_self">
+                  
+                    <i class="fa fa-address-book"></i> 友情链接
+                  
+                </a>
+              </li>
+            
           
           <li id="fa_search" class="nav-item">
             <a href="javascript:void(0);">
@@ -172,8 +188,6 @@
   
     
   
-  
-
   
 
 
@@ -506,325 +520,6 @@
       
     </div>
   </article>
-
-  <article class="post-list-box  post box-shadow-wrapper">
-    <div class="article-wrapper bg-color">
-      <header class="post-header">
-  <h1 class="post-title">
-    <a class="post-title-link" href="https://jsogn.github.io/post/she-zhi-centos-fu-wu-qi-ip-di-zhi/">
-      设置CentOS服务器IP地址
-    </a>
-  </h1>
-  <div class="post-meta">
-    
-    <span class="meta-item pc-show">
-      <i class="fa fa-calendar-o"></i>
-      <span>发布于</span>
-      <span>2020-05-09</span>
-      <span class="post-meta-divider pc-show">|</span>
-    </span>
-    
-    <span class="meta-item">
-      <i class="fa fa-folder-o"></i>
-      <span class="pc-show">分类于</span>
-      
-      
-      <a href="https://jsogn.github.io/tag/linux/">
-        <span>linux</span>
-      </a>
-      
-      
-    </span>
-    <span class="post-meta-divider">|</span>
-    
-    <span class="meta-item">
-      <i class="fa fa-clock-o"></i>
-      <span>1分钟</span>
-    </span>
-    <span class="meta-item">
-      <span class="post-meta-divider">|</span>
-      <i class="fa fa-file-word-o"></i>
-      <span>188<span class="pc-show">字数</span></span>
-    </span>
-    
-  </div>
-</header>
-      <div class="post-body">
-        
-        
-          <h3 id="前言">前言</h3>
-<p>如何在CentOS服务器中配置网络IP地址</p>
-
-        
-        
-        <div class="post-button text-center">
-          <a class="btn" href="https://jsogn.github.io/post/she-zhi-centos-fu-wu-qi-ip-di-zhi/" rel="contents">
-            阅读全文 »
-          </a>
-        </div>
-        
-      </div>
-      
-    </div>
-  </article>
-
-  <article class="post-list-box  post box-shadow-wrapper">
-    <div class="article-wrapper bg-color">
-      <header class="post-header">
-  <h1 class="post-title">
-    <a class="post-title-link" href="https://jsogn.github.io/post/a-li-yun-rds-yu-ecs-fu-wu-qi-shu-ju-ku-zuo-zhu-cong/">
-      阿里云RDS与ECS服务器数据库做主从
-    </a>
-  </h1>
-  <div class="post-meta">
-    
-    <span class="meta-item pc-show">
-      <i class="fa fa-calendar-o"></i>
-      <span>发布于</span>
-      <span>2020-05-09</span>
-      <span class="post-meta-divider pc-show">|</span>
-    </span>
-    
-    <span class="meta-item">
-      <i class="fa fa-folder-o"></i>
-      <span class="pc-show">分类于</span>
-      
-      
-      <a href="https://jsogn.github.io/tag/mysql/">
-        <span>mysql</span>
-      </a>
-      
-      
-    </span>
-    <span class="post-meta-divider">|</span>
-    
-    <span class="meta-item">
-      <i class="fa fa-clock-o"></i>
-      <span>4分钟</span>
-    </span>
-    <span class="meta-item">
-      <span class="post-meta-divider">|</span>
-      <i class="fa fa-file-word-o"></i>
-      <span>872<span class="pc-show">字数</span></span>
-    </span>
-    
-  </div>
-</header>
-      <div class="post-body">
-        
-        
-          <h3 id="前言">前言</h3>
-<p>实现RDS for mysql与线下ECS上自建数据库数据实时同步，阿里云官方推荐使用DTS方式进行。原因有两个：</p>
-<ul>
-<li>
-<p>mysql-bin正常情况下,RDS在本地只保存18个小时</p>
-</li>
-<li>
-<p>当RDS实例切换时，会影响自建ECS数据同步(这个经过测试可以排除)</p>
-</li>
-</ul>
-<p>考虑到使用DTS工具会产生不少的费用(长期使用)，另一方面，在数据库中一个地区对应一个库，后续业务无法事先规划好库名，此时如果使用dts可能需要购买多个通道，进行配置，比较费时费力且费钱。基于这两个原因的考虑，决定使用搭建主从复制方式来实现数据同步</p>
-
-        
-        
-        <div class="post-button text-center">
-          <a class="btn" href="https://jsogn.github.io/post/a-li-yun-rds-yu-ecs-fu-wu-qi-shu-ju-ku-zuo-zhu-cong/" rel="contents">
-            阅读全文 »
-          </a>
-        </div>
-        
-      </div>
-      
-    </div>
-  </article>
-
-  <article class="post-list-box  post box-shadow-wrapper">
-    <div class="article-wrapper bg-color">
-      <header class="post-header">
-  <h1 class="post-title">
-    <a class="post-title-link" href="https://jsogn.github.io/post/redis-you-yu-lian-jie-guo-duo-dao-zhi-de-yi-chang/">
-      Redis由于连接过多导致的异常
-    </a>
-  </h1>
-  <div class="post-meta">
-    
-    <span class="meta-item pc-show">
-      <i class="fa fa-calendar-o"></i>
-      <span>发布于</span>
-      <span>2020-05-09</span>
-      <span class="post-meta-divider pc-show">|</span>
-    </span>
-    
-    <span class="meta-item">
-      <i class="fa fa-folder-o"></i>
-      <span class="pc-show">分类于</span>
-      
-      
-      <a href="https://jsogn.github.io/tag/redis/">
-        <span>redis</span>
-      </a>
-      
-      
-    </span>
-    <span class="post-meta-divider">|</span>
-    
-    <span class="meta-item">
-      <i class="fa fa-clock-o"></i>
-      <span>6分钟</span>
-    </span>
-    <span class="meta-item">
-      <span class="post-meta-divider">|</span>
-      <i class="fa fa-file-word-o"></i>
-      <span>1327<span class="pc-show">字数</span></span>
-    </span>
-    
-  </div>
-</header>
-      <div class="post-body">
-        
-        
-          <h3 id="前言">前言</h3>
-<p>近期服务器在高峰的时候经常报错，日志记录为：</p>
-<pre><code>Redis-&gt;connect('127.0.0.1', 6379)
-#1 {main}
-  thrown in /wwwroot/test.php on line 9
-[13-Jun-2019 11:07:47 PRC] PHP Fatal error:  Uncaught RedisException: Cannot assign requested address in /wwwroot/test.php:9
-</code></pre>
-
-        
-        
-        <div class="post-button text-center">
-          <a class="btn" href="https://jsogn.github.io/post/redis-you-yu-lian-jie-guo-duo-dao-zhi-de-yi-chang/" rel="contents">
-            阅读全文 »
-          </a>
-        </div>
-        
-      </div>
-      
-    </div>
-  </article>
-
-  <article class="post-list-box  post box-shadow-wrapper">
-    <div class="article-wrapper bg-color">
-      <header class="post-header">
-  <h1 class="post-title">
-    <a class="post-title-link" href="https://jsogn.github.io/post/wang-zhan-fang-wen-ri-zhi-de-ri-chang-cao-zuo/">
-      网站访问日志的日常操作
-    </a>
-  </h1>
-  <div class="post-meta">
-    
-    <span class="meta-item pc-show">
-      <i class="fa fa-calendar-o"></i>
-      <span>发布于</span>
-      <span>2020-05-09</span>
-      <span class="post-meta-divider pc-show">|</span>
-    </span>
-    
-    <span class="meta-item">
-      <i class="fa fa-folder-o"></i>
-      <span class="pc-show">分类于</span>
-      
-      
-      <a href="https://jsogn.github.io/tag/linux/">
-        <span>linux</span>
-      </a>
-      
-      
-    </span>
-    <span class="post-meta-divider">|</span>
-    
-    <span class="meta-item">
-      <i class="fa fa-clock-o"></i>
-      <span>1分钟</span>
-    </span>
-    <span class="meta-item">
-      <span class="post-meta-divider">|</span>
-      <i class="fa fa-file-word-o"></i>
-      <span>136<span class="pc-show">字数</span></span>
-    </span>
-    
-  </div>
-</header>
-      <div class="post-body">
-        
-        
-          <h3 id="前言">前言</h3>
-<p>日常工作中，网站如果遇到异常情况，经常需要查看访问日志来查找问题，由于日志文件庞大查找起来很不放便，所以需要进行一些过滤处理</p>
-
-        
-        
-        <div class="post-button text-center">
-          <a class="btn" href="https://jsogn.github.io/post/wang-zhan-fang-wen-ri-zhi-de-ri-chang-cao-zuo/" rel="contents">
-            阅读全文 »
-          </a>
-        </div>
-        
-      </div>
-      
-    </div>
-  </article>
-
-  <article class="post-list-box  post box-shadow-wrapper">
-    <div class="article-wrapper bg-color">
-      <header class="post-header">
-  <h1 class="post-title">
-    <a class="post-title-link" href="https://jsogn.github.io/post/vue-zhong-axios-de-feng-zhuang/">
-      Vue 中 axios 的封装
-    </a>
-  </h1>
-  <div class="post-meta">
-    
-    <span class="meta-item pc-show">
-      <i class="fa fa-calendar-o"></i>
-      <span>发布于</span>
-      <span>2020-05-09</span>
-      <span class="post-meta-divider pc-show">|</span>
-    </span>
-    
-    <span class="meta-item">
-      <i class="fa fa-folder-o"></i>
-      <span class="pc-show">分类于</span>
-      
-      
-      <a href="https://jsogn.github.io/tag/vue/">
-        <span>vue</span>
-      </a>
-      
-      
-    </span>
-    <span class="post-meta-divider">|</span>
-    
-    <span class="meta-item">
-      <i class="fa fa-clock-o"></i>
-      <span>10分钟</span>
-    </span>
-    <span class="meta-item">
-      <span class="post-meta-divider">|</span>
-      <i class="fa fa-file-word-o"></i>
-      <span>2387<span class="pc-show">字数</span></span>
-    </span>
-    
-  </div>
-</header>
-      <div class="post-body">
-        
-        
-          <h3 id="前言">前言</h3>
-<p>虽然，axios 是个优秀的 HTTP 库，但是，直接在项目中使用并不是那么方便，所以，我们需要对其进行一定程度上的配置封装，减少重复代码，方便调用。</p>
-
-        
-        
-        <div class="post-button text-center">
-          <a class="btn" href="https://jsogn.github.io/post/vue-zhong-axios-de-feng-zhuang/" rel="contents">
-            阅读全文 »
-          </a>
-        </div>
-        
-      </div>
-      
-    </div>
-  </article>
   
             
             
@@ -832,23 +527,46 @@
   <ul class="pagination-ul">
     
     
+      <!-- 1 2 3 4 ... N -->
       
-        <li class="pagination-li pagination-active">
-            <a href="/page/../">
-              1
-            </a>
+        
+          
+            <li class="pagination-li pagination-active">
+              <a href="/">1</a>
+            </li>
+          
+        
+          
+            <li class="pagination-li ">
+              <a href="/page/2">
+                2
+              </a>
+            </li>
+          
+        
+          
+            <li class="pagination-li ">
+              <a href="/page/3">
+                3
+              </a>
+            </li>
+          
+        
+          
+            <li class="pagination-li ">
+              <a href="/page/4">
+                4
+              </a>
+            </li>
+          
+        
+        <li class="pagination-li">
+          …
         </li>
-      
-        <li class="pagination-li ">
-            <a href="/page/2">
-              2
-            </a>
-        </li>
-      
-        <li class="pagination-li ">
-            <a href="/page/3">
-              3
-            </a>
+        <li class="pagination-li">
+          <a href="/page/6">
+            6
+          </a>
         </li>
       
     

@@ -8,7 +8,7 @@
 <meta name="keywords" content="Jw个人博客">
 <meta name="description" content="">
 <meta name="theme-color" content="#000">
-<title>RESETful API 设计规范 | Jw&#39;Blogs</title>
+<title>Jw&#39;Blogs</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1589001816512">
 <link rel="stylesheet" href="/styles/main.css">
 <link rel="stylesheet" href="/media/css/gemini.css">
@@ -39,8 +39,6 @@
 
 
 
-  <meta name="description" content="RESETful API 设计规范" />
-  <meta name="keywords" content="php" />
 </head>
 
 <body>
@@ -74,7 +72,7 @@
             
               
             
-            <li class="nav-item ">
+            <li class="nav-item nav-item-active">
               
               
                 <a href="/" target="_self">
@@ -158,24 +156,8 @@
     <div
       class="section-layout gemini ">
       <div class="section-layout-wrapper">
-        
-
-<div class="sidebar">
-  
-    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
-      
-        <div class="post-list-sidebar">
-          <div class="sidebar-title">
-            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active">文章目录</span>
-            <span id="metaSideBar" class="sidebar-title-item">站点概览</span>
-          </div>
-        </div>
-      
-      <div class="sidebar-body gemini" id="sidebar_body">
-        
-          
-            <div class="post-side-meta" id="post_side_meta">
-              
+        <div id="sidebarMeta" class="sidebar">
+    
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -210,316 +192,30 @@
 
 
 </div>
-            </div>
-            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
-              <div class="toc-box right-motion">
-  <div class="toc-wrapper auto-number auto"
-    id="toc_wrapper">
-    <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
-<li><a href="#%E5%8D%8F%E8%AE%AE">协议</a></li>
-<li><a href="#api-root-url">API Root URL</a></li>
-<li><a href="#versioning">Versioning</a></li>
-<li><a href="#endpoints">Endpoints</a></li>
-<li><a href="#http-%E5%8A%A8%E8%AF%8D">HTTP 动词</a></li>
-<li><a href="#filtering">Filtering</a></li>
-<li><a href="#authentication">Authentication</a></li>
-<li><a href="#response">Response</a></li>
-<li><a href="#200-ok">200 ok</a></li>
-<li><a href="#201-created">201 Created</a></li>
-<li><a href="#202-accepted">202 Accepted</a></li>
-<li><a href="#204-no-content">204 No Content</a></li>
-<li><a href="#3xx-%E9%87%8D%E5%AE%9A%E5%90%91">3xx 重定向</a></li>
-<li><a href="#400-bad-request">400 Bad Request</a></li>
-<li><a href="#401-unauthorized">401 Unauthorized</a></li>
-<li><a href="#403-forbidden">403 Forbidden</a></li>
-<li><a href="#404-not-found">404 Not Found</a></li>
-<li><a href="#405-method-not-allowd">405 Method Not Allowd</a></li>
-<li><a href="#406-not-acceptable">406 Not Acceptable</a></li>
-<li><a href="#408-request-timeout">408 Request Timeout</a></li>
-<li><a href="#409-gonfilct">409 Gonfilct</a></li>
-<li><a href="#410-gone">410 Gone</a></li>
-<li><a href="#413-request-entity-too-large">413 Request Entity Too Large</a></li>
-<li><a href="#414-request-uri-too-long">414 Request-URI Too Long</a></li>
-<li><a href="#415-unsupported-media-type">415 Unsupported Media Type</a></li>
-<li><a href="#429-too-many-request">429 Too Many Request</a></li>
-<li><a href="#500-internal-server-error">500 Internal Server Error</a></li>
-<li><a href="#503-service-unavailable">503 Service Unavailable</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-  </div>
 </div>
-
 <script>
-
-  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
-  let active = 'active-show', activeClass = 'active-current';
-  let tocWrapper = document.querySelector('#toc_wrapper');
-  let tocContent = tocWrapper.children[0];
-  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
-
-  function addTocNumber(elem, deep) {
-    if (!elem) {
-      return;
-    }
-    let prop = elem.__proto__;
-
-    if (prop === HTMLUListElement.prototype) {
-      for (let i = 0; i < elem.children.length; i++) {
-        addTocNumber(elem.children[i], deep + (i + 1) + '.');
+  let sidebarMeta = document.querySelector('#sidebarMeta');
+  let scheme = 'gemini';
+  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
+  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
+    document.addEventListener('scroll', function(e) {
+      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
+        sidebarWrapper.classList.add('home-sidebar-fixed')
+      } else {
+        sidebarWrapper.classList.remove('home-sidebar-fixed')
       }
-    } else if (prop === HTMLLIElement.prototype) {
-      // 保存li元素
-      if (elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
-        lList.push(elem);
-      }
-      for (let i = 0; i < elem.children.length; i++) {
-        let cur = elem.children[i];
-        if (cur.__proto__ === HTMLAnchorElement.prototype) {
-          if (autoNumber) {
-            cur.text = deep + ' ' + cur.text;
-          }
-        } else if (cur.__proto__ === HTMLUListElement.prototype) {
-          addTocNumber(cur, deep);
-        }
-      }
-    }
-  }
-
-  function removeParentActiveClass() {
-    let parents = tocContent.querySelectorAll('.' + active)
-    parents.forEach(function (elem) {
-      elem.classList.remove(active);
     });
   }
-
-  function addActiveClass(index) {
-    if (index >= 0 && index < hList.length) {
-      lList[index].classList.add(activeClass);
-    }
-  }
-
-  function removeActiveClass(index) {
-    if (index >= 0 && index < hList.length) {
-      lList[index].classList.remove(activeClass);
-    }
-  }
-
-  function addActiveLiElemment(elem, parent) {
-    if (!elem || elem === parent) {
-      return;
-    } else {
-      if (elem.__proto__ === HTMLLIElement.prototype) {
-        elem.classList.add(active);
-      }
-      addActiveLiElemment(elem.parentElement, parent);
-    }
-  }
-
-  function showToc() {
-    if (tocWrapper) {
-      postBody = document.querySelector('#post_body');
-      for (let i = 0; i < postBody.children.length; i++) {
-        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
-          hList.push(postBody.children[i]);
-        }
-      }
-      if (tocWrapper.classList.contains('compress')) {
-        tocContent.classList.add('closed');
-      } else if (tocWrapper.classList.contains('no_compress')) {
-        tocContent.classList.add('expanded');
-      } else {
-        if (hList.length > 10) {
-          active = 'active-hidden'
-          tocContent.classList.add('closed');
-        } else {
-          tocContent.classList.add('expanded');
-        }
-      }
-    }
-  }
-
-  (function () {
-    // 处理不是从#一级标题开始目录
-    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
-      let con = tocContent.children[0].children[0];
-      tocContent.innerHTML = con.innerHTML;
-    }
-    let markdownItTOC = document.querySelector('.markdownIt-TOC');
-    let innerHeight = window.innerHeight;
-    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
-    addTocNumber(tocContent, '');
-  })();
-
-  document.addEventListener('scroll', function (e) {
-    if (lList.length <= 0) {
-      return;
-    }
-    let scrollTop = document.scrollingElement.scrollTop + 10;
-    let dir;
-
-    if (lastTop - scrollTop > 0) {
-      dir = 'up';
-    } else {
-      dir = 'down';
-    }
-
-    lastTop = scrollTop;
-    if (scrollTop <= 0) {
-      if (lastIndex >= 0 && lastIndex < hList.length) {
-        lList[lastIndex].classList.remove(activeClass);
-      }
-      return;
-    }
-
-    let current = 0, hasFind = false;
-    for (let i = 0; i < hList.length; i++) {
-      if (hList[i].offsetTop > scrollTop) {
-        current = i;
-        hasFind = true;
-        break;
-      }
-    }
-    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
-      current = hList.length - 1;
-    } else {
-      current--;
-    }
-    if (dir === 'down') {
-      if (current > lastIndex) {
-        addActiveClass(current);
-        removeActiveClass(lastIndex)
-        lastIndex = current;
-        removeParentActiveClass();
-        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
-      }
-    } else {
-      if (current < lastIndex) {
-        addActiveClass(current);
-        removeActiveClass(lastIndex);
-        lastIndex = current;
-        removeParentActiveClass();
-        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
-      }
-    }
-  });
-
-
-  window.addEventListener('load', function () {
-    showToc();
-    document.querySelector('#sidebar').style = 'display: block;';
-    tocWrapper.classList.add('toc-active');
-    setTimeout(function () {
-      if ("createEvent" in document) {
-        let evt = document.createEvent("HTMLEvents");
-        evt.initEvent("scroll", false, true);
-        document.dispatchEvent(evt);
-      }
-      else {
-        document.fireEvent("scroll");
-      }
-    }, 500)
-  })
-
-</script>
-            </div>
-          
-        
-      </div>
-    </div>
-  
-</div>
-<script>
-  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
-  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
-  const SLIDE_UP_IN = 'slide-up-in';
-
-  let sidebar = document.querySelector('#sidebar'),
-  tocSideBar = document.querySelector('#tocSideBar'),
-  metaSideBar = document.querySelector('#metaSideBar'),
-  postToc = document.querySelector('#post_toc'),
-  postSiteMeta = document.querySelector('#post_side_meta'),
-  sidebarTitle = document.querySelector('.sidebar-title'),
-  sidebarBody = document.querySelector('#sidebar_body');
-
-  tocSideBar && tocSideBar.addEventListener('click', (e) => {
-    toggleSidebar(e);
-  });
-
-  metaSideBar && metaSideBar.addEventListener('click', (e) => {
-    toggleSidebar(e);
-  });
-
-  function toggleSidebar(e) {
-    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
-    if (currentTitle == e.srcElement) {
-      return ;
-    }
-    let current, showElement, hideElement;
-    if (e.srcElement == metaSideBar) {
-      showElement = postSiteMeta;
-      hideElement = postToc;
-    } else if (e.srcElement == tocSideBar){
-      showElement = postToc;
-      hideElement = postSiteMeta;
-    }
-    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
-    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
-
-    window.Velocity(hideElement, 'stop');
-    window.Velocity(hideElement, 'transition.slideUpOut', {
-      display: 'none',
-      duration: 200,
-      complete: function () {
-        window.Velocity(showElement, 'transition.slideDownIn', {
-          duration: 200
-        });
-      }
-    })
-    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
-    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
-  }
-
-  postToc && postToc.addEventListener('transitionend', function() {
-    this.classList.remove(SLIDE_UP_IN);
-  });
-
-  if (sidebarBody) {
-    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
-      let hasFix = false;
-      let scrollEl = document.querySelector('.main-continer');
-      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
-      window.addEventListener('scroll', function(e) {
-        if (document.scrollingElement.scrollTop >= limitTop) {
-          if (!hasFix) {
-            sidebar.classList.add('sidebar-fixed');
-            hasFix = true;
-          }
-        } else {
-          if (hasFix) {
-            sidebar.classList.remove('sidebar-fixed');
-            hasFix = false;
-          }
-        }
-      });
-    }
-  }
-  
-</script>
-        <div class="section-box box-shadow-wrapper">
-          <div class="section bg-color post post-page">
-            <header class="post-header">
+  </script>
+        <div class="section-box gemini">
+          <section class="section  posts-expand slide-down-in">
+            
+  <article class="post-list-box  post box-shadow-wrapper">
+    <div class="article-wrapper bg-color">
+      <header class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://jsogn.github.io/post/resetful-api-she-ji-gui-fan/">
-      RESETful API 设计规范
+    <a class="post-title-link" href="https://jsogn.github.io/post/nmap-ji-ben-shi-yong/">
+      nmap基本使用
     </a>
   </h1>
   <div class="post-meta">
@@ -536,8 +232,8 @@
       <span class="pc-show">分类于</span>
       
       
-      <a href="https://jsogn.github.io/tag/php/">
-        <span>php</span>
+      <a href="https://jsogn.github.io/tag/hacker/">
+        <span>hacker</span>
       </a>
       
       
@@ -546,586 +242,334 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>19分钟</span>
+      <span>10分钟</span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>4275<span class="pc-show">字数</span></span>
-    </span>
-    
-    
-    
-    <span id="/post/resetful-api-she-ji-gui-fan/" data-flag-title="RESETful API 设计规范" class="meta-item pc-show leancloud_visitors">
-      <span class="post-meta-divider">|</span>
-      <i class="fa fa-eye"></i>
-      <span>浏览量：<span class="leancloud-visitors-count"></span></span>
+      <span>2321<span class="pc-show">字数</span></span>
     </span>
     
   </div>
 </header>
-            <div class="post-body next-md-body" id="post_body">
-              <h3 id="前言">前言</h3>
-<p>工欲善其事，必先利其器，一个健壮的API必要有优秀的设计规范，本文是最基本的设计理念</p>
-<!--more-->
-<h3 id="协议">协议</h3>
-<p>在通过 API 于后端服务通信的过程中，应该 使用 HTTPS 协议。</p>
-<h3 id="api-root-url">API Root URL</h3>
-<p>API 的根入口点应尽可能保持足够简单，这里有两个常见的 URL 根例子：</p>
-<pre><code>api.example.com/*
-example.com/api/*
-</code></pre>
-<blockquote>
-<p>如果你的应用很庞大或者你预计它将会变的很庞大，那 应该 将 API 放到子域下。这种做法可以保持某些规模化上的灵活性。</p>
-</blockquote>
-<h3 id="versioning">Versioning</h3>
-<p>所有的 API 必须保持向后兼容，你 必须 在引入新版本 API 的同时确保旧版本 API 仍然可用。所以 应该 为其提供版本支持。</p>
-<p>目前比较常见的两种版本号形式：</p>
-<p>在 URL 中嵌入版本编号</p>
-<pre><code>api.example.com/v1/*
-</code></pre>
-<p>这种做法是版本号直观、易于调试；另一种做法是，将版本号放在 HTTP Header 头中：<br>
-通过媒体类型来指定版本信息</p>
-<pre><code>Accept: application/vnd.example.com.v1+json
-</code></pre>
-<p>其中 vnd 表示 Standards Tree 标准树类型，有三个不同的树: x，prs 和 vnd。你使用的标准树需要取决于你开发的项目</p>
-<ul>
-<li>未注册的树（x）主要表示本地和私有环境</li>
-<li>私有树（prs）主要表示没有商业发布的项目</li>
-<li>供应商树（vnd）主要表示公开发布的项目</li>
-</ul>
-<blockquote>
-<p>后面几个参数依次为应用名称（一般为应用域名）、版本号、期望的返回格式。</p>
-</blockquote>
-<h3 id="endpoints">Endpoints</h3>
-<p>端点就是指向特定资源或资源集合的 URL。在端点的设计中，你 必须 遵守下列约定:</p>
-<ul>
-<li>URL 的命名 必须 全部小写</li>
-<li>URL 中资源（resource）的命名 必须 是名词，并且 必须 是复数形式</li>
-<li>必须 优先使用 Restful 类型的 URL</li>
-<li>URL 中不能出现 -，必须 用下划线 _ 代替</li>
-<li>URL 必须 是易读的</li>
-<li>URL 一定不可 暴露服务器架构</li>
-</ul>
-<h3 id="http-动词">HTTP 动词</h3>
-<p>对于资源的具体操作类型，由 HTTP 动词表示。常用的 HTTP 动词有下面五个（括号里是对应的 SQL 命令）。</p>
-<ul>
-<li>GET（SELECT）：从服务器取出资源（一项或多项）。</li>
-<li>POST（CREATE）：在服务器新建一个资源。</li>
-<li>PUT（UPDATE）：在服务器更新资源（客户端提供改变后的完整资源）。</li>
-<li>PATCH（UPDATE）：在服务器更新资源（客户端提供改变的属性）。</li>
-<li>DELETE（DELETE）：从服务器删除资源。</li>
-</ul>
-<h3 id="filtering">Filtering</h3>
-<blockquote>
-<p>如果记录数量很多，服务器不可能都将它们返回给用户。API 应该 提供参数，过滤返回结果。下面是一些常见的参数。</p>
-</blockquote>
-<ul>
-<li>?limit=10：指定返回记录的数量</li>
-<li>?offset=10：指定返回记录的开始位置。</li>
-<li>?page=2&amp;per_page=100：指定第几页，以及每页的记录数。</li>
-<li>?sortby=name&amp;order=asc：指定返回结果按照哪个属性排序，以及排序顺序。</li>
-<li>?animal_type_id=1：指定筛选条件</li>
-</ul>
-<p>所有 URL 参数 必须 是全小写，必须 使用下划线类型的参数形式。</p>
-<p>经常使用的、复杂的查询 应该 标签化，降低维护成本。如</p>
-<pre><code>GET /trades?status=closed&amp;sort=sortby=name&amp;order=asc
-# 可为其定制快捷方式
-GET /trades/recently_closed
-</code></pre>
-<h3 id="authentication">Authentication</h3>
-<p>应该 使用 OAuth2.0 的方式为 API 调用者提供登录认证。必须 先通过登录接口获取 Access Token 后再通过该 token 调用需要身份认证的 API。</p>
-<p>Oauth 的端点设计示列</p>
-<ul>
-<li>RFC 6749   /token</li>
-<li>Twitter    /oauth2/token</li>
-<li>Fackbook   /oauth/access_token</li>
-<li>Google     /o/oauth2/token</li>
-<li>Github     /login/oauth/access_token</li>
-<li>Instagram  /oauth/authorize</li>
-</ul>
-<p>客户端在获得 access token 的同时 必须 在响应中包含一个名为 expires_in 的数据，它表示当前获得的 token 会在多少 秒 后失效。</p>
-<pre><code>{
-    &quot;access_token&quot;: &quot;token....&quot;,
-    &quot;token_type&quot;: &quot;Bearer&quot;,
-    &quot;expires_in&quot;: 3600
-}
-</code></pre>
-<p>客户端在请求需要认证的 API 时，必须 在请求头 Authorization 中带上 access_token。</p>
-<pre><code>Authorization: Bearer token...
-</code></pre>
-<p>当超过指定的秒数后，access token 就会过期，再次用过期/或无效的 token 访问时，服务端 应该 返回 invalid_token 的错误或 401 错误码。</p>
-<pre><code>HTTP/1.1 401 Unauthorized
-Content-Type: application/json
-Cache-Control: no-store
-Pragma: no-cache
+      <div class="post-body">
+        
+        
+          <h3 id="前言">前言</h3>
+<p>Nmap 是个端口扫描器，这意味着它可以向一些指定 IP 的 TCP 或 UDP 端口发送封包，并检查是否有响应。如果有的话，这意味着端口是打开的，因此，端口上运行着服务</p>
+<p>Nmap代表Network Mapper，是一款用于网络探索和安全审计的开源工具，它与Kali Linux标准兼容，但也可用于Windows，OSX和许多其他UNIX平台。Nmap还有一个称为Zenmap的图形用户界面。</p>
 
-{
-    &quot;error&quot;: &quot;invalid_token&quot;
-}
-</code></pre>
-<blockquote>
-<p>Laravel 开发中，应该 使用 JWT 来为管理你的 Token，并且 一定不可 在 api 中间件中开启请求 session。</p>
-</blockquote>
-<h3 id="response">Response</h3>
-<p>所有的 API 响应，必须 遵守 HTTP 设计规范，必须 选择合适的 HTTP 状态码。一定不可 所有接口都返回状态码为 200 的 HTTP 响应，如:</p>
-<pre><code>HTTP/1.1 200 ok
-Content-Type: application/json
-Server: example.com
-
-{
-    &quot;code&quot;: 0,
-    &quot;msg&quot;: &quot;success&quot;,
-    &quot;data&quot;: {
-        &quot;username&quot;: &quot;username&quot;
-    }
-}
-</code></pre>
-<p>常见的 HTTP 状态码</p>
-<table>
-<thead>
-<tr>
-<th>状态码</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1xx</td>
-<td>代表请求已被接受，需要继续处理</td>
-</tr>
-<tr>
-<td>2xx</td>
-<td>请求已成功，请求所希望的响应头或数据体将随此响应返回</td>
-</tr>
-<tr>
-<td>3xx</td>
-<td>重定向</td>
-</tr>
-<tr>
-<td>4xx</td>
-<td>客户端引起的错误</td>
-</tr>
-<tr>
-<td>5xx</td>
-<td>服务端引起的错误</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>只有来自客户端的请求被正确的处理后才能返回 2xx 的响应，所以当 API 返回 2xx 类型的状态码时，前端 必须 认定该请求已处理成功。</p>
-</blockquote>
-<p>必须强调的是，所有 API 一定不可 返回 1xx 类型的状态码。当 API 发生错误时，必须 返回出错时的详细信息。目前常见返回错误信息的方法有两种：</p>
-<p>1、将错误详细放入 HTTP 响应首部；</p>
-<pre><code>X-MYNAME-ERROR-CODE: 4001
-X-MYNAME-ERROR-MESSAGE: Bad authentication token
-X-MYNAME-ERROR-INFO: http://docs.example.com/api/v1/authentication
-</code></pre>
-<p>2、直接放入响应实体中；</p>
-<pre><code>HTTP/1.1 401 Unauthorized
-Server: nginx/1.11.9
-Content-Type: application/json
-Transfer-Encoding: chunked
-Cache-Control: no-cache, private
-Date: Sun, 24 Jun 2018 10:02:59 GMT
-Connection: keep-alive
-
-{&quot;error_code&quot;:40100,&quot;message&quot;:&quot;Unauthorized&quot;}
-</code></pre>
-<p>考虑到易读性和客户端的易处理性，我们 必须 把错误信息直接放到响应实体中，并且错误格式 应该 满足如下格式：</p>
-<pre><code>{
-    &quot;message&quot;: &quot;您查找的资源不存在&quot;,
-    &quot;error_code&quot;: 404001
-}
-</code></pre>
-<p>其中错误码（error_code）必须 和 HTTP 状态码对应，也方便错误码归类，如：</p>
-<pre><code>HTTP/1.1 429 Too Many Requests
-Server: nginx/1.11.9
-Content-Type: application/json
-Transfer-Encoding: chunked
-Cache-Control: no-cache, private
-Date: Sun, 24 Jun 2018 10:15:52 GMT
-Connection: keep-alive
-
-{&quot;error_code&quot;:429001,&quot;message&quot;:&quot;你操作太频繁了&quot;}
-</code></pre>
-<p>应该 在返回的错误信息中，同时包含面向开发者和面向用户的提示信息，前者可方便开发人员调试，后者可直接展示给终端用户查看如：</p>
-<pre><code>{
-    &quot;message&quot;: &quot;直接展示给终端用户的错误信息&quot;,
-    &quot;error_code&quot;: &quot;业务错误码&quot;,
-    &quot;error&quot;: &quot;供开发者查看的错误信息&quot;,
-    &quot;debug&quot;: [
-        &quot;错误堆栈，必须开启 debug 才存在&quot;
-    ]
-}
-</code></pre>
-<p>下面详细列举了各种情况 API 的返回说明。</p>
-<h3 id="200-ok">200 ok</h3>
-<pre><code>200 状态码是最常见的 HTTP 状态码，在所有 成功 的 GET 请求中，必须 返回此状态码。HTTP 响应实体部分 必须 直接就是数据，不要做多余的包装。
-
-{
-    &quot;data&quot;: [
-        {
-            &quot;id&quot;: 1,
-            &quot;avatar&quot;: &quot;https://lorempixel.com/640/480/?32556&quot;,
-            &quot;nickname&quot;: &quot;fwest&quot;,
-            &quot;last_logined_time&quot;: &quot;2018-05-29 04:56:43&quot;,
-            &quot;has_registed&quot;: true
-        },
-        {
-            &quot;id&quot;: 2,
-            &quot;avatar&quot;: &quot;https://lorempixel.com/640/480/?86144&quot;,
-            &quot;nickname&quot;: &quot;zschowalter&quot;,
-            &quot;last_logined_time&quot;: &quot;2018-06-16 15:18:34&quot;,
-            &quot;has_registed&quot;: true
-        }
-    ],
-    &quot;meta&quot;: {
-        &quot;pagination&quot;: {
-            &quot;total&quot;: 101,
-            &quot;count&quot;: 2,
-            &quot;per_page&quot;: 2,
-            &quot;current_page&quot;: 1,
-            &quot;total_pages&quot;: 51,
-            &quot;links&quot;: {
-                &quot;next&quot;: &quot;http://api.example.com?page=2&quot;
-            }
-        }
-    }
-}
-</code></pre>
-<blockquote>
-<p>其中，分页和其他额外的媒体信息，必须放到 meta 字段中。</p>
-</blockquote>
-<h3 id="201-created">201 Created</h3>
-<p>当服务器创建数据成功时，应该 返回此状态码。常见的应用场景是使用 POST 提交用户信息，如：</p>
-<ul>
-<li>添加了新用户</li>
-<li>上传了图片</li>
-<li>创建了新活动</li>
-</ul>
-<p>等，都可以返回 201 状态码。需要注意的是，你可以选择在用户创建成功后返回新用户的数据</p>
-<pre><code>HTTP/1.1 201 Created
-Server: nginx/1.11.9
-Content-Type: application/json
-Transfer-Encoding: chunked
-Date: Sun, 24 Jun 2018 09:13:40 GMT
-Connection: keep-alive
-
-{
-    &quot;id&quot;: 1,
-    &quot;avatar&quot;: &quot;https:\/\/lorempixel.com\/640\/480\/?32556&quot;,
-    &quot;nickname&quot;: &quot;fwest&quot;,
-    &quot;last_logined_time&quot;: &quot;2018-05-29 04:56:43&quot;,
-    &quot;created_at&quot;: &quot;2018-06-16 17:55:55&quot;,
-    &quot;updated_at&quot;: &quot;2018-06-16 17:55:55&quot;
-}
-</code></pre>
-<p>也可以返回一个响应实体为空的 HTTP Response 如：</p>
-<pre><code>HTTP/1.1 201 Created
-Server: nginx/1.11.9
-Content-Type: text/html; charset=UTF-8
-Transfer-Encoding: chunked
-Date: Sun, 24 Jun 2018 09:12:20 GMT
-Connection: keep-alive
-</code></pre>
-<blockquote>
-<p>这里我们 应该 采用第二种方式，因为大多数情况下，客户端只需要知道该请求操作成功与否，并不需要返回新资源的信息。</p>
-</blockquote>
-<h3 id="202-accepted">202 Accepted</h3>
-<p>该状态码表示服务器已经接受到了来自客户端的请求，但还未开始处理。常用短信发送、邮件通知、模板消息推送等这类很耗时需要队列支持的场景中；</p>
-<blockquote>
-<p>返回该状态码时，响应实体 必须 为空。</p>
-</blockquote>
-<pre><code>HTTP/1.1 202 Accepted
-Server: nginx/1.11.9
-Content-Type: text/html; charset=UTF-8
-Transfer-Encoding: chunked
-Date: Sun, 24 Jun 2018 09:25:15 GMT
-Connection: keep-alive
-</code></pre>
-<h3 id="204-no-content">204 No Content</h3>
-<p>该状态码表示响应实体不包含任何数据，其中：</p>
-<p>在使用 DELETE 方法删除资源 成功 时，必须 返回该状态码<br>
-使用 PUT、PATCH 方法更新数据 成功 时，也 应该 返回此状态码</p>
-<pre><code>HTTP/1.1 204 No Content
-Server: nginx/1.11.9
-Date: Sun, 24 Jun 2018 09:29:12 GMT
-Connection: keep-alive
-</code></pre>
-<h3 id="3xx-重定向">3xx 重定向</h3>
-<p>所有 API 一定不可 返回 3xx 类型的状态码。因为 3xx 类型的响应格式一般为下列格式:</p>
-<pre><code>HTTP/1.1 302 Found
-Server: nginx/1.11.9
-Content-Type: text/html; charset=UTF-8
-Transfer-Encoding: chunked
-Cache-Control: no-cache, private
-Date: Sun, 24 Jun 2018 09:41:50 GMT
-Location: https://example.com
-Connection: keep-alive
-
-&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-    &lt;head&gt;
-        &lt;meta charset=&quot;UTF-8&quot; /&gt;
-        &lt;meta http-equiv=&quot;refresh&quot; content=&quot;0;url=https://example.com&quot; /&gt;
-
-        &lt;title&gt;Redirecting to https://example.com&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body&gt;
-        Redirecting to &lt;a href=&quot;https://example.com&quot;&gt;https://example.com&lt;/a&gt;.
-    &lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-<p>API 一定不可 返回纯 HTML 结构的响应；若一定要使用重定向功能，应该 返回一个响应实体为空的 3xx 响应，并在响应头中加上 Location 字段:</p>
-<pre><code>HTTP/1.1 302 Found
-Server: nginx/1.11.9
-Content-Type: text/html; charset=UTF-8
-Transfer-Encoding: chunked
-Date: Sun, 24 Jun 2018 09:52:50 GMT
-Location: https://godruoyi.com
-Connection: keep-alive
-</code></pre>
-<h3 id="400-bad-request">400 Bad Request</h3>
-<p>由于明显的客户端错误（例如，请求语法格式错误、无效的请求、无效的签名等），服务器 应该 放弃该请求。</p>
-<blockquote>
-<p>当服务器无法从其他 4xx 类型的状态码中找出合适的来表示错误类型时，都 必须 返回该状态码。</p>
-</blockquote>
-<pre><code>HTTP/1.1 400 Bad Request
-Server: nginx/1.11.9
-Content-Type: application/json
-Transfer-Encoding: chunked
-Cache-Control: no-cache, private
-Date: Sun, 24 Jun 2018 13:22:36 GMT
-Connection: keep-alive
-
-{&quot;error_code&quot;:40000,&quot;message&quot;:&quot;无效的签名&quot;}
-</code></pre>
-<h3 id="401-unauthorized">401 Unauthorized</h3>
-<p>该状态码表示当前请求需要身份认证，以下情况都 必须 返回该状态码。</p>
-<ul>
-<li>未认证用户访问需要认证的 API</li>
-<li>access_token 无效/过期</li>
-<li>客户端在收到 401 响应后，都 应该 提示用户进行下一步的登录操作。</li>
-</ul>
-<pre><code>HTTP/1.1 401 Unauthorized
-Server: nginx/1.11.9
-Content-Type: application/json
-Transfer-Encoding: chunked
-WWW-Authenticate: JWTAuth
-Cache-Control: no-cache, private
-Date: Sun, 24 Jun 2018 13:17:02 GMT
-Connection: keep-alive
-
-&quot;message&quot;:&quot;Token Signature could not be verified.&quot;,&quot;error_code&quot;: &quot;40100&quot;}
-</code></pre>
-<h3 id="403-forbidden">403 Forbidden</h3>
-<p>该状态码可以简单的理解为没有权限访问该请求，服务器收到请求但拒绝提供服务。</p>
-<p>如当普通用户请求操作管理员用户时，必须 返回该状态码。</p>
-<pre><code>HTTP/1.1 403 Forbidden
-Server: nginx/1.11.9
-Content-Type: application/json
-Transfer-Encoding: chunked
-Cache-Control: no-cache, private
-Date: Sun, 24 Jun 2018 13:05:34 GMT
-Connection: keep-alive
-
-{&quot;error_code&quot;:40301,&quot;message&quot;:&quot;权限不足&quot;}
-</code></pre>
-<h3 id="404-not-found">404 Not Found</h3>
-<p>该状态码表示用户请求的资源不存在，如</p>
-<ul>
-<li>获取不存在的用户信息 （get /users/9999999）</li>
-<li>访问不存在的端点</li>
-</ul>
-<p>都 必须 返回该状态码，若该资源已永久不存在，则 应该 返回 401 响应。</p>
-<h3 id="405-method-not-allowd">405 Method Not Allowd</h3>
-<p>当客户端使用的 HTTP 请求方法不被服务器允许时，必须 返回该状态码。</p>
-<blockquote>
-<p>如客户端调用了 POST 方法来访问只支持 GET 方法的 API</p>
-</blockquote>
-<p>该响应 必须 返回一个 Allow 头信息用以表示出当前资源能够接受的请求方法的列表。</p>
-<pre><code>HTTP/1.1 405 Method Not Allowed
-Server: nginx/1.11.9
-Content-Type: application/json
-Transfer-Encoding: chunked
-Allow: GET, HEAD
-Cache-Control: no-cache, private
-Date: Sun, 24 Jun 2018 12:30:57 GMT
-Connection: keep-alive
-
-{&quot;message&quot;:&quot;405 Method Not Allowed&quot;,&quot;error_code&quot;: 40500}
-</code></pre>
-<h3 id="406-not-acceptable">406 Not Acceptable</h3>
-<p>API 在不支持客户端指定的数据格式时，应该返回此状态码。如支持 JSON 和 XML 输出的 API 被指定返回 YAML 格式的数据时。</p>
-<blockquote>
-<p>Http 协议一般通过请求首部的 Accept 来指定数据格式</p>
-</blockquote>
-<h3 id="408-request-timeout">408 Request Timeout</h3>
-<p>客户端请求超时时 必须 返回该状态码，需要注意的时，该状态码表示 客户端请求超时，在涉及第三方 API 调用超时时，一定不可 返回该状态码。</p>
-<h3 id="409-gonfilct">409 Gonfilct</h3>
-<p>该状态码表示因为请求存在冲突无法处理。如通过手机号码提供注册功能的 API，当用户提交的手机号已存在时，必须 返回此状态码。</p>
-<pre><code>HTTP/1.1 409 Conflict
-Server: nginx/1.11.9
-Content-Type: application/json
-Transfer-Encoding: chunked
-Cache-Control: no-cache, private
-Date: Sun, 24 Jun 2018 12:19:04 GMT
-Connection: keep-alive
-
-{&quot;error_code&quot;:40900,&quot;message&quot;:&quot;手机号已存在&quot;}
-</code></pre>
-<h3 id="410-gone">410 Gone</h3>
-<p>和 404 类似，该状态码也表示请求的资源不存在，只是 410 状态码进一步表示所请求的资源已不存在，并且未来也不会存在。在收到 410 状态码后，客户端 应该 停止再次请求该资源。</p>
-<h3 id="413-request-entity-too-large">413 Request Entity Too Large</h3>
-<p>该状态码表示服务器拒绝处理当前请求，因为该请求提交的实体数据大小超过了服务器愿意或者能够处理的范围。</p>
-<blockquote>
-<p>此种情况下，服务器可以关闭连接以免客户端继续发送此请求。</p>
-</blockquote>
-<p>如果这个状况是临时的，服务器 应该 返回一个 Retry-After 的响应头，以告知客户端可以在多少时间以后重新尝试。</p>
-<h3 id="414-request-uri-too-long">414 Request-URI Too Long</h3>
-<p>该状态码表示请求的 URI 长度超过了服务器能够解释的长度，因此服务器拒绝对该请求提供服务。</p>
-<h3 id="415-unsupported-media-type">415 Unsupported Media Type</h3>
-<p>通常表示服务器不支持客户端请求首部 Content-Type 指定的数据格式。如在只接受 JSON 格式的 API 中放入 XML 类型的数据并向服务器发送，都 应该 返回该状态码。</p>
-<p>该状态码也可用于如：只允许上传图片格式的文件，但是客户端提交媒体文件非法或不是图片类型，这时 应该 返回该状态码：</p>
-<pre><code>HTTP/1.1 415 Unsupported Media Type
-Server: nginx/1.11.9
-Content-Type: application/json
-Transfer-Encoding: chunked
-Cache-Control: no-cache, private
-Date: Sun, 24 Jun 2018 12:09:40 GMT
-Connection: keep-alive
-
-{&quot;error_code&quot;:41500,&quot;message&quot;:&quot;不允许上传的图片格式&quot;}
-</code></pre>
-<h3 id="429-too-many-request">429 Too Many Request</h3>
-<p>该状态码表示用户请求次数超过允许范围。如 API 设定为 60次/分钟，当用户在一分钟内请求次数超过 60 次后，都 应该 返回该状态码。并且也 应该 在响应首部中加上下列头部：</p>
-<pre><code>X-RateLimit-Limit: 10 请求速率（由应用设定，其单位一般为小时/分钟等，这里是 10次/5分钟）
-X-RateLimit-Remaining: 0 当前剩余的请求数量
-X-RateLimit-Reset: 1529839462 重置时间
-Retry-After: 120 下一次访问应该等待的时间（秒）
-</code></pre>
-<p>列子</p>
-<pre><code>HTTP/1.1 429 Too Many Requests
-Server: nginx/1.11.9
-Content-Type: application/json
-Transfer-Encoding: chunked
-X-RateLimit-Limit: 10
-X-RateLimit-Remaining: 0
-X-RateLimit-Reset: 1529839462
-Retry-After: 290
-Cache-Control: no-cache, private
-Date: Sun, 24 Jun 2018 11:19:32 GMT
-Connection: keep-alive
-
-{&quot;message&quot;:&quot;You have exceeded your rate limit.&quot;,&quot;error_code&quot;:42900}
-</code></pre>
-<p>必须 为所有的 API 设置 Rate Limit 支持。</p>
-<h3 id="500-internal-server-error">500 Internal Server Error</h3>
-<p>该状态码 必须 在服务器出错时抛出，对于所有的 500 错误，都 应该 提供完整的错误信息支持，也方便跟踪调试。</p>
-<h3 id="503-service-unavailable">503 Service Unavailable</h3>
-<p>该状态码表示服务器暂时处理不可用状态，当服务器需要维护或第三方 API 请求超时/不可达时，都 应该 返回该状态码，其中若是主动关闭 API 服务，应该在返回的响应首部加上 Retry-After 头部，表示多少秒后可以再次访问。</p>
-<pre><code>HTTP/1.1 503 Service Unavailable
-Server: nginx/1.11.9
-Content-Type: application/json
-Transfer-Encoding: chunked
-Cache-Control: no-cache, private
-Date: Sun, 24 Jun 2018 10:56:20 GMT
-Retry-After: 60
-Connection: keep-alive
-
-{&quot;error_code&quot;:50300,&quot;message&quot;:&quot;服务维护中&quot;}
-</code></pre>
-<p>其他 HTTP 状态码请参考 <a href="https://link.juejin.im/?target=https%3A%2F%2Fzh.wikipedia.org%2Fzh-hans%2FHTTP%25E7%258A%25B6%25E6%2580%2581%25E7%25A0%2581">HTTP 状态码- 维基百科</a>。</p>
-
-            </div>
-            <div class="post-footer">
-  <ul class="post-copyright">
-    <li class="post-copyright-author">
-      <strong>本文作者：</strong>
-      JhonWalker
-    </li>
-    <li class="post-copyright-link">
-      <strong>本文链接：</strong>
-      <a href="https://jsogn.github.io/post/resetful-api-she-ji-gui-fan/" title="RESETful API 设计规范">https://jsogn.github.io/post/resetful-api-she-ji-gui-fan/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>版权声明： </strong>
-      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
-    </li>
-  </ul>
-  <div class="tags">
-    
-      <a href="https://jsogn.github.io/tag/php/"># php</a>
-    
-  </div>
-  <div class="nav">
-    <div class="nav-prev">
-      
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="shell编程基础" href="https://jsogn.github.io/post/shell-bian-cheng-ji-chu/">shell编程基础</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="shell编程基础" href="https://jsogn.github.io/post/shell-bian-cheng-ji-chu/">上一篇</a>
+        
+        
+        <div class="post-button text-center">
+          <a class="btn" href="https://jsogn.github.io/post/nmap-ji-ben-shi-yong/" rel="contents">
+            阅读全文 »
+          </a>
+        </div>
+        
+      </div>
       
     </div>
-    <div class="nav-next">
+  </article>
+
+  <article class="post-list-box  post box-shadow-wrapper">
+    <div class="article-wrapper bg-color">
+      <header class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://jsogn.github.io/post/mac-she-zhi-xu-ni-ji-shi-yong-su-zhu-ji-dai-li/">
+      Mac设置虚拟机使用宿主机代理
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span>发布于</span>
+      <span>2020-05-09</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show">分类于</span>
       
-        <a class="nav-pc-next" title="PHP中的错误处理" href="https://jsogn.github.io/post/php-zhong-de-cuo-wu-chu-li/">PHP中的错误处理</a>
-        <a class="nav-mobile-next" title="PHP中的错误处理" href="https://jsogn.github.io/post/php-zhong-de-cuo-wu-chu-li/">下一篇</a>
-        <i class="fa fa-chevron-right"></i>
+      
+      <a href="https://jsogn.github.io/tag/ke-xue-shang-wang/">
+        <span>科学上网</span>
+      </a>
+      
+      
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>4分钟</span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>921<span class="pc-show">字数</span></span>
+    </span>
+    
+  </div>
+</header>
+      <div class="post-body">
+        
+        
+          <h3 id="前言">前言</h3>
+<p>前提：mac 本身已经安装 ss，并且可以通过 ss 科学上网（或者 win 也一样）<br>
+想要实现：Parallels Desktop 里的虚拟机也想科学上网（或者 win 里安装 vmware 也一样，或者是另一台物理机也是一样的）</p>
+
+        
+        
+        <div class="post-button text-center">
+          <a class="btn" href="https://jsogn.github.io/post/mac-she-zhi-xu-ni-ji-shi-yong-su-zhu-ji-dai-li/" rel="contents">
+            阅读全文 »
+          </a>
+        </div>
+        
+      </div>
       
     </div>
+  </article>
+
+  <article class="post-list-box  post box-shadow-wrapper">
+    <div class="article-wrapper bg-color">
+      <header class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://jsogn.github.io/post/googlehacking/">
+      GoogleHacking
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span>发布于</span>
+      <span>2020-05-09</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show">分类于</span>
+      
+      
+      <a href="https://jsogn.github.io/tag/hacker/">
+        <span>hacker</span>
+      </a>
+      
+      
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>9分钟</span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>2104<span class="pc-show">字数</span></span>
+    </span>
+    
   </div>
-</div>
+</header>
+      <div class="post-body">
+        
+        
+          <h3 id="前言">前言</h3>
+<p>Google hacker (Google黑客)是利用GOOGLE提供的搜索功能查找黑客们想找到的信息，一般是查找网站后台，网管的个人信息，也可以用来查找某人在网络上的活动</p>
+<p>Google hacker 一般是做为黑客在入侵时的一个手段，在入侵过程中有时需要查找后台的登陆口就需要用到GOOGLE HACKER，有时猜解密码的时候google也是提供查找管理员资料的有效平台</p>
+
+        
+        
+        <div class="post-button text-center">
+          <a class="btn" href="https://jsogn.github.io/post/googlehacking/" rel="contents">
+            阅读全文 »
+          </a>
+        </div>
+        
+      </div>
+      
+    </div>
+  </article>
+
+  <article class="post-list-box  post box-shadow-wrapper">
+    <div class="article-wrapper bg-color">
+      <header class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://jsogn.github.io/post/SSR提供商/">
+      SS/SSR提供商
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span>发布于</span>
+      <span>2020-05-09</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show">分类于</span>
+      
+      
+      <a href="https://jsogn.github.io/tag/ke-xue-shang-wang/">
+        <span>科学上网</span>
+      </a>
+      
+      
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>3分钟</span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>564<span class="pc-show">字数</span></span>
+    </span>
+    
+  </div>
+</header>
+      <div class="post-body">
+        
+        
+          <h3 id="前言">前言</h3>
+<p>自己经常用的一些梯子，且用且珍惜</p>
+
+        
+        
+        <div class="post-button text-center">
+          <a class="btn" href="https://jsogn.github.io/post/SSR提供商/" rel="contents">
+            阅读全文 »
+          </a>
+        </div>
+        
+      </div>
+      
+    </div>
+  </article>
+
+  <article class="post-list-box  post box-shadow-wrapper">
+    <div class="article-wrapper bg-color">
+      <header class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://jsogn.github.io/post/shell-bian-cheng-ji-chu/">
+      shell编程基础
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span>发布于</span>
+      <span>2020-05-09</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show">分类于</span>
+      
+      
+      <a href="https://jsogn.github.io/tag/linux/">
+        <span>linux</span>
+      </a>
+      
+      
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>13分钟</span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>3221<span class="pc-show">字数</span></span>
+    </span>
+    
+  </div>
+</header>
+      <div class="post-body">
+        
+        
+          <h3 id="前言">前言</h3>
+<p>Shell的概念是源自Unix的命令解释器。Shell不仅可解释用户输入的命令，同时，可解释执行基于命令的脚本语言。使用shell脚本能提高用户操作和管理员进行系统管理的效率。shell脚本擅长处理纯文本类型的数据，而Linux中几乎所有的配置文件、日志都是纯文本类型。</p>
+
+        
+        
+        <div class="post-button text-center">
+          <a class="btn" href="https://jsogn.github.io/post/shell-bian-cheng-ji-chu/" rel="contents">
+            阅读全文 »
+          </a>
+        </div>
+        
+      </div>
+      
+    </div>
+  </article>
+  
             
-  <script src="https://cdn.jsdelivr.net/npm/valine@1.4.4/dist/Valine.min.js"></script>
-<div id="vcomments" style="padding: 10px 0px 0px 0px"></div>
-
-<style>
-  .v .veditor {
-    min-height: 10rem;
-    background-image: url('');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: right;
-    background-color: rgba(255, 255, 255, 0);
-    resize: none;
-  }
-
-  .v .vwrap {
-    border: 1px solid #000 !important;
-  }
-
-  .v .vbtn {
-    padding: .4rem 1.2rem !important;
-    border-color: #fff !important;
-    background-color: #49b1f5 !important;
-    color: #fff !important;
-    font-size: .7rem !important;
-  }
-
-  .v .vcards .vcard .vh .vmeta .vat {
-    padding: 0 .8rem !important;
-    border: 1px solid #00c4b6 !important;
-    border-radius: 5px !important;
-    color: #00c4b6 !important;
-  }
-</style>
-<script>
-  new Valine({
-    el: '#vcomments',
-    appId: 'SJyyMLNz390B9X2k9tbsmUuU-gzGzoHsz',
-    appKey: 'OxRktB3EvJLfUzNDRR8MzIfa',
-    avatar: 'identicon',
-    placeholder: 'The best things in the world is freedom of speech',
-    pageSize: '10',
-    lang: 'zh-cn',
-    visitor: 'true' === 'true',
-    highlight: 'true' === 'true',
-    avatarForce: 'true' === 'false',
-  });
-</script>
-
-          </div>
+            
+<div class="page bg-color">
+  <ul class="pagination-ul">
+    
+      <li class="pagination-dir">
+        <a href="https://jsogn.github.io/page/3/">
+          <i class="fa fa-angle-left"></i>
+        </a>
+      </li>
+    
+    
+      <!-- 1 2 3 4 ... N -->
+      
+        <!-- 1 ... N-2 N-1 N-->
+        <li class="pagination-li">
+          <a href="/">1</a>
+        </li>
+        <li class="pagination-li">
+          …
+        </li>
+        
+          <li class="pagination-li pagination-active">
+            <a href="#">
+              4
+            </a>
+          </li>
+        
+          <li class="pagination-li ">
+            <a href="/page/5">
+              5
+            </a>
+          </li>
+        
+          <li class="pagination-li ">
+            <a href="/page/6">
+              6
+            </a>
+          </li>
+        
+      
+    
+    
+      <li class="pagination-dir">
+        <a href="/page/5">
+          <i class="fa fa-angle-right"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+          </section>
         </div>
       </div>
     </div>
@@ -5368,6 +4812,7 @@ var_dump($max);
     searchBox.addEventListener('input', search(200));
   }()
 </script>
+
 
 
 </html>
