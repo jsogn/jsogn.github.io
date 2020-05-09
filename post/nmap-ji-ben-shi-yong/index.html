@@ -8,7 +8,7 @@
 <meta name="keywords" content="Jw个人博客">
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
-<title>Jw&#39;Blogs</title>
+<title>nmap基本使用 | Jw&#39;Blogs</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1589001345644">
 <link rel="stylesheet" href="/styles/main.css">
 <link rel="stylesheet" href="/media/css/gemini.css">
@@ -39,7 +39,8 @@
 
 
 
-  <meta name="description" content="温故而知新">
+  <meta name="description" content="nmap基本使用" />
+  <meta name="keywords" content="hacker" />
 </head>
 
 <body>
@@ -82,7 +83,7 @@
           
             
             
-            <li class="nav-item nav-item-active">
+            <li class="nav-item ">
               
               
                 <a href="/archives/" target="_self">
@@ -139,10 +140,26 @@
   <div class="main-continer">
     
     <div
-      class="section-layout  gemini">
+      class="section-layout gemini ">
       <div class="section-layout-wrapper">
-        <div id="sidebarMeta" class="sidebar">
-    
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body gemini" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -179,448 +196,653 @@
 
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a>
+<ul>
+<li><a href="#%E6%89%93%E5%BC%80%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E5%92%8C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A3%80%E6%B5%8B">打开端口扫描和操作系统检测</a></li>
+<li><a href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%98%AF%E5%90%A6%E5%93%8D%E5%BA%94-ping%E6%88%96%E8%80%85%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%98%AF%E5%90%A6%E6%89%93%E5%BC%80">服务器是否响应 ping，或者服务器是否打开</a></li>
+<li><a href="#%E6%89%93%E5%BC%80%E4%BA%86%E5%93%AA%E4%BA%9B%E7%AB%AF%E5%8F%A3">打开了哪些端口</a></li>
+<li><a href="#nmap-%E5%90%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AF%A2%E9%97%AE%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%9A%84%E7%89%88%E6%9C%AC%E5%B9%B6%E4%B8%94%E5%9F%BA%E4%BA%8E%E5%AE%83%E7%8C%9C%E6%B5%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F">Nmap 向服务器询问正在运行的服务的版本，并且基于它猜测操作系统</a></li>
+<li><a href="#%E6%9B%B4%E5%8A%A0%E6%B8%85%E6%A5%9A%E7%9A%84%E6%9F%A5%E7%9C%8B%E8%BF%99%E4%B8%AA%E7%AB%AF%E5%8F%A3%E5%B9%B6%E4%B8%94%E7%9C%8B%E7%9C%8B%E5%8F%AF%E4%BB%A5%E7%A1%AE%E8%AE%A4%E4%BB%80%E4%B9%88">更加清楚的查看这个端口，并且看看可以确认什么</a></li>
+<li><a href="#nmap-%E5%8C%85%E5%90%AB%E4%BA%86%E4%B8%80%E4%BA%9B%E8%84%9A%E6%9C%AC%E7%94%A8%E4%BA%8E%E6%B5%8B%E8%AF%95-waf-%E7%9A%84%E5%AD%98%E5%9C%A8">Nmap 包含了一些脚本，用于测试 WAF 的存在</a></li>
+<li><a href="#%E5%8F%A6%E4%B8%80%E4%B8%AA-nmap-%E8%84%9A%E6%9C%AC%E5%8F%AF%E4%BB%A5%E5%B8%AE%E5%8A%A9%E6%88%91%E4%BB%AC%E8%AF%86%E5%88%AB%E6%89%80%E4%BD%BF%E7%94%A8%E7%9A%84%E8%AE%BE%E5%A4%87%E5%B9%B6%E6%9B%B4%E5%8A%A0%E7%B2%BE%E7%A1%AE">另一个 Nmap 脚本，可以帮助我们识别所使用的设备，并更加精确</a></li>
+<li><a href="#%E6%9C%89%E4%B8%80%E4%BA%9B%E5%85%B6%E5%AE%83%E7%9A%84%E5%AE%9E%E7%94%A8%E5%8F%82%E6%95%B0">有一些其它的实用参数：</a></li>
+</ul>
+</li>
+<li><a href="#nmap%E9%80%89%E9%A1%B9%E6%91%98%E8%A6%81">Nmap选项摘要</a>
+<ul>
+<li><a href="#%E7%9B%AE%E6%A0%87%E8%A7%84%E6%A0%BC">目标规格：</a></li>
+<li><a href="#%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0">主机发现：</a></li>
+<li><a href="#scan%E6%8A%80%E6%9C%AF">SCAN技术：</a></li>
+<li><a href="#%E7%AB%AF%E5%8F%A3%E8%A7%84%E6%A0%BC%E5%92%8C%E6%89%AB%E6%8F%8F-%E9%A1%BA%E5%BA%8F-p">端口规格和扫描 顺序：-p</a></li>
+<li><a href="#%E6%9C%8D%E5%8A%A1%E7%89%88%E6%9C%AC%E6%A3%80%E6%B5%8B">服务/版本检测：</a></li>
+<li><a href="#script-scan">SCRIPT SCAN：</a></li>
+<li><a href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A3%80%E6%B5%8B">操作系统检测：</a></li>
+<li><a href="#%E6%97%B6%E9%97%B4%E5%92%8C%E6%80%A7%E8%83%BD">时间和性能：</a></li>
+<li><a href="#%E9%98%B2%E7%81%AB%E5%A2%99-ids%E6%B6%88%E9%99%A4%E5%92%8C%E9%98%B2%E7%9B%97">防火墙/ IDS消除和防盗：</a></li>
+<li><a href="#output">OUTPUT</a></li>
+<li><a href="#misc">MISC：</a></li>
+<li><a href="#%E5%8F%A6%E8%A7%81">另见</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
 </div>
+
 <script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'gemini';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
       }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
     });
   }
-  </script>
-        <div class="section-box box-shadow-wrapper">
-          <section class="section archives-section bg-color posts-expand">
-            
 
-<div class="bg-color">
-  <div class="archive-timeline-box">
-    <div class="archive-timeline-title">
-      
-        <h2>非常好！目前共计30篇日志，继续努力！</h2>
-      
-    </div>
-    
-      
-      
-        <div class="node-title">
-          <h2 class="tag-year">2020</h2>
-        </div>    
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
         
-      
-      <a href="https://jsogn.github.io/post/vue-pei-zhi-kua-yu-dai-li/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>vue配置跨域代理</small>
-            </h1>
-          </div>  
       </div>
-      </a>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <header class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://jsogn.github.io/post/nmap-ji-ben-shi-yong/">
+      nmap基本使用
+    </a>
+  </h1>
+  <div class="post-meta">
     
-      
-      
-      <a href="https://jsogn.github.io/post/nginx-fang-wen-kong-zhi/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Nginx访问控制</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span>发布于</span>
+      <span>2020-05-09</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
     
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show">分类于</span>
       
       
-      <a href="https://jsogn.github.io/post/ping-hua-chong-qi-php-fpm/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>平滑重启php-fpm</small>
-            </h1>
-          </div>  
-      </div>
+      <a href="https://jsogn.github.io/tag/hacker/">
+        <span>hacker</span>
       </a>
+      
+      
+    </span>
+    <span class="post-meta-divider">|</span>
     
-      
-      
-      <a href="https://jsogn.github.io/post/redis-xing-neng-you-hua-zheng-li/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Redis性能优化整理</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>10分钟</span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>2321<span class="pc-show">字数</span></span>
+    </span>
     
-      
-      
-      <a href="https://jsogn.github.io/post/pac-gui-ze-pei-zhi/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>PAC规则配置</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
     
-      
-      
-      <a href="https://jsogn.github.io/post/she-zhi-centos-fu-wu-qi-ip-di-zhi/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>设置CentOS服务器IP地址</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
     
-      
-      
-      <a href="https://jsogn.github.io/post/a-li-yun-rds-yu-ecs-fu-wu-qi-shu-ju-ku-zuo-zhu-cong/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>阿里云RDS与ECS服务器数据库做主从</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/redis-you-yu-lian-jie-guo-duo-dao-zhi-de-yi-chang/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Redis由于连接过多导致的异常</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/wang-zhan-fang-wen-ri-zhi-de-ri-chang-cao-zuo/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>网站访问日志的日常操作</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/vue-zhong-axios-de-feng-zhuang/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Vue 中 axios 的封装</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/nginx-fu-wu-bu-shu-vue-xiang-mu-hou-chu-xian-404-wen-ti/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Nginx 服务部署 Vue 项目后,出现 404 问题</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/linux-wen-jian-fang-wen-kong-zhi-lie-biao/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Linux文件访问控制列表</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/linux-wen-jian-de-yin-cang-shu-xing/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Linux文件的隐藏属性</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/sqlmap-ji-ben-shi-yong/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>sqlmap基本使用</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/phpstudy-hou-men-rec-pi-liang-li-yong-jiao-ben/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>PHPStudy后门rec批量利用脚本</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/nmap-ji-ben-shi-yong/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>nmap基本使用</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/mac-she-zhi-xu-ni-ji-shi-yong-su-zhu-ji-dai-li/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Mac设置虚拟机使用宿主机代理</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/googlehacking/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>GoogleHacking</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/SSR提供商/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>SS/SSR提供商</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/shell-bian-cheng-ji-chu/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>shell编程基础</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/resetful-api-she-ji-gui-fan/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>RESETful API 设计规范</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/php-zhong-de-cuo-wu-chu-li/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>PHP中的错误处理</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/php-lei-fan-she/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>PHP类反射</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/php-dai-ma-jia-mi-tonyenc/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>php代码加密-tonyenc</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/mac-an-zhuang-php-kuo-zhan-pcntl/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Mac 安装 PHP 扩展 pcntl</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/crontab-shi-xian-n-miao-ding-shi/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>crontab实现N秒定时</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/qing-song-sheng-cheng-jwt-de-cha-jian/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>轻松生成jwt的插件</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/qiao-yong-php-shu-zu-han-shu/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>巧用PHP数组函数</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/duan-lian-jie/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>短链接</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/0-1-hu-zhuan/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>0 1 互转</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
+    <span id="/post/nmap-ji-ben-shi-yong/" data-flag-title="nmap基本使用" class="meta-item pc-show leancloud_visitors">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-eye"></i>
+      <span>浏览量：<span class="leancloud-visitors-count"></span></span>
+    </span>
     
   </div>
-  
-<div class="page bg-color">
-  <ul class="pagination-ul">
-    
-    
-      
-        <li class="pagination-li pagination-active">
-            <a href="/archives/page/../">
-              1
-            </a>
-        </li>
-      
-    
-    
-  </ul>
-</div>
-</div>
+</header>
+            <div class="post-body next-md-body" id="post_body">
+              <h3 id="前言">前言</h3>
+<p>Nmap 是个端口扫描器，这意味着它可以向一些指定 IP 的 TCP 或 UDP 端口发送封包，并检查是否有响应。如果有的话，这意味着端口是打开的，因此，端口上运行着服务</p>
+<p>Nmap代表Network Mapper，是一款用于网络探索和安全审计的开源工具，它与Kali Linux标准兼容，但也可用于Windows，OSX和许多其他UNIX平台。Nmap还有一个称为Zenmap的图形用户界面。</p>
+<!--more-->
+<h4 id="打开端口扫描和操作系统检测">打开端口扫描和操作系统检测</h4>
+<p>使用以下命令确定活动主机：</p>
+<pre><code>nmap -sP 192.168.0.0-100
+</code></pre>
+<p>使用以下命令在其中一个实时主机上启动带有操作系统检测的SYN扫描</p>
+<pre><code>nmap -sS [IP地址] -O
+</code></pre>
+<p>使用以下命令启动一个开放端口扫描和版本检测</p>
+<pre><code>nmap -sV 192.168.0.1 -A
+</code></pre>
+<p>将-v添加到命令中时，可以增加冗长度</p>
+<pre><code>nmap -sV 192.168.0.13 -A -v
+</code></pre>
+<h4 id="服务器是否响应-ping或者服务器是否打开">服务器是否响应 ping，或者服务器是否打开</h4>
+<p>使用-sn参数，我们让 Nmap 只检查是否服务器响应 ICMP 请求（或 ping）</p>
+<pre><code>nmap -sn 192.168.56.102
+</code></pre>
+<h4 id="打开了哪些端口">打开了哪些端口</h4>
+<p>调用 Nmap 的最简方式，它只指定目标 IP。所做的事情是先 ping 服务器，如果它响应了，Nmap 会向 1000 个 TCP 端口列表发送探针，来观察哪个端口响应，之后报告响应端口的结果</p>
+<pre><code>nmap 192.168.56.102
+</code></pre>
+<h4 id="nmap-向服务器询问正在运行的服务的版本并且基于它猜测操作系统">Nmap 向服务器询问正在运行的服务的版本，并且基于它猜测操作系统</h4>
+<ul>
+<li>
+<p>sV请求每个被发现的开放端口的标识（头部或者自我识别），这是它用作版本的东西。</p>
+</li>
+<li>
+<p>O告诉 Nmap，尝试猜测运行在目标上的操作系统。使用开放端口和版本收集的信息。</p>
+</li>
+</ul>
+<pre><code>nmap -sV -O 192.168.56.10
+</code></pre>
+<h4 id="更加清楚的查看这个端口并且看看可以确认什么">更加清楚的查看这个端口，并且看看可以确认什么</h4>
+<p>使用此命令，让 nmap 在主机上的 FTP 端口（-p 21）上运行其默认脚本（-sC）</p>
+<pre><code>nmap -sC 192.168.56.102 -p 21
+</code></pre>
+<h4 id="nmap-包含了一些脚本用于测试-waf-的存在">Nmap 包含了一些脚本，用于测试 WAF 的存在</h4>
+<pre><code>map -p 80,443 --script=http-waf-detect 192.168.56.102
+</code></pre>
+<h4 id="另一个-nmap-脚本可以帮助我们识别所使用的设备并更加精确">另一个 Nmap 脚本，可以帮助我们识别所使用的设备，并更加精确</h4>
+<pre><code>nmap -p 80,443 --script=http-waf-fingerprint www.example.com
+</code></pre>
+<h4 id="有一些其它的实用参数">有一些其它的实用参数：</h4>
+<ul>
+<li>
+<p>sT：通常，在 root 用户下运行 Nmap 时，它使用 SYN 扫描类型。使用这个参数，我们就强制让扫描器执行完全连接的扫描。它更慢，并且会在服务器的日志中留下记录，但是它不太可能被入侵检测系统检测到。</p>
+</li>
+<li>
+<p>Pn：如果我们已经知道了主机是活动的或者不响应 ping，我们可以使用这个参数告诉 Nmap 跳过 ping 测试，并扫描所有指定目标，假设它们是开启的。</p>
+</li>
+<li>
+<p>v：这会开启详细模式。Nmap 会展示更多关于它所做事情和得到回复的信息。参数可以在相同命令中重复多次：次数越多，就越详细（也就是说，-vv或-v -v -v -v）。</p>
+</li>
+<li>
+<p>p N1,N2,Nn：如果我们打算测试特定端口或一些非标准端口，我们可能想这个参数。N1到Nn是打算让 Nmap 扫描的端口。例如，要扫描端口 21，80 到 90，和 137，参数应为：-p 21,80-90,137。</p>
+</li>
+<li>
+<p>--script=script_name：Nmap 包含很多实用的漏洞检测、扫描和识别、登录测试、命令执行、用户枚举以及其它脚本。使用这个参数来告诉 Nmap 在目标的开放端口上运行脚本。查看一些 Nmap 脚本，它们在：https://nmap.org/nsedoc/scripts/。</p>
+</li>
+</ul>
+<h3 id="nmap选项摘要">Nmap选项摘要</h3>
+<p><strong>用法：nmap [扫描类型] [选项] {目标规格}</strong></p>
+<h4 id="目标规格">目标规格：</h4>
+<p>可以传递主机名，IP地址，网络等。<br>
+例如：scanme.nmap.org，microsoft.com/24,192.168.0.1; 10.0.0-255.1-254</p>
+<ul>
+<li>-iL <inputfilename>：从主机/网络列表中输入</li>
+<li>-iR <num hosts>：选择随机目标</li>
+<li>-exclude &lt;host1 [，host2] [，host3]，…&gt;：排除主机/网络</li>
+<li>-excludefile &lt;exclude_file&gt;：从文件中排除列表</li>
+</ul>
+<h4 id="主机发现">主机发现：</h4>
+<ul>
+<li>-sL：列表扫描 – 仅列出要扫描的目标</li>
+<li>-sn：Ping扫描 – 禁用端口扫描</li>
+<li>-Pn：将所有主机视为联机 – 跳过主机发现</li>
+<li>-PS / PA / PU / PY [portlist]：TCP SYN / ACK / UDP / SCTP发现到指定端口</li>
+<li>-PE / PP / PM：ICMP回显，时间戳和网络掩码请求发现探测</li>
+<li>-PO [协议列表]：IP协议Ping</li>
+<li>-n / -R：从不执行DNS解析/总是解析[默认：有时]</li>
+<li>-dns-servers &lt;serv1 [，serv2]，…&gt;：指定自定义DNS服务器</li>
+<li>-system-dns：使用操作系统的DNS解析器</li>
+<li>-traceroute：每个主机的跟踪跳转路径</li>
+</ul>
+<h4 id="scan技术">SCAN技术：</h4>
+<ul>
+<li>-sS / sT / sA / sW / sM：TCP SYN / Connect（）/ ACK / Window / Maimon扫描</li>
+<li>-sU：UDP 扫描-sN</li>
+<li>/ sF / sX：TCP Null，FIN和Xmas扫描</li>
+<li>–scanflags &lt; flags&gt;：自定义TCP扫描标志</li>
+<li>-sI &lt;zombie host [：probeport]&gt;：空闲扫描</li>
+<li>-sY / sZ：SCTP INIT / COOKIE-ECHO扫描</li>
+<li>-sO：IP协议扫描</li>
+<li>-b &lt;FTP中继主机&gt;：FTP反弹扫描</li>
+</ul>
+<h4 id="端口规格和扫描-顺序-p">端口规格和扫描 顺序：-p</h4>
+<p>&lt;端口范围&gt;：仅扫描指定的端口</p>
+<ul>
+<li>例如：-p22; -p1-65535; -p U：53,111,137，T：21-25,80,139,8080，S：9</li>
+<li>-exclude-ports &lt;端口范围&gt;：从扫描中排除指定端口</li>
+<li>-F：快速模式 – 扫描端口少于默认扫描</li>
+<li>-r：连续扫描端口 – 不随机化</li>
+<li>-top-ports <number>：扫描<number>最常用的端口</li>
+<li>-port-ratio <ratio>：扫描比<ratio></li>
+</ul>
+<h4 id="服务版本检测">服务/版本检测：</h4>
+<ul>
+<li>-sV：探测开放端口以确定服务/版本info</li>
+<li>-version-intensity <level>：设置从0（亮）到9（尝试所有探测器）</li>
+<li>-version-light：限制最可能的探测器2）</li>
+<li>-version-all：尝试每个探测器（强度9）</li>
+<li>-version-trace：显示详细版本的扫描活动（用于调试）</li>
+</ul>
+<h4 id="script-scan">SCRIPT SCAN：</h4>
+<ul>
+<li>-sC：相当于-script =默认</li>
+<li>-script = &lt;Lua脚本&gt;：<Lua scripts>是逗号分隔的</li>
+<li>目录列表，脚本文件或脚本类别</li>
+<li>-script-args = &lt;n1 = v1，[ n2 = v2，…]&gt;：为脚本提供参数</li>
+<li>-script-args-file = filename：在文件中提供NSE脚本参数</li>
+<li>-script-trace：显示所有发送和接收的数据</li>
+<li>-script-updatedb：更新脚本数据库。</li>
+<li>-script-help = <Lua scripts>：显示有关脚本的帮助。</li>
+<li><Lua scripts>是脚本文件或</li>
+<li>脚本类别的逗号分隔列表。</li>
+</ul>
+<h4 id="操作系统检测">操作系统检测：</h4>
+<ul>
+<li>-O：启用操作系统检测</li>
+<li>-osscan-limit：限制操作系统检测为有前途的目标</li>
+<li>-osscan-guess：猜测操作系统更积极</li>
+</ul>
+<h4 id="时间和性能">时间和性能：</h4>
+<ul>
+<li>采用<code>&lt;time&gt;</code>的选项以秒为单位，或附加’ms’（毫秒），‘s’（秒），’m’（分钟）或’h’（小时） ）。</li>
+<li>-T &lt;0-5&gt;：设置定时模板（更高更快）</li>
+<li>-min-hostgroup / max-hostgroup <size>：并行主机扫描组大小</li>
+<li>-min-parallelism / max-parallelism <numprobes>：探针并行化</li>
+<li>-min- rtt-timeout / max-rtt-timeout / initial-rtt-timeout <time>：指定</li>
+<li>探测往返时间。</li>
+<li>-max-retries <tries>：端口扫描探测器重新传输的大小数量。</li>
+<li>-host-timeout <time>：在这个long</li>
+<li>-scan-delay 之后放弃目标/ -max-scan-delay <time>：调整探针之间的延迟</li>
+<li>-min-rate <number>：</li>
+<li>-max-rate <number>：发送数据包不超过每秒<number></li>
+</ul>
+<h4 id="防火墙-ids消除和防盗">防火墙/ IDS消除和防盗：</h4>
+<ul>
+<li>-f; -mtu <val>：片段数据包（可选w / given MTU）</li>
+<li>-D &lt;decoy1，decoy2 [，ME]，…&gt;：用诱饵隐藏扫描</li>
+<li>-S &lt;IP_Address&gt;：欺骗源地址</li>
+<li>-e <iface>：使用指定的接口</li>
+<li>-g / -source-port &lt;</li>
+<li>portnum &gt;：使用给定的端口号-proxies &lt;url1，[url2]，…&gt;：通过HTTP / SOCKS4代理服务器的中继连接</li>
+<li>-data &lt;十六进制字符串&gt;：将自定义有效内容附加到已发送数据包</li>
+<li>-data-string <string>：将自定义ASCII字符串附加到已发送数据包</li>
+<li>-data-length <num>：将随机数据附加到已发送数据包</li>
+<li>-ip-options &lt;选项&gt;：发送指定ip选项的数据包</li>
+<li>-ttl <val>：设置IP生存时间字段</li>
+<li>-spoof-mac &lt;</li>
+<li>-badsum：发送虚假TCP / UDP / SCTP校验和的数据包</li>
+</ul>
+<h4 id="output">OUTPUT</h4>
+<ul>
+<li>-oN / -oX / -oS / -oG <file>：分别以正常，XML，s | &lt;rIpt kIddi3</li>
+<li>和Grepable格式输出扫描到给定的文件名。</li>
+<li>-oA <basename>：一次输出三种主要格式</li>
+<li>-v：提高详细级别（使用-vv或更多以获得更大效果）</li>
+<li>-d：提高调试级别（使用-dd或更多以获得更大效果）</li>
+<li>-reason：Display端口处于特定状态的原因</li>
+<li>-open：只显示打开的（或可能打开的）端口</li>
+<li>-packet-trace：显示所有发送和接收的数据包</li>
+<li>-iflist：打印主机接口和路由（用于调试）</li>
+<li>-log-errors：Log错误/警告到正常格式的输出文件</li>
+<li>-append-output：附加到指定的输出文件而不是clobber</li>
+<li>-resume <filename>：恢复中止的扫描</li>
+<li>-stylesheet &lt;path / URL&gt;：XSL样式表将XML输出转换为HTML</li>
+<li>-webxml：Nmap.Org的参考样式表，用于更多可移植的XML</li>
+<li>-no-stylesheet：防止关联XSL样式表w / XML输出</li>
+</ul>
+<h4 id="misc">MISC：</h4>
+<ul>
+<li>-6：启用IPv6扫描</li>
+<li>-A：启用OS检测，版本检测，脚本扫描和traceroute</li>
+<li>-datadir <dirname>：指定自定义Nmap数据文件位置</li>
+<li>-send-eth / -send-ip：使用原始以太网帧进行发送或IP数据包</li>
+<li>-privileged：假设用户具有完全特权</li>
+<li>-unprivileged：假定用户缺少原始套接字权限</li>
+<li>-V：打印版本号</li>
+<li>-h：打印此帮助摘要页面</li>
+</ul>
+<h4 id="另见">另见</h4>
+<p>虽然它最为流行，但是 Nmap 不是唯一可用的端口扫描器，并且，取决于不同的喜好，可能也不是最好的。下面是 Kali 中包含的一些其它的替代品：</p>
+<ul>
+<li>unicornscan</li>
+<li>hping3</li>
+<li>masscan</li>
+<li>amap</li>
+<li>Metasploit scanning module</li>
+</ul>
 
-          </section>
+            </div>
+            <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      JhonWalker
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jsogn.github.io/post/nmap-ji-ben-shi-yong/" title="nmap基本使用">https://jsogn.github.io/post/nmap-ji-ben-shi-yong/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://jsogn.github.io/tag/hacker/"># hacker</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+        <i class="fa fa-chevron-left"></i>
+        <a class="nav-pc-next" title="PHPStudy后门rec批量利用脚本" href="https://jsogn.github.io/post/phpstudy-hou-men-rec-pi-liang-li-yong-jiao-ben/">PHPStudy后门rec批量利用脚本</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="PHPStudy后门rec批量利用脚本" href="https://jsogn.github.io/post/phpstudy-hou-men-rec-pi-liang-li-yong-jiao-ben/">上一篇</a>
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="Mac设置虚拟机使用宿主机代理" href="https://jsogn.github.io/post/mac-she-zhi-xu-ni-ji-shi-yong-su-zhu-ji-dai-li/">Mac设置虚拟机使用宿主机代理</a>
+        <a class="nav-mobile-next" title="Mac设置虚拟机使用宿主机代理" href="https://jsogn.github.io/post/mac-she-zhi-xu-ni-ji-shi-yong-su-zhu-ji-dai-li/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
+  <script src="https://cdn.jsdelivr.net/npm/valine@1.4.4/dist/Valine.min.js"></script>
+<div id="vcomments" style="padding: 10px 0px 0px 0px"></div>
+
+<style>
+  .v .veditor {
+    min-height: 10rem;
+    background-image: url('');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-color: rgba(255, 255, 255, 0);
+    resize: none;
+  }
+
+  .v .vwrap {
+    border: 1px solid #000 !important;
+  }
+
+  .v .vbtn {
+    padding: .4rem 1.2rem !important;
+    border-color: #fff !important;
+    background-color: #49b1f5 !important;
+    color: #fff !important;
+    font-size: .7rem !important;
+  }
+
+  .v .vcards .vcard .vh .vmeta .vat {
+    padding: 0 .8rem !important;
+    border: 1px solid #00c4b6 !important;
+    border-radius: 5px !important;
+    color: #00c4b6 !important;
+  }
+</style>
+<script>
+  new Valine({
+    el: '#vcomments',
+    appId: 'SJyyMLNz390B9X2k9tbsmUuU-gzGzoHsz',
+    appKey: 'OxRktB3EvJLfUzNDRR8MzIfa',
+    avatar: 'identicon',
+    placeholder: 'The best things in the world is freedom of speech',
+    pageSize: '10',
+    lang: 'zh-cn',
+    visitor: 'true' === 'true',
+    highlight: 'true' === 'true',
+    avatarForce: 'true' === 'false',
+  });
+</script>
+
+          </div>
         </div>
       </div>
     </div>
@@ -796,6 +1018,36 @@
   // 代码高亮
   hljs.initHighlightingOnLoad();
 
+</script>
+    <div class="light-box" id="light_box"></div>
+<script>
+  let imgs = document.querySelectorAll('.post-body img');
+  let lightBox = document.querySelector('#light_box');
+  lightBox.addEventListener('mousedown', (e) => {
+    e.preventDefault()
+  })
+  lightBox.addEventListener('mousewheel', (e) => {
+    e.preventDefault()
+  })
+  let width = window.innerWidth * 0.8;
+  lightBox.onclick = () => {
+    let img = lightBox.querySelector('img');
+    lightBox.style = '';
+    img && img.remove();
+  }
+  imgs.forEach(item => {
+    item.onclick = function (e) {
+      let lightImg = document.createElement('img');
+      lightImg.src = this.src;
+      lightBox.style = `height: 100%; opacity: 1; background-color: rgba(0, 0, 0, 0.5);cursor: zoom-out;`;
+      lightImg.style = `width: ${width}px; border: 1px solid #fff; border-radius: 2px;`;
+      lightImg.onclick = function () {
+        lightBox.style = '';
+        this.remove();
+      }
+      lightBox.append(lightImg);
+    }
+  })
 </script>
   </div>
 </body>
@@ -4833,7 +5085,6 @@ var_dump($max);
     searchBox.addEventListener('input', search(200));
   }()
 </script>
-
 
 
 </html>

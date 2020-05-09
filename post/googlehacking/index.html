@@ -8,7 +8,7 @@
 <meta name="keywords" content="Jw个人博客">
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
-<title>Jw&#39;Blogs</title>
+<title>GoogleHacking | Jw&#39;Blogs</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1589001345644">
 <link rel="stylesheet" href="/styles/main.css">
 <link rel="stylesheet" href="/media/css/gemini.css">
@@ -39,7 +39,8 @@
 
 
 
-  <meta name="description" content="温故而知新">
+  <meta name="description" content="GoogleHacking" />
+  <meta name="keywords" content="hacker" />
 </head>
 
 <body>
@@ -82,7 +83,7 @@
           
             
             
-            <li class="nav-item nav-item-active">
+            <li class="nav-item ">
               
               
                 <a href="/archives/" target="_self">
@@ -139,10 +140,26 @@
   <div class="main-continer">
     
     <div
-      class="section-layout  gemini">
+      class="section-layout gemini ">
       <div class="section-layout-wrapper">
-        <div id="sidebarMeta" class="sidebar">
-    
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body gemini" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -179,448 +196,715 @@
 
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95">常用语法</a>
+<ul>
+<li><a href="#intext">intext</a></li>
+<li><a href="#intitle">intitle</a></li>
+<li><a href="#cache">cache</a></li>
+<li><a href="#define">define</a></li>
+<li><a href="#filetype">filetype</a></li>
+<li><a href="#info">info</a></li>
+<li><a href="#inurl">inurl</a></li>
+<li><a href="#site">site</a></li>
+</ul>
+</li>
+<li><a href="#%E5%85%B8%E5%9E%8B%E7%94%A8%E6%B3%95">典型用法</a></li>
+<li><a href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8">实际应用</a></li>
+<li><a href="#%E5%AE%9E%E6%88%98%E6%BC%94%E7%A4%BA">实战演示</a>
+<ul>
+<li><a href="#%E6%90%9C%E7%B4%A2inc%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF">搜索INC敏感信息</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
 </div>
+
 <script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'gemini';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
       }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
     });
   }
-  </script>
-        <div class="section-box box-shadow-wrapper">
-          <section class="section archives-section bg-color posts-expand">
-            
 
-<div class="bg-color">
-  <div class="archive-timeline-box">
-    <div class="archive-timeline-title">
-      
-        <h2>非常好！目前共计30篇日志，继续努力！</h2>
-      
-    </div>
-    
-      
-      
-        <div class="node-title">
-          <h2 class="tag-year">2020</h2>
-        </div>    
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
         
-      
-      <a href="https://jsogn.github.io/post/vue-pei-zhi-kua-yu-dai-li/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>vue配置跨域代理</small>
-            </h1>
-          </div>  
       </div>
-      </a>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <header class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://jsogn.github.io/post/googlehacking/">
+      GoogleHacking
+    </a>
+  </h1>
+  <div class="post-meta">
     
-      
-      
-      <a href="https://jsogn.github.io/post/nginx-fang-wen-kong-zhi/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Nginx访问控制</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span>发布于</span>
+      <span>2020-05-09</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
     
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show">分类于</span>
       
       
-      <a href="https://jsogn.github.io/post/ping-hua-chong-qi-php-fpm/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>平滑重启php-fpm</small>
-            </h1>
-          </div>  
-      </div>
+      <a href="https://jsogn.github.io/tag/hacker/">
+        <span>hacker</span>
       </a>
+      
+      
+    </span>
+    <span class="post-meta-divider">|</span>
     
-      
-      
-      <a href="https://jsogn.github.io/post/redis-xing-neng-you-hua-zheng-li/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Redis性能优化整理</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>9分钟</span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>2104<span class="pc-show">字数</span></span>
+    </span>
     
-      
-      
-      <a href="https://jsogn.github.io/post/pac-gui-ze-pei-zhi/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>PAC规则配置</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
     
-      
-      
-      <a href="https://jsogn.github.io/post/she-zhi-centos-fu-wu-qi-ip-di-zhi/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>设置CentOS服务器IP地址</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
     
-      
-      
-      <a href="https://jsogn.github.io/post/a-li-yun-rds-yu-ecs-fu-wu-qi-shu-ju-ku-zuo-zhu-cong/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>阿里云RDS与ECS服务器数据库做主从</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/redis-you-yu-lian-jie-guo-duo-dao-zhi-de-yi-chang/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Redis由于连接过多导致的异常</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/wang-zhan-fang-wen-ri-zhi-de-ri-chang-cao-zuo/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>网站访问日志的日常操作</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/vue-zhong-axios-de-feng-zhuang/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Vue 中 axios 的封装</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/nginx-fu-wu-bu-shu-vue-xiang-mu-hou-chu-xian-404-wen-ti/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Nginx 服务部署 Vue 项目后,出现 404 问题</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/linux-wen-jian-fang-wen-kong-zhi-lie-biao/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Linux文件访问控制列表</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/linux-wen-jian-de-yin-cang-shu-xing/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Linux文件的隐藏属性</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/sqlmap-ji-ben-shi-yong/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>sqlmap基本使用</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/phpstudy-hou-men-rec-pi-liang-li-yong-jiao-ben/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>PHPStudy后门rec批量利用脚本</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/nmap-ji-ben-shi-yong/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>nmap基本使用</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/mac-she-zhi-xu-ni-ji-shi-yong-su-zhu-ji-dai-li/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Mac设置虚拟机使用宿主机代理</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/googlehacking/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>GoogleHacking</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/SSR提供商/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>SS/SSR提供商</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/shell-bian-cheng-ji-chu/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>shell编程基础</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/resetful-api-she-ji-gui-fan/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>RESETful API 设计规范</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/php-zhong-de-cuo-wu-chu-li/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>PHP中的错误处理</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/php-lei-fan-she/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>PHP类反射</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/php-dai-ma-jia-mi-tonyenc/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>php代码加密-tonyenc</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/mac-an-zhuang-php-kuo-zhan-pcntl/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Mac 安装 PHP 扩展 pcntl</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/crontab-shi-xian-n-miao-ding-shi/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>crontab实现N秒定时</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/qing-song-sheng-cheng-jwt-de-cha-jian/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>轻松生成jwt的插件</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/qiao-yong-php-shu-zu-han-shu/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>巧用PHP数组函数</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/duan-lian-jie/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>短链接</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/0-1-hu-zhuan/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>0 1 互转</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
+    <span id="/post/googlehacking/" data-flag-title="GoogleHacking" class="meta-item pc-show leancloud_visitors">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-eye"></i>
+      <span>浏览量：<span class="leancloud-visitors-count"></span></span>
+    </span>
     
   </div>
-  
-<div class="page bg-color">
-  <ul class="pagination-ul">
-    
-    
-      
-        <li class="pagination-li pagination-active">
-            <a href="/archives/page/../">
-              1
-            </a>
-        </li>
-      
-    
-    
-  </ul>
-</div>
-</div>
+</header>
+            <div class="post-body next-md-body" id="post_body">
+              <h3 id="前言">前言</h3>
+<p>Google hacker (Google黑客)是利用GOOGLE提供的搜索功能查找黑客们想找到的信息，一般是查找网站后台，网管的个人信息，也可以用来查找某人在网络上的活动</p>
+<p>Google hacker 一般是做为黑客在入侵时的一个手段，在入侵过程中有时需要查找后台的登陆口就需要用到GOOGLE HACKER，有时猜解密码的时候google也是提供查找管理员资料的有效平台</p>
+<!--more-->
+<h3 id="常用语法">常用语法</h3>
+<h4 id="intext">intext</h4>
+<p>这个就是把网页中的正文内容中的某个字符做为搜索条件，例如在google里输入<code>intext:动漫</code>，将返回所有在网页正文部分包含”动漫”的网页，<code>allintext:</code>使用方法和<code>intext</code>类似</p>
+<h4 id="intitle">intitle</h4>
+<p>和intext差不多，搜索网页标题中是否有所要找的字符，例如搜索:<code>intitle:安全天使</code>，将返回所有网页标题中包含”安全天使”的网页，同理<code>allintitle:</code>也同<code>intitle</code>类似</p>
+<h4 id="cache">cache</h4>
+<p>搜索google里关于某些内容的缓存，也许能找到一些好东西</p>
+<h4 id="define">define</h4>
+<p>搜索某个词语的定义，搜索:<code>define:hacker</code>，将返回关于hacker的定义</p>
+<h4 id="filetype">filetype</h4>
+<p>搜索指定类型的文件，撒网式攻击还是对特定目标进行信息收集都需要用到这个，例如输入:<code>filetype:doc</code>，将返回所有以doc结尾的文件URL，如果找.bak、.mdb或.inc也是可以的，获得的信息也许会更丰富</p>
+<h4 id="info">info</h4>
+<p>查找指定站点的一些基本信息</p>
+<h4 id="inurl">inurl</h4>
+<p>搜索:<code>inurl:www.123.net</code>可以返回所有和<code>www.123.net</code>做了链接的URL</p>
+<h4 id="site">site</h4>
+<p>搜索:<code>site:www.123.net</code>，将返回所有和123.net这个站有关的URL</p>
+<p>还有一些操作符也是很有用的:</p>
+<pre><code>– 把某个字忽略
 
-          </section>
+~ 同意词
+
+. 单一的通配符
+
+“” 精确查询
+</code></pre>
+<h3 id="典型用法">典型用法</h3>
+<ul>
+<li>找管理后台地址</li>
+</ul>
+<pre><code>site:xxx.com intext：管理后台登陆用户名密码系統账号
+
+site:xxx.com inurl: login/admin/manage/manager/adminlogin/system 
+
+site:xxx.com intitle 管理后台登陆
+</code></pre>
+<ul>
+<li>找上传类漏洞地址：</li>
+</ul>
+<pre><code>site:xxx.com inurl:file 
+
+site:xxx.com inurl:upload 
+</code></pre>
+<ul>
+<li>找注入页面</li>
+</ul>
+<pre><code>site:xxx.com inurl:php?id=
+</code></pre>
+<ul>
+<li>找编辑器页面</li>
+</ul>
+<pre><code>site:xxx.com inurl:ewebeditor
+</code></pre>
+<h3 id="实际应用">实际应用</h3>
+<p>对于攻击者来说，可能最感兴趣的就是密码文件了，而google正因为其强大的搜索能力往往会把一些敏感信息透露出来，用google搜索以下内容</p>
+<pre><code>intitle:”index of” etc
+
+intitle:”Index of” .sh_history
+
+intitle:”Index of” .bash_history
+
+intitle:”index of” passwd
+
+intitle:”index of” people.lst
+
+intitle:”index of” pwd.db
+
+intitle:”index of” etc/shadow
+
+intitle:”index of” spwd
+
+intitle:”index of” master.passwd
+
+intitle:”index of” htpasswd
+
+“# -FrontPage-” inurl:service.pwd
+</code></pre>
+<p>同样可以用google来搜索一些具有漏洞的程序，例如ZeroBoard前段时间发现个文件代码泄露漏洞，我们可以用google来找网上使用这套程序的站点:</p>
+<pre><code>intext:ZeroBoard filetype:php
+</code></pre>
+<p>或者使用:</p>
+<pre><code>inurl:　outlogin.php?_zb_path= site:.jp
+</code></pre>
+<p>phpmyadmin是一套功能强大的数据库操作软件，一些站点由于配置失误，导致可以不使用密码直接对phpmyadmin进行操作，可以用google搜索存在这样漏洞的程序</p>
+<pre><code>intitle:phpmyadmin intext:Create new database
+</code></pre>
+<p>可以用google来搜索数据库文件，用上一些语法来精确查找能够获得更多东西(access的数据库,mssql、mysql的连接文件等等)</p>
+<pre><code>allinurl:bbs data
+
+filetype:mdb inurl:database
+
+filetype:inc conn
+
+inurl:data filetype:mdb
+
+intitle:”index of” data //在一些配置不正确的apache+win32的服务器上经常出现这种情况
+</code></pre>
+<h3 id="实战演示">实战演示</h3>
+<p>利用google完全是可以对一个站点进行信息收集和渗透的，下面用google对特定站点进行一次测试</p>
+<p>首先用google先看这个站点的一些基本情况</p>
+<pre><code>site:xxxx.com
+</code></pre>
+<p>从返回的信息中，找到几个该校的几个系院的域名：</p>
+<pre><code>http://a1.xxxx.com
+
+http://a2.xxxx.com
+
+http://a3.xxxx.com
+
+http://a4.xxxx.com
+</code></pre>
+<p>顺便ping了一下，应该是在不同的服务器，学校一般都会有不少好的资料</p>
+<pre><code>site:xxxx.com filetype:doc
+</code></pre>
+<p>得到N个不错的doc。先找找网站的管理后台地址：</p>
+<pre><code>site:xxxx.com intext:管理
+
+site:xxxx.com inurl:login
+
+site:xxxx.com intitle:管理
+</code></pre>
+<p>超过获得2个管理后台地址：</p>
+<pre><code>http://a2.xxxx.com/sys/admin_login.asp
+
+http://a3.xxxx.com:88/_admin/login_in.asp
+</code></pre>
+<p>看看服务器上跑的是什么程序：</p>
+<pre><code>site:a2.xxxx.com filetype:asp
+
+site:a2.xxxx.com filetype:php
+
+site:a2.xxxx.com filetype:aspx
+
+site:a3.xxxx.com filetype:asp
+</code></pre>
+<p>a2服务器用的应该是IIS，上面用的是asp的整站程序，还有一个php的论坛</p>
+<p>a3服务器也是IIS，aspx+asp。web程序都应该是自己开发的。有论坛那就看看能不能遇见什么公共的FTP帐号什么的：</p>
+<pre><code>site:a2.xxxx.com intext:ftp://:
+</code></pre>
+<p>再看看有没有上传一类的漏洞：</p>
+<pre><code>site:a2.xxxx.com inurl:file
+
+site:a3.xxxx.com inurl:load
+</code></pre>
+<p>在a2上发现一个上传文件的页面：</p>
+<pre><code>http://a2.xxxx.com/sys/uploadfile.asp
+</code></pre>
+<p>用IE看了一下，没权限访问。试试注射</p>
+<pre><code>site:a2.xxxx.com filetype:asp
+</code></pre>
+<p>一般学校的站点的密码都比较有规律，通常都是域名+电话一类的变形</p>
+<pre><code>site:xxxx.com //得到N个二级域名
+
+site:xxxx.com intext:@xxxx.com //得到N个邮件地址，还有邮箱的主人的名字什么的
+
+site:xxxx.com intext:电话 //N个电话 
+</code></pre>
+<p>把这些信息做个字典，挂上慢慢跑。过了一段时间就跑出4个帐号，2个是学生会的，1个管理员，还有一个可能是老师的帐号</p>
+<p>google hack其实也都差不多是一些基本语法的灵活运用，或者配合某个脚本漏洞，主要还是靠个人的灵活思维</p>
+<p>对于一些在win上跑 apache的应该多注意一下这方面，一个<code>intitle:index of</code>就差不多都出来了 <code>echo “召唤” &gt; index.jsp</code> 现在看看首页，已经被改成: “召唤” 了。</p>
+<p>也可以用WGET上传一个文件上去，然后<code>execute Command输入 cat file &gt; index.html or echo “”&gt; file echo “test” &gt;&gt; file</code> 这样一条条打出来，站点首页就成功被替换了</p>
+<p>同样的也可以 <code>uname -a;cat /etc/passwd</code> 不过有点要注意，有些WEBSHELL程序有问题，执行不了的，</p>
+<h4 id="搜索inc敏感信息">搜索INC敏感信息</h4>
+<p>在google的搜索框中填入: <code>Code: .org filetype:inc</code></p>
+<p>例：常用的google关键字： foo1 foo2 (也就是关联，比如搜索xx公司 xx美女)</p>
+<p><code>operator:foo filetype:123</code> 类型</p>
+<p><code>site:foo.com</code> 相对直接看网站更有意思，可以得到许多意外的信息</p>
+<p><code>intext:foo intitle: fooltitle</code> 标题 <code>allinurl:foo</code> 搜索xx网站的所有相关连接。（踩点必备）</p>
+<p><code>links:foo</code>不要说就知道是它的相关链接</p>
+<p><code>allintilte:foo.com</code> 可以辅助<code>”-” “+”</code>来调整搜索的精确程度 直接搜索密码：(引号表示为精确搜索)</p>
+<p>可以再延伸到上面的结果里进行二次搜索</p>
+<p><code>“index of” htpasswd / passwd filetype:xls username password email “ws_ftp.log” “config.php” allinurl:admin mdb service filetype:pwd</code></p>
+<p>或者某个比如pcanywhere的密码后缀cif等</p>
+<p>再来点更敏感信息 <code>“robots.txt” “Disallow:” filetype:txt inurl:_vti_cnf</code> (FrontPage的关键索引啦，扫描器的CGI库一般都有)</p>
+<p><code>allinurl: /msadc/Samples/selector/showcode.asp /../../../passwd /examples/jsp/snp/snoop.jsp phpsysinfo intitle:index of /admin intitle:”documetation” inurl: 5800(vnc的端口)</code></p>
+<p>或者desktop port等多个关键字检索 <code>webmin port 10000 inurl:/admin/login.asp intext:　Powered by GBook365 intitle:”php shell” “Enable stderr” filetype:php</code> 直接搜索到phpwebshell</p>
+<pre><code>foo.org filetype:inc
+
+ipsec filetype:conf
+
+intilte:”error occurred” ODBC request where (select|insert) 说白了就是说，可以直接试着查查数据库检索，针对目前流行的sql注射
+
+“Dumping data for table” username password
+
+intitle:”Error using Hypernews”
+
+“Server Software”
+
+intitle:”HTTP_USER_AGENT=Googlebot”
+
+“HTTP_USER_ANGET=Googlebot” THS ADMIN
+
+filetype:.doc site:.mil classified 直接搜索军方相关word
+</code></pre>
+<p>检查多个关键字：</p>
+<pre><code>intitle:config confixx login password
+
+“mydomain.com” nessus report
+
+“report generated by”
+
+“ipconfig”
+
+“winipconfig”
+</code></pre>
+<p>google缓存利用，搜索时候多”选搜索所有网站”</p>
+<p>特别推荐：administrator users 等相关的东西，比如名字，生日等……最惨也可以拿来做字典</p>
+<p>一些技巧集合：</p>
+<ol>
+<li>
+<p>index.of.password</p>
+</li>
+<li>
+<p>filetype:blt “buddylist”</p>
+</li>
+<li>
+<p>“access denied for user” “using password”</p>
+</li>
+<li>
+<p>intitle:”index of” inurl:ftp (pub | incoming)</p>
+</li>
+<li>
+<p>“http://:@www” domainname</p>
+</li>
+<li>
+<p>filetype:cnf inurl:_vti_pvt access.cnf</p>
+</li>
+<li>
+<p>auth_user_file.txt</p>
+</li>
+<li>
+<p>allinurl:”//_vti_pvt/” | allinurl:”//_vti_cnf/”</p>
+</li>
+<li>
+<p>The Master List</p>
+</li>
+<li>
+<p>inurl:”install/install.php”</p>
+</li>
+<li>
+<p>allinurl: admin mdb</p>
+</li>
+<li>
+<p>intitle:”welcome.to.squeezebox”</p>
+</li>
+<li>
+<p>passlist.txt (a better way)</p>
+</li>
+<li>
+<p>intext:””BiTBOARD v2.0″ BiTSHiFTERS Bulletin Board”</p>
+</li>
+<li>
+<p>“A syntax error has occurred” filetype:ihtml</p>
+</li>
+<li>
+<p>intitle:　Login intext:”RT is ? Copyright”</p>
+</li>
+<li>
+<p>“# -FrontPage-” inurl:service.pwd</p>
+</li>
+<li>
+<p>ext:php program_listing intitle:MythWeb.Program.Listing</p>
+</li>
+<li>
+<p>ORA-00921: unexpected end of SQL command</p>
+</li>
+<li>
+<p>intitle:index.of abyss.conf</p>
+</li>
+</ol>
+
+            </div>
+            <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      JhonWalker
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jsogn.github.io/post/googlehacking/" title="GoogleHacking">https://jsogn.github.io/post/googlehacking/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://jsogn.github.io/tag/hacker/"># hacker</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+        <i class="fa fa-chevron-left"></i>
+        <a class="nav-pc-next" title="Mac设置虚拟机使用宿主机代理" href="https://jsogn.github.io/post/mac-she-zhi-xu-ni-ji-shi-yong-su-zhu-ji-dai-li/">Mac设置虚拟机使用宿主机代理</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="Mac设置虚拟机使用宿主机代理" href="https://jsogn.github.io/post/mac-she-zhi-xu-ni-ji-shi-yong-su-zhu-ji-dai-li/">上一篇</a>
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="SS/SSR提供商" href="https://jsogn.github.io/post/SSR提供商/">SS/SSR提供商</a>
+        <a class="nav-mobile-next" title="SS/SSR提供商" href="https://jsogn.github.io/post/SSR提供商/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
+  <script src="https://cdn.jsdelivr.net/npm/valine@1.4.4/dist/Valine.min.js"></script>
+<div id="vcomments" style="padding: 10px 0px 0px 0px"></div>
+
+<style>
+  .v .veditor {
+    min-height: 10rem;
+    background-image: url('');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-color: rgba(255, 255, 255, 0);
+    resize: none;
+  }
+
+  .v .vwrap {
+    border: 1px solid #000 !important;
+  }
+
+  .v .vbtn {
+    padding: .4rem 1.2rem !important;
+    border-color: #fff !important;
+    background-color: #49b1f5 !important;
+    color: #fff !important;
+    font-size: .7rem !important;
+  }
+
+  .v .vcards .vcard .vh .vmeta .vat {
+    padding: 0 .8rem !important;
+    border: 1px solid #00c4b6 !important;
+    border-radius: 5px !important;
+    color: #00c4b6 !important;
+  }
+</style>
+<script>
+  new Valine({
+    el: '#vcomments',
+    appId: 'SJyyMLNz390B9X2k9tbsmUuU-gzGzoHsz',
+    appKey: 'OxRktB3EvJLfUzNDRR8MzIfa',
+    avatar: 'identicon',
+    placeholder: 'The best things in the world is freedom of speech',
+    pageSize: '10',
+    lang: 'zh-cn',
+    visitor: 'true' === 'true',
+    highlight: 'true' === 'true',
+    avatarForce: 'true' === 'false',
+  });
+</script>
+
+          </div>
         </div>
       </div>
     </div>
@@ -796,6 +1080,36 @@
   // 代码高亮
   hljs.initHighlightingOnLoad();
 
+</script>
+    <div class="light-box" id="light_box"></div>
+<script>
+  let imgs = document.querySelectorAll('.post-body img');
+  let lightBox = document.querySelector('#light_box');
+  lightBox.addEventListener('mousedown', (e) => {
+    e.preventDefault()
+  })
+  lightBox.addEventListener('mousewheel', (e) => {
+    e.preventDefault()
+  })
+  let width = window.innerWidth * 0.8;
+  lightBox.onclick = () => {
+    let img = lightBox.querySelector('img');
+    lightBox.style = '';
+    img && img.remove();
+  }
+  imgs.forEach(item => {
+    item.onclick = function (e) {
+      let lightImg = document.createElement('img');
+      lightImg.src = this.src;
+      lightBox.style = `height: 100%; opacity: 1; background-color: rgba(0, 0, 0, 0.5);cursor: zoom-out;`;
+      lightImg.style = `width: ${width}px; border: 1px solid #fff; border-radius: 2px;`;
+      lightImg.onclick = function () {
+        lightBox.style = '';
+        this.remove();
+      }
+      lightBox.append(lightImg);
+    }
+  })
 </script>
   </div>
 </body>
@@ -4833,7 +5147,6 @@ var_dump($max);
     searchBox.addEventListener('input', search(200));
   }()
 </script>
-
 
 
 </html>

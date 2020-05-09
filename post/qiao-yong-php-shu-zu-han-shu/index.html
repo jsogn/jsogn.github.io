@@ -8,7 +8,7 @@
 <meta name="keywords" content="Jw个人博客">
 <meta name="description" content="温故而知新">
 <meta name="theme-color" content="#000">
-<title>Jw&#39;Blogs</title>
+<title>巧用PHP数组函数 | Jw&#39;Blogs</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1589001345644">
 <link rel="stylesheet" href="/styles/main.css">
 <link rel="stylesheet" href="/media/css/gemini.css">
@@ -39,7 +39,8 @@
 
 
 
-  <meta name="description" content="温故而知新">
+  <meta name="description" content="巧用PHP数组函数" />
+  <meta name="keywords" content="php" />
 </head>
 
 <body>
@@ -82,7 +83,7 @@
           
             
             
-            <li class="nav-item nav-item-active">
+            <li class="nav-item ">
               
               
                 <a href="/archives/" target="_self">
@@ -139,10 +140,26 @@
   <div class="main-continer">
     
     <div
-      class="section-layout  gemini">
+      class="section-layout gemini ">
       <div class="section-layout-wrapper">
-        <div id="sidebarMeta" class="sidebar">
-    
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body gemini" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -179,448 +196,597 @@
 
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E5%8F%96%E6%8C%87%E5%AE%9A%E9%94%AE%E5%90%8D">取指定键名</a></li>
+<li><a href="#%E7%A7%BB%E9%99%A4%E6%8C%87%E5%AE%9A%E9%94%AE%E5%90%8D">移除指定键名</a></li>
+<li><a href="#%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D">数组去重</a></li>
+<li><a href="#%E9%87%8D%E7%BD%AE%E7%B4%A2%E5%BC%95">重置索引</a></li>
+<li><a href="#%E6%B8%85%E9%99%A4%E7%A9%BA%E5%80%BC">清除空值</a></li>
+<li><a href="#%E7%A1%AE%E8%AE%A4%E6%95%B0%E7%BB%84%E6%88%90%E5%91%98%E5%85%A8%E9%83%A8%E4%B8%BA%E7%9C%9F">确认数组成员全部为真</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E9%94%AE%E5%90%8D%E4%B9%8B%E5%89%8D-%E4%B9%8B%E5%90%8E%E7%9A%84%E6%95%B0%E7%BB%84">获取指定键名之前 / 之后的数组</a></li>
+<li><a href="#%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84%E5%80%BC">数组中重复次数最多的值</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
 </div>
+
 <script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'gemini';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
       }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
     });
   }
-  </script>
-        <div class="section-box box-shadow-wrapper">
-          <section class="section archives-section bg-color posts-expand">
-            
 
-<div class="bg-color">
-  <div class="archive-timeline-box">
-    <div class="archive-timeline-title">
-      
-        <h2>非常好！目前共计30篇日志，继续努力！</h2>
-      
-    </div>
-    
-      
-      
-        <div class="node-title">
-          <h2 class="tag-year">2020</h2>
-        </div>    
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
         
-      
-      <a href="https://jsogn.github.io/post/vue-pei-zhi-kua-yu-dai-li/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>vue配置跨域代理</small>
-            </h1>
-          </div>  
       </div>
-      </a>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <header class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://jsogn.github.io/post/qiao-yong-php-shu-zu-han-shu/">
+      巧用PHP数组函数
+    </a>
+  </h1>
+  <div class="post-meta">
     
-      
-      
-      <a href="https://jsogn.github.io/post/nginx-fang-wen-kong-zhi/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Nginx访问控制</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span>发布于</span>
+      <span>2020-05-09</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
     
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show">分类于</span>
       
       
-      <a href="https://jsogn.github.io/post/ping-hua-chong-qi-php-fpm/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>平滑重启php-fpm</small>
-            </h1>
-          </div>  
-      </div>
+      <a href="https://jsogn.github.io/tag/php/">
+        <span>php</span>
       </a>
+      
+      
+    </span>
+    <span class="post-meta-divider">|</span>
     
-      
-      
-      <a href="https://jsogn.github.io/post/redis-xing-neng-you-hua-zheng-li/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Redis性能优化整理</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>10分钟</span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>2223<span class="pc-show">字数</span></span>
+    </span>
     
-      
-      
-      <a href="https://jsogn.github.io/post/pac-gui-ze-pei-zhi/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>PAC规则配置</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
     
-      
-      
-      <a href="https://jsogn.github.io/post/she-zhi-centos-fu-wu-qi-ip-di-zhi/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>设置CentOS服务器IP地址</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
     
-      
-      
-      <a href="https://jsogn.github.io/post/a-li-yun-rds-yu-ecs-fu-wu-qi-shu-ju-ku-zuo-zhu-cong/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>阿里云RDS与ECS服务器数据库做主从</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/redis-you-yu-lian-jie-guo-duo-dao-zhi-de-yi-chang/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Redis由于连接过多导致的异常</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/wang-zhan-fang-wen-ri-zhi-de-ri-chang-cao-zuo/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>网站访问日志的日常操作</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/vue-zhong-axios-de-feng-zhuang/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Vue 中 axios 的封装</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/nginx-fu-wu-bu-shu-vue-xiang-mu-hou-chu-xian-404-wen-ti/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Nginx 服务部署 Vue 项目后,出现 404 问题</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/linux-wen-jian-fang-wen-kong-zhi-lie-biao/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Linux文件访问控制列表</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/linux-wen-jian-de-yin-cang-shu-xing/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Linux文件的隐藏属性</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/sqlmap-ji-ben-shi-yong/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>sqlmap基本使用</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/phpstudy-hou-men-rec-pi-liang-li-yong-jiao-ben/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>PHPStudy后门rec批量利用脚本</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/nmap-ji-ben-shi-yong/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>nmap基本使用</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/mac-she-zhi-xu-ni-ji-shi-yong-su-zhu-ji-dai-li/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Mac设置虚拟机使用宿主机代理</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/googlehacking/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>GoogleHacking</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/SSR提供商/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>SS/SSR提供商</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/shell-bian-cheng-ji-chu/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>shell编程基础</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/resetful-api-she-ji-gui-fan/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>RESETful API 设计规范</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/php-zhong-de-cuo-wu-chu-li/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>PHP中的错误处理</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/php-lei-fan-she/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>PHP类反射</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/php-dai-ma-jia-mi-tonyenc/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>php代码加密-tonyenc</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/mac-an-zhuang-php-kuo-zhan-pcntl/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>Mac 安装 PHP 扩展 pcntl</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/crontab-shi-xian-n-miao-ding-shi/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>crontab实现N秒定时</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/qing-song-sheng-cheng-jwt-de-cha-jian/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>轻松生成jwt的插件</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/qiao-yong-php-shu-zu-han-shu/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>巧用PHP数组函数</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/duan-lian-jie/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>短链接</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
-    
-      
-      
-      <a href="https://jsogn.github.io/post/0-1-hu-zhuan/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              05-09
-              <small>0 1 互转</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
+    <span id="/post/qiao-yong-php-shu-zu-han-shu/" data-flag-title="巧用PHP数组函数" class="meta-item pc-show leancloud_visitors">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-eye"></i>
+      <span>浏览量：<span class="leancloud-visitors-count"></span></span>
+    </span>
     
   </div>
-  
-<div class="page bg-color">
-  <ul class="pagination-ul">
-    
-    
-      
-        <li class="pagination-li pagination-active">
-            <a href="/archives/page/../">
-              1
-            </a>
-        </li>
-      
-    
-    
-  </ul>
-</div>
-</div>
+</header>
+            <div class="post-body next-md-body" id="post_body">
+              <h3 id="前言">前言</h3>
+<p>PHP 的数组是一种很强大的数据类型，与此同时 PHP 内置了一系列与数组相关的函数可以很轻易的实现日常开发的功能，善用 PHP 内置函数能极大的提高开发效率和运行效率（内置函数都是用 C 写的效率比用 PHP 写的高很多）</p>
+<!-- more -->
+<h3 id="取指定键名">取指定键名</h3>
+<p>对于某些关联数组，有时候我们只想取指定键名的那部分，比如数组为 <code>['id' =&gt; 1, 'name' =&gt; 'zane', 'password' =&gt; '123456']</code> 此时若只想取包含 id 和 name</p>
+<pre><code>&lt;?php
+$raw = ['id' =&gt; 1, 'name' =&gt; 'zane', 'p
+assword' =&gt; '123456'];
+// 自己用 PHP 实现
+function onlyKeys($raw, $keys) {
+    $new = [];
+    foreach ($raw as $key =&gt; $val) {
+        if (in_array($key, $keys)) {
+            $new[$key] = $val;
+        }
+    }
 
-          </section>
+    return $new;
+}
+// 用 PHP 内置函数实现
+function newOnlyKeys($array, $keys) {
+    return array_intersect_key($array, array_flip($keys));
+}
+var_dump(onlyKeys($raw, ['id', 'name']));
+// 结果 ['id' =&gt; 1, 'name' =&gt; 'zane']
+var_dump(newOnlyKeys($raw, ['id', 'name']));
+// 结果 ['id' =&gt; 1, 'name' =&gt; 'zane']
+</code></pre>
+<p>简单的介绍一下这两个函数的作用，首先是 <code>array_flip</code> 函数，这个函数的功能是「将数组的键和值对调」，也就是键名变成值，值变成键名。我们传递的 $keys 参数经过这个函数便从 <code>[0 =&gt; 'id', 1 =&gt; 'name']</code> 转变为了 <code>['id' =&gt; 0, 'name' =&gt; 1]</code>。这样做的目的是为了向 <code>array_intersect_key</code> 函数服务，<code>array_intersect_key</code> 函数的功能是「使用键名比较计算数组的交集」，也就是返回第一个参数数组中与其他参数数组相同键名的值</p>
+<h3 id="移除指定键名">移除指定键名</h3>
+<pre><code>&lt;?php
+$raw = ['id' =&gt; 1, 'name' =&gt; 'zane', 'password' =&gt; '123456'];
+// 用 PHP 内置函数实现
+function removeKeys($array, $keys) {
+    return array_diff_key($array, array_flip($keys));
+}
+// 移除 id 键
+var_dump(removeKeys($raw, ['id', 'password']));
+// 结果 ['name' =&gt; 'zane']
+</code></pre>
+<p>和上一个例子相比本例只是将 <code>array_intersect_key</code> 函数改为 <code>array_diff_key</code>(刚好和 <code>array_intersect_key</code> 的功能相反)</p>
+<h3 id="数组去重">数组去重</h3>
+<p>PHP 内置了 array_unique 函数</p>
+<pre><code>&lt;?php
+$input = ['you are' =&gt; 666, 'i am' =&gt; 233, 'he is' =&gt; 233, 'she is' =&gt; 666];
+$result = array_unique($input);
+var_dump($result);
+// 结果 ['you are' =&gt; 666, 'i am' =&gt; 233]
+</code></pre>
+<p>用这个函数就能解决大部分问题了，但是有时候可能会觉得它不够快，原因如下：</p>
+<ul>
+<li>
+<p>array_unique() 先将值作为字符串排序，然后对每个值只保留第一个遇到的键名，接着忽略所有后面的键名</p>
+</li>
+<li>
+<p>因为这个函数会先将数组进行排序，所以速度可能在某些场景达不到预期的要求</p>
+</li>
+</ul>
+<p>续调用两次 <code>array_flip</code> 函数是不是就相当于实现了 <code>array_unique</code> 函数的功能？</p>
+<pre><code>&lt;?php
+$input = ['you are' =&gt; 666, 'i am' =&gt; 233, 'he is' =&gt; 233, 'she is' =&gt; 666];
+$result = array_flip(array_flip($input));
+var_dump($result);
+// 结果 ['she is' =&gt; 666, 'he is' =&gt; 233]
+</code></pre>
+<p>结果和 array_unique 的不一样，我们可以从 PHP 官方手册得到答案</p>
+<blockquote>
+<p>如果同一个值出现多次，则最后一个键名将作为它的值，其它键会被丢弃</p>
+</blockquote>
+<p><code>array_unique</code> 保留第一个出现的键名，<code>array_flip</code>保留最后一个出现的键名</p>
+<p><strong>注意：</strong> 使用 array_flip 作为数组去重时数组的值必须能够作为键名（即为 string 类型或 integer 类型），否则这个值将被忽略</p>
+<p>此外，若不需要保留键名可以直接这样使用 <code>array_values(array_flip($input))</code></p>
+<h3 id="重置索引">重置索引</h3>
+<p>当想要对一个索引并不连续的数组进行重置时，比如数组：<code>[0 =&gt; 233, 99 =&gt; 666]</code>，对于这种数组我们只需要调用 <code>array_values</code> 函数即可实现</p>
+<pre><code>&lt;?php
+$input = [0 =&gt; 233, 99 =&gt; 666];
+var_dump(array_values($input));
+// 结果 [0 =&gt; 233, 1 =&gt; 66]
+</code></pre>
+<p>需要注意的是 <code>array_values</code> 函数并不止重置数字索引还会将字符串键名也同样删除并重置，如果想要保留字符串键名的同时重置数字索引，使用 <code>array_slice</code> 函数</p>
+<pre><code>&lt;?php
+$input = ['hello' =&gt; 'world', 0 =&gt; 233, 99 =&gt; 666];
+var_dump(array_slice($input, 0));
+// 结果 ['hello' =&gt; 'world', 0 =&gt; 233, 1 =&gt; 66]
+</code></pre>
+<p><code>array_slice</code> 函数的功能是取出数组的中的一段，但它默认会重新排序并重置数组的数字索引，所以可以利用它重置数组中的数字索引</p>
+<h3 id="清除空值">清除空值</h3>
+<p>有时候想清除某个数组中的空值比如：null、false、0、0.0、[]空数组、''空字符串、'0'字符串0 ，这时 <code>array_filter</code> 函数便能帮上忙</p>
+<pre><code>&lt;?php
+$input = ['foo', false, -1, null, '', []];
+var_dump(array_filter($input));
+// 结果 [0 =&gt; 'foo', 2 =&gt; -1]
+</code></pre>
+<p>array_filter 的作用其实是「用回调函数过滤数组中的单元」，它的第二个参数其实是个回调函数，向数组的每个成员都执行这个回调函数，若回调函数的返回值为 true 便保留这个成员，为 false 则忽略。这个函数还有一个特性就是：</p>
+<blockquote>
+<p>如果没有提供 callback 函数， 将删除 array 中所有等值为 FALSE 的条目</p>
+</blockquote>
+<p><strong>注意：</strong> 如果不填写 callback 函数，0、0.0、'0'字符串0 这些可能有意义的值会被删除。所以如果清除的规则有所不同还需要自行编写 callback 函数</p>
+<h3 id="确认数组成员全部为真">确认数组成员全部为真</h3>
+<p>有时候我们希望确认数组中的的值全部为 true，比如：<code>['read' =&gt; true, 'write' =&gt; true, 'execute' =&gt; true]</code>，只需要用 <code>array_product</code> 函数便可以实现了</p>
+<pre><code>&lt;?php
+$power = ['read' =&gt; true, 'write' =&gt; true, 'execute' =&gt; true];
+var_dump((bool)array_product($power));
+// 结果 true
+$power = ['read' =&gt; true, 'write' =&gt; true, 'execute' =&gt; false];
+var_dump((bool)array_product($power));
+// 结果 false
+</code></pre>
+<p>array_product 函数本来的功能是「计算数组中所有值的乘积」，在累乘数组中所有成员的时候会将成员的值转为数值类型。当传递的参数为一个 bool  成员所组成的数组时，true 会被转为 1，false 会被转为 0。然后只要数组中出现一个 false 累乘的结果自然会变成 0，然后再将结果转为 bool 类型不就是 false</p>
+<p><strong>注意：</strong> 使用 array_product 函数将在计算过程中将数组成员转为数值类型进行计算，所以请确保了解数组成员转为数值类型后的值，否则会产生意料之外的结果</p>
+<pre><code>&lt;?php
+$power = ['read' =&gt; true, 'write' =&gt; true, 'execute' =&gt; 'true'];
+var_dump((bool)array_product($power));
+// 结果 false
+</code></pre>
+<p>因为 'true' 在计算过程中被转为 0</p>
+<h3 id="获取指定键名之前-之后的数组">获取指定键名之前 / 之后的数组</h3>
+<p>如果只想要关联数组中指定键名值之前的部分可以通过 <code>array_keys</code>、<code>array_search</code> 和 <code>array_slice</code> 组合使用便能够实现</p>
+<pre><code>&lt;?php
+$data = ['first' =&gt; 1, 'second' =&gt; 2, 'third' =&gt; 3];
+function beforeKey($array, $key) {
+    $keys = array_keys($array);
+  	// $keys = [0 =&gt; 'first', 1 =&gt; 'second', 2 =&gt; 'third']
+    $len = array_search($key, $keys);
+    return array_slice($array, 0, $len);
+}
+var_dump(beforeKey($data, 'first'));
+// 结果 []
+var_dump(beforeKey($data, 'second'));
+// 结果 ['first' =&gt; 1]
+var_dump(beforeKey($data, 'third'));
+// 结果 ['first' =&gt; 1, 'second' =&gt; 2]
+</code></pre>
+<p><code>array_slice</code> 这个函数取出部分数组是根据偏移量（可以理解为键名在数组中的顺序，从 0 开始）而不是根据键名的，而关联数组的键名却是是字符串或者是不按顺序的数字，此时要解决的问题便是「如何取到键名对应的偏移量」</p>
+<p><code>array_keys</code> 函数的功能是「返回数组中部分的或所有的键名」默认返回全部键名，此外返回的键名数组是以数字索引的，也就是说返回的键名数组的索引就是偏移量，的原数组变为：<code>[0 =&gt; 'first', 1 =&gt; 'second', 2 =&gt; 'third']</code></p>
+<p>然后通过 <code>array_search</code> 便可以获得指定键名的偏移量了，因为这个函数的功能是「在数组中搜索给定的值，如果成功则返回首个相应的键名」</p>
+<p>有了偏移量直接调用 <code>array_slice</code> 函数便可以实现目的了</p>
+<p>那获取指定键名之后的数组也就轻而易举了，略微修改 array_slice 即可</p>
+<pre><code>&lt;?php
+$data = ['first' =&gt; 1, 'second' =&gt; 2, 'third' =&gt; 3];
+function afterKey($array, $key) {
+    $keys = array_keys($array);
+    $offset = array_search($key, $keys);
+    return array_slice($array, $offset + 1);
+}
+var_dump(afterKey($data, 'first'));
+// 结果 ['second' =&gt; 2, 'third' =&gt; 3]
+var_dump(afterKey($data, 'second'));
+// 结果 ['third' =&gt; 3]
+var_dump(afterKey($data, 'third'));
+// 结果 []
+</code></pre>
+<p>获取指定值之前或之后的数组，只需调用 <code>beforeKey($data, array_search($value, $data))</code></p>
+<h3 id="数组中重复次数最多的值">数组中重复次数最多的值</h3>
+<p>假设有这样一个数组 <code>[6, 11, 11, 2, 4, 4, 11, 6, 7, 4, 2, 11, 8]</code>，如何获取数组中重复次数最多的值？关键在于 <code>array_count_values</code> 函数</p>
+<pre><code>&lt;?php
+$data = [6, 11, 11, 2, 4, 4, 11, 6, 7, 4, 2, 11, 8];
+$cv = array_count_values($data);
+// $cv = [6 =&gt; 2, 11 =&gt; 4, 2 =&gt; 2, 4 =&gt; 3, 7 =&gt; 1, 8 =&gt; 1]
+arsort($cv);
+$max = key($cv);
+var_dump($max);
+// 结果 11
+</code></pre>
+<p><code>array_count_values</code>函数的功能是「统计数组中所有的值」，就是将原数组中的值作为返回数组的键名，值出现的次数作为返回数组的值</p>
+<p>这样便可以通过 <code>arsort</code> 函数对出现的次数进行降序排序并且保持索引关联</p>
+<p>最后使用 <code>key</code> 获得当前单元（当前单元默认为数组第一个成员）的键名，此时的键名即是原数组的值重复次数最多的值</p>
+
+            </div>
+            <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      JhonWalker
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jsogn.github.io/post/qiao-yong-php-shu-zu-han-shu/" title="巧用PHP数组函数">https://jsogn.github.io/post/qiao-yong-php-shu-zu-han-shu/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://jsogn.github.io/tag/php/"># php</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+        <i class="fa fa-chevron-left"></i>
+        <a class="nav-pc-next" title="轻松生成jwt的插件" href="https://jsogn.github.io/post/qing-song-sheng-cheng-jwt-de-cha-jian/">轻松生成jwt的插件</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="轻松生成jwt的插件" href="https://jsogn.github.io/post/qing-song-sheng-cheng-jwt-de-cha-jian/">上一篇</a>
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="短链接" href="https://jsogn.github.io/post/duan-lian-jie/">短链接</a>
+        <a class="nav-mobile-next" title="短链接" href="https://jsogn.github.io/post/duan-lian-jie/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
+  <script src="https://cdn.jsdelivr.net/npm/valine@1.4.4/dist/Valine.min.js"></script>
+<div id="vcomments" style="padding: 10px 0px 0px 0px"></div>
+
+<style>
+  .v .veditor {
+    min-height: 10rem;
+    background-image: url('');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-color: rgba(255, 255, 255, 0);
+    resize: none;
+  }
+
+  .v .vwrap {
+    border: 1px solid #000 !important;
+  }
+
+  .v .vbtn {
+    padding: .4rem 1.2rem !important;
+    border-color: #fff !important;
+    background-color: #49b1f5 !important;
+    color: #fff !important;
+    font-size: .7rem !important;
+  }
+
+  .v .vcards .vcard .vh .vmeta .vat {
+    padding: 0 .8rem !important;
+    border: 1px solid #00c4b6 !important;
+    border-radius: 5px !important;
+    color: #00c4b6 !important;
+  }
+</style>
+<script>
+  new Valine({
+    el: '#vcomments',
+    appId: 'SJyyMLNz390B9X2k9tbsmUuU-gzGzoHsz',
+    appKey: 'OxRktB3EvJLfUzNDRR8MzIfa',
+    avatar: 'identicon',
+    placeholder: 'The best things in the world is freedom of speech',
+    pageSize: '10',
+    lang: 'zh-cn',
+    visitor: 'true' === 'true',
+    highlight: 'true' === 'true',
+    avatarForce: 'true' === 'false',
+  });
+</script>
+
+          </div>
         </div>
       </div>
     </div>
@@ -796,6 +962,36 @@
   // 代码高亮
   hljs.initHighlightingOnLoad();
 
+</script>
+    <div class="light-box" id="light_box"></div>
+<script>
+  let imgs = document.querySelectorAll('.post-body img');
+  let lightBox = document.querySelector('#light_box');
+  lightBox.addEventListener('mousedown', (e) => {
+    e.preventDefault()
+  })
+  lightBox.addEventListener('mousewheel', (e) => {
+    e.preventDefault()
+  })
+  let width = window.innerWidth * 0.8;
+  lightBox.onclick = () => {
+    let img = lightBox.querySelector('img');
+    lightBox.style = '';
+    img && img.remove();
+  }
+  imgs.forEach(item => {
+    item.onclick = function (e) {
+      let lightImg = document.createElement('img');
+      lightImg.src = this.src;
+      lightBox.style = `height: 100%; opacity: 1; background-color: rgba(0, 0, 0, 0.5);cursor: zoom-out;`;
+      lightImg.style = `width: ${width}px; border: 1px solid #fff; border-radius: 2px;`;
+      lightImg.onclick = function () {
+        lightBox.style = '';
+        this.remove();
+      }
+      lightBox.append(lightImg);
+    }
+  })
 </script>
   </div>
 </body>
@@ -4833,7 +5029,6 @@ var_dump($max);
     searchBox.addEventListener('input', search(200));
   }()
 </script>
-
 
 
 </html>
