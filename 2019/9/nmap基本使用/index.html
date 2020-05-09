@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("/");
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="tool,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言Nmap 是个端口扫描器，这意味着它可以向一些指定 IP 的 TCP 或 UDP 端口发送封包，并检查是否有响应。如果有的话，这意味着端口是打开的，因此，端口上运行着服务 Nmap代表Network Mapper，是一款用于网络探索和安全审计的开源工具，它与Kali Linux标准兼容，但也可用于Windows，OSX和许多其他UNIX平台。Nmap还有一个称为Zenmap的图形用户界面。">
+<meta name="keywords" content="tool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nmap基本使用">
+<meta property="og:url" content="http://yoursite.com/2019/9/nmap基本使用/index.html">
+<meta property="og:site_name" content="Jw Blog">
+<meta property="og:description" content="前言Nmap 是个端口扫描器，这意味着它可以向一些指定 IP 的 TCP 或 UDP 端口发送封包，并检查是否有响应。如果有的话，这意味着端口是打开的，因此，端口上运行着服务 Nmap代表Network Mapper，是一款用于网络探索和安全审计的开源工具，它与Kali Linux标准兼容，但也可用于Windows，OSX和许多其他UNIX平台。Nmap还有一个称为Zenmap的图形用户界面。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-04-12T06:34:43.628Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nmap基本使用">
+<meta name="twitter:description" content="前言Nmap 是个端口扫描器，这意味着它可以向一些指定 IP 的 TCP 或 UDP 端口发送封包，并检查是否有响应。如果有的话，这意味着端口是打开的，因此，端口上运行着服务 Nmap代表Network Mapper，是一款用于网络探索和安全审计的开源工具，它与Kali Linux标准兼容，但也可用于Windows，OSX和许多其他UNIX平台。Nmap还有一个称为Zenmap的图形用户界面。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/9/nmap基本使用/">
+
+
+
+
+
+  <title>nmap基本使用 | Jw Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jw Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-bookmark">
+          <a href="/bookmark/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bookmark"></i> <br>
+            
+            书签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-resources">
+          <a href="/resources/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-download"></i> <br>
+            
+            资源
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "0d952de7"
+    });
+  daovoice('update');
+  </script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/9/nmap基本使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jiang wang">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jw Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">nmap基本使用</h1>
+        
+
+        <div class="post-meta">
+            
+
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-09T15:39:17+08:00">
+                2019-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hacker/" itemprop="url" rel="index">
+                    <span itemprop="name">hacker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/9/nmap基本使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/9/nmap基本使用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/9/nmap基本使用/" class="leancloud_visitors" data-flag-title="nmap基本使用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Nmap 是个端口扫描器，这意味着它可以向一些指定 IP 的 TCP 或 UDP 端口发送封包，并检查是否有响应。如果有的话，这意味着端口是打开的，因此，端口上运行着服务</p>
+<p>Nmap代表Network Mapper，是一款用于网络探索和安全审计的开源工具，它与Kali Linux标准兼容，但也可用于Windows，OSX和许多其他UNIX平台。Nmap还有一个称为Zenmap的图形用户界面。</p>
+<a id="more"></a>
+<h4 id="打开端口扫描和操作系统检测"><a href="#打开端口扫描和操作系统检测" class="headerlink" title="打开端口扫描和操作系统检测"></a>打开端口扫描和操作系统检测</h4><p>使用以下命令确定活动主机：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sP <span class="number">192.168</span><span class="number">.0</span><span class="number">.0</span><span class="number">-100</span></span><br></pre></td></tr></table></figure>
+<p>使用以下命令在其中一个实时主机上启动带有操作系统检测的SYN扫描</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -<span class="built_in">sS</span> [<span class="built_in">IP</span>地址] -O</span><br></pre></td></tr></table></figure>
+<p>使用以下命令启动一个开放端口扫描和版本检测</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">nmap</span> <span class="selector-tag">-sV</span> 192<span class="selector-class">.168</span><span class="selector-class">.0</span><span class="selector-class">.1</span> <span class="selector-tag">-A</span></span><br></pre></td></tr></table></figure>
+<p>将-v添加到命令中时，可以增加冗长度</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">nmap</span> <span class="selector-tag">-sV</span> 192<span class="selector-class">.168</span><span class="selector-class">.0</span><span class="selector-class">.13</span> <span class="selector-tag">-A</span> <span class="selector-tag">-v</span></span><br></pre></td></tr></table></figure>
+<h4 id="服务器是否响应-ping，或者服务器是否打开"><a href="#服务器是否响应-ping，或者服务器是否打开" class="headerlink" title="服务器是否响应 ping，或者服务器是否打开"></a>服务器是否响应 ping，或者服务器是否打开</h4><p>使用-sn参数，我们让 Nmap 只检查是否服务器响应 ICMP 请求（或 ping）</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">nmap</span> <span class="selector-tag">-sn</span> 192<span class="selector-class">.168</span><span class="selector-class">.56</span><span class="selector-class">.102</span></span><br></pre></td></tr></table></figure>
+<h4 id="打开了哪些端口"><a href="#打开了哪些端口" class="headerlink" title="打开了哪些端口"></a>打开了哪些端口</h4><p>调用 Nmap 的最简方式，它只指定目标 IP。所做的事情是先 ping 服务器，如果它响应了，Nmap 会向 1000 个 TCP 端口列表发送探针，来观察哪个端口响应，之后报告响应端口的结果</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">nmap</span> 192<span class="selector-class">.168</span><span class="selector-class">.56</span><span class="selector-class">.102</span></span><br></pre></td></tr></table></figure>
+<h4 id="Nmap-向服务器询问正在运行的服务的版本，并且基于它猜测操作系统"><a href="#Nmap-向服务器询问正在运行的服务的版本，并且基于它猜测操作系统" class="headerlink" title="Nmap 向服务器询问正在运行的服务的版本，并且基于它猜测操作系统"></a>Nmap 向服务器询问正在运行的服务的版本，并且基于它猜测操作系统</h4><ul>
+<li><p>sV请求每个被发现的开放端口的标识（头部或者自我识别），这是它用作版本的东西。</p>
+</li>
+<li><p>O告诉 Nmap，尝试猜测运行在目标上的操作系统。使用开放端口和版本收集的信息。</p>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">nmap</span> <span class="selector-tag">-sV</span> <span class="selector-tag">-O</span> 192<span class="selector-class">.168</span><span class="selector-class">.56</span><span class="selector-class">.10</span></span><br></pre></td></tr></table></figure>
+<h4 id="更加清楚的查看这个端口，并且看看可以确认什么"><a href="#更加清楚的查看这个端口，并且看看可以确认什么" class="headerlink" title="更加清楚的查看这个端口，并且看看可以确认什么"></a>更加清楚的查看这个端口，并且看看可以确认什么</h4><p>使用此命令，让 nmap 在主机上的 FTP 端口（-p 21）上运行其默认脚本（-sC）</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sC <span class="number">192.168</span><span class="number">.56</span><span class="number">.102</span> -p <span class="number">21</span></span><br></pre></td></tr></table></figure>
+<h4 id="Nmap-包含了一些脚本，用于测试-WAF-的存在"><a href="#Nmap-包含了一些脚本，用于测试-WAF-的存在" class="headerlink" title="Nmap 包含了一些脚本，用于测试 WAF 的存在"></a>Nmap 包含了一些脚本，用于测试 WAF 的存在</h4><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map -p <span class="number">80</span>,<span class="number">443</span> --script=http-waf-detect <span class="number">192.168</span><span class="number">.56</span><span class="number">.102</span></span><br></pre></td></tr></table></figure>
+<h4 id="另一个-Nmap-脚本，可以帮助我们识别所使用的设备，并更加精确"><a href="#另一个-Nmap-脚本，可以帮助我们识别所使用的设备，并更加精确" class="headerlink" title="另一个 Nmap 脚本，可以帮助我们识别所使用的设备，并更加精确"></a>另一个 Nmap 脚本，可以帮助我们识别所使用的设备，并更加精确</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -<span class="selector-tag">p</span> <span class="number">80</span>,<span class="number">443</span> --script=http-waf-fingerprint www<span class="selector-class">.example</span><span class="selector-class">.com</span></span><br></pre></td></tr></table></figure>
+<h4 id="有一些其它的实用参数："><a href="#有一些其它的实用参数：" class="headerlink" title="有一些其它的实用参数："></a>有一些其它的实用参数：</h4><ul>
+<li>sT：通常，在 root 用户下运行 Nmap 时，它使用 SYN 扫描类型。使用这个参数，我们就强制让扫描器执行完全连接的扫描。它更慢，并且会在服务器的日志中留下记录，但是它不太可能被入侵检测系统检测到。</li>
+<li>Pn：如果我们已经知道了主机是活动的或者不响应 ping，我们可以使用这个参数告诉 Nmap 跳过 ping 测试，并扫描所有指定目标，假设它们是开启的。</li>
+<li>v：这会开启详细模式。Nmap 会展示更多关于它所做事情和得到回复的信息。参数可以在相同命令中重复多次：次数越多，就越详细（也就是说，-vv或-v -v -v -v）。</li>
+<li><p>p N1,N2,Nn：如果我们打算测试特定端口或一些非标准端口，我们可能想这个参数。N1到Nn是打算让 Nmap 扫描的端口。例如，要扫描端口 21，80 到 90，和 137，参数应为：-p 21,80-90,137。</p>
+</li>
+<li><p>–script=script_name：Nmap 包含很多实用的漏洞检测、扫描和识别、登录测试、命令执行、用户枚举以及其它脚本。使用这个参数来告诉 Nmap 在目标的开放端口上运行脚本。查看一些 Nmap 脚本，它们在：<a href="https://nmap.org/nsedoc/scripts/。" target="_blank" rel="noopener">https://nmap.org/nsedoc/scripts/。</a></p>
+</li>
+</ul>
+<h3 id="Nmap选项摘要"><a href="#Nmap选项摘要" class="headerlink" title="Nmap选项摘要"></a>Nmap选项摘要</h3><p><strong>用法：nmap [扫描类型] [选项] {目标规格}</strong></p>
+<h4 id="目标规格："><a href="#目标规格：" class="headerlink" title="目标规格："></a>目标规格：</h4><p>可以传递主机名，IP地址，网络等。<br>例如：scanme.nmap.org，microsoft.com/24,192.168.0.1; 10.0.0-255.1-254</p>
+<ul>
+<li>-iL <inputfilename>：从主机/网络列表中输入</inputfilename></li>
+<li>-iR <num hosts>：选择随机目标</num></li>
+<li>-exclude <host1 [，host2] [，host3]，…>：排除主机/网络</host1></li>
+<li>-excludefile &lt;exclude_file&gt;：从文件中排除列表</li>
+</ul>
+<h4 id="主机发现："><a href="#主机发现：" class="headerlink" title="主机发现："></a>主机发现：</h4><ul>
+<li>-sL：列表扫描 – 仅列出要扫描的目标</li>
+<li>-sn：Ping扫描 – 禁用端口扫描</li>
+<li>-Pn：将所有主机视为联机 – 跳过主机发现</li>
+<li>-PS / PA / PU / PY [portlist]：TCP SYN / ACK / UDP / SCTP发现到指定端口</li>
+<li>-PE / PP / PM：ICMP回显，时间戳和网络掩码请求发现探测</li>
+<li>-PO [协议列表]：IP协议Ping</li>
+<li>-n / -R：从不执行DNS解析/总是解析[默认：有时]</li>
+<li>-dns-servers <serv1 [，serv2]，…>：指定自定义DNS服务器</serv1></li>
+<li>-system-dns：使用操作系统的DNS解析器</li>
+<li>-traceroute：每个主机的跟踪跳转路径</li>
+</ul>
+<h4 id="SCAN技术："><a href="#SCAN技术：" class="headerlink" title="SCAN技术："></a>SCAN技术：</h4><ul>
+<li>-sS / sT / sA / sW / sM：TCP SYN / Connect（）/ ACK / Window / Maimon扫描</li>
+<li>-sU：UDP 扫描-sN</li>
+<li>/ sF / sX：TCP Null，FIN和Xmas扫描</li>
+<li>–scanflags &lt; flags&gt;：自定义TCP扫描标志</li>
+<li>-sI <zombie host [：probeport]>：空闲扫描</zombie></li>
+<li>-sY / sZ：SCTP INIT / COOKIE-ECHO扫描</li>
+<li>-sO：IP协议扫描</li>
+<li>-b &lt;FTP中继主机&gt;：FTP反弹扫描</li>
+</ul>
+<h4 id="端口规格和扫描-顺序：-p"><a href="#端口规格和扫描-顺序：-p" class="headerlink" title="端口规格和扫描 顺序：-p"></a>端口规格和扫描 顺序：-p</h4><p>&lt;端口范围&gt;：仅扫描指定的端口</p>
+<ul>
+<li>例如：-p22; -p1-65535; -p U：53,111,137，T：21-25,80,139,8080，S：9</li>
+<li>-exclude-ports &lt;端口范围&gt;：从扫描中排除指定端口</li>
+<li>-F：快速模式 – 扫描端口少于默认扫描</li>
+<li>-r：连续扫描端口 – 不随机化</li>
+<li>-top-ports <number>：扫描<number>最常用的端口</number></number></li>
+<li>-port-ratio <ratio>：扫描比<ratio></ratio></ratio></li>
+</ul>
+<h4 id="服务-版本检测："><a href="#服务-版本检测：" class="headerlink" title="服务/版本检测："></a>服务/版本检测：</h4><ul>
+<li>-sV：探测开放端口以确定服务/版本info</li>
+<li>-version-intensity <level>：设置从0（亮）到9（尝试所有探测器）</level></li>
+<li>-version-light：限制最可能的探测器2）</li>
+<li>-version-all：尝试每个探测器（强度9）</li>
+<li>-version-trace：显示详细版本的扫描活动（用于调试）</li>
+</ul>
+<h4 id="SCRIPT-SCAN："><a href="#SCRIPT-SCAN：" class="headerlink" title="SCRIPT SCAN："></a>SCRIPT SCAN：</h4><ul>
+<li>-sC：相当于-script =默认</li>
+<li>-script = &lt;Lua脚本&gt;：<lua scripts>是逗号分隔的</lua></li>
+<li>目录列表，脚本文件或脚本类别</li>
+<li>-script-args = <n1 = v1，[ n2="v2，…]">：为脚本提供参数</n1></li>
+<li>-script-args-file = filename：在文件中提供NSE脚本参数</li>
+<li>-script-trace：显示所有发送和接收的数据</li>
+<li>-script-updatedb：更新脚本数据库。</li>
+<li>-script-help = <lua scripts>：显示有关脚本的帮助。</lua></li>
+<li><lua scripts>是脚本文件或</lua></li>
+<li>脚本类别的逗号分隔列表。</li>
+</ul>
+<h4 id="操作系统检测："><a href="#操作系统检测：" class="headerlink" title="操作系统检测："></a>操作系统检测：</h4><ul>
+<li>-O：启用操作系统检测</li>
+<li>-osscan-limit：限制操作系统检测为有前途的目标</li>
+<li>-osscan-guess：猜测操作系统更积极</li>
+</ul>
+<h4 id="时间和性能："><a href="#时间和性能：" class="headerlink" title="时间和性能："></a>时间和性能：</h4><ul>
+<li>采用<code>&lt;time&gt;</code>的选项以秒为单位，或附加’ms’（毫秒），‘s’（秒），’m’（分钟）或’h’（小时） ）。</li>
+<li>-T <0-5>：设置定时模板（更高更快）</0-5></li>
+<li>-min-hostgroup / max-hostgroup <size>：并行主机扫描组大小</size></li>
+<li>-min-parallelism / max-parallelism <numprobes>：探针并行化</numprobes></li>
+<li>-min- rtt-timeout / max-rtt-timeout / initial-rtt-timeout <time>：指定</time></li>
+<li>探测往返时间。</li>
+<li>-max-retries <tries>：端口扫描探测器重新传输的大小数量。</tries></li>
+<li>-host-timeout <time>：在这个long</time></li>
+<li>-scan-delay 之后放弃目标/ -max-scan-delay <time>：调整探针之间的延迟</time></li>
+<li>-min-rate <number>：</number></li>
+<li>-max-rate <number>：发送数据包不超过每秒<number></number></number></li>
+</ul>
+<h4 id="防火墙-IDS消除和防盗："><a href="#防火墙-IDS消除和防盗：" class="headerlink" title="防火墙/ IDS消除和防盗："></a>防火墙/ IDS消除和防盗：</h4><ul>
+<li>-f; -mtu <val>：片段数据包（可选w / given MTU）</val></li>
+<li>-D &lt;decoy1，decoy2 [，ME]，…&gt;：用诱饵隐藏扫描</li>
+<li>-S &lt;IP_Address&gt;：欺骗源地址</li>
+<li>-e <iface>：使用指定的接口</iface></li>
+<li>-g / -source-port &lt;</li>
+<li>portnum &gt;：使用给定的端口号-proxies &lt;url1，[url2]，…&gt;：通过HTTP / SOCKS4代理服务器的中继连接</li>
+<li>-data &lt;十六进制字符串&gt;：将自定义有效内容附加到已发送数据包</li>
+<li>-data-string <string>：将自定义ASCII字符串附加到已发送数据包</string></li>
+<li>-data-length <num>：将随机数据附加到已发送数据包</num></li>
+<li>-ip-options &lt;选项&gt;：发送指定ip选项的数据包</li>
+<li>-ttl <val>：设置IP生存时间字段</val></li>
+<li>-spoof-mac &lt;</li>
+<li>-badsum：发送虚假TCP / UDP / SCTP校验和的数据包</li>
+</ul>
+<h4 id="OUTPUT"><a href="#OUTPUT" class="headerlink" title="OUTPUT"></a>OUTPUT</h4><ul>
+<li>-oN / -oX / -oS / -oG <file>：分别以正常，XML，s | &lt;rIpt kIddi3</file></li>
+<li>和Grepable格式输出扫描到给定的文件名。</li>
+<li>-oA <basename>：一次输出三种主要格式</basename></li>
+<li>-v：提高详细级别（使用-vv或更多以获得更大效果）</li>
+<li>-d：提高调试级别（使用-dd或更多以获得更大效果）</li>
+<li>-reason：Display端口处于特定状态的原因</li>
+<li>-open：只显示打开的（或可能打开的）端口</li>
+<li>-packet-trace：显示所有发送和接收的数据包</li>
+<li>-iflist：打印主机接口和路由（用于调试）</li>
+<li>-log-errors：Log错误/警告到正常格式的输出文件</li>
+<li>-append-output：附加到指定的输出文件而不是clobber</li>
+<li>-resume <filename>：恢复中止的扫描</filename></li>
+<li>-stylesheet &lt;path / URL&gt;：XSL样式表将XML输出转换为HTML</li>
+<li>-webxml：Nmap.Org的参考样式表，用于更多可移植的XML</li>
+<li>-no-stylesheet：防止关联XSL样式表w / XML输出</li>
+</ul>
+<h4 id="MISC："><a href="#MISC：" class="headerlink" title="MISC："></a>MISC：</h4><ul>
+<li>-6：启用IPv6扫描</li>
+<li>-A：启用OS检测，版本检测，脚本扫描和traceroute</li>
+<li>-datadir <dirname>：指定自定义Nmap数据文件位置</dirname></li>
+<li>-send-eth / -send-ip：使用原始以太网帧进行发送或IP数据包</li>
+<li>-privileged：假设用户具有完全特权</li>
+<li>-unprivileged：假定用户缺少原始套接字权限</li>
+<li>-V：打印版本号</li>
+<li>-h：打印此帮助摘要页面</li>
+</ul>
+<h4 id="另见"><a href="#另见" class="headerlink" title="另见"></a>另见</h4><p>虽然它最为流行，但是 Nmap 不是唯一可用的端口扫描器，并且，取决于不同的喜好，可能也不是最好的。下面是 Kali 中包含的一些其它的替代品：</p>
+<ul>
+<li>unicornscan</li>
+<li>hping3</li>
+<li>masscan</li>
+<li>amap</li>
+<li>Metasploit scanning module</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+<!--
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------我是有底线的-------------</div>
+    
+</div>
+
+      
+    </div>
+-->
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/tool/" rel="tag"><i class="fa fa-tag"></i> tool</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/9/sqlmap基本使用/" rel="next" title="sqlmap基本使用">
+                <i class="fa fa-chevron-left"></i> sqlmap基本使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/9/nmap脚本检测/" rel="prev" title="nmap脚本检测">
+                nmap脚本检测 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="jiang wang">
+            
+              <p class="site-author-name" itemprop="name">jiang wang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">文章</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+    <div class="links-of-blogroll-title">
+        <i class="fa fa-history fa-" aria-hidden="true"></i>
+        近期文章
+    </div>
+    <ul class="links-of-blogroll-list">
+        
+        
+        <li>
+            <a href="/2020/4/vue配置跨域代理/" title="vue配置跨域代理" target="_blank">vue配置跨域代理</a>
+        </li>
+        
+        <li>
+            <a href="/2020/4/Nginx访问控制/" title="Nginx访问控制" target="_blank">Nginx访问控制</a>
+        </li>
+        
+        <li>
+            <a href="/2020/4/平滑重启php-fpm/" title="平滑重启php-fpm" target="_blank">平滑重启php-fpm</a>
+        </li>
+        
+        <li>
+            <a href="/2020/3/Redis性能优化整理/" title="Redis性能优化整理" target="_blank">Redis性能优化整理</a>
+        </li>
+        
+        <li>
+            <a href="/2020/2/设置CentOS服务器IP地址/" title="设置CentOS服务器IP地址" target="_blank">设置CentOS服务器IP地址</a>
+        </li>
+        
+    </ul>
+    </div>
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#打开端口扫描和操作系统检测"><span class="nav-number">1.1.</span> <span class="nav-text">打开端口扫描和操作系统检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器是否响应-ping，或者服务器是否打开"><span class="nav-number">1.2.</span> <span class="nav-text">服务器是否响应 ping，或者服务器是否打开</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#打开了哪些端口"><span class="nav-number">1.3.</span> <span class="nav-text">打开了哪些端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nmap-向服务器询问正在运行的服务的版本，并且基于它猜测操作系统"><span class="nav-number">1.4.</span> <span class="nav-text">Nmap 向服务器询问正在运行的服务的版本，并且基于它猜测操作系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更加清楚的查看这个端口，并且看看可以确认什么"><span class="nav-number">1.5.</span> <span class="nav-text">更加清楚的查看这个端口，并且看看可以确认什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nmap-包含了一些脚本，用于测试-WAF-的存在"><span class="nav-number">1.6.</span> <span class="nav-text">Nmap 包含了一些脚本，用于测试 WAF 的存在</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#另一个-Nmap-脚本，可以帮助我们识别所使用的设备，并更加精确"><span class="nav-number">1.7.</span> <span class="nav-text">另一个 Nmap 脚本，可以帮助我们识别所使用的设备，并更加精确</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有一些其它的实用参数："><span class="nav-number">1.8.</span> <span class="nav-text">有一些其它的实用参数：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nmap选项摘要"><span class="nav-number">2.</span> <span class="nav-text">Nmap选项摘要</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#目标规格："><span class="nav-number">2.1.</span> <span class="nav-text">目标规格：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主机发现："><span class="nav-number">2.2.</span> <span class="nav-text">主机发现：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SCAN技术："><span class="nav-number">2.3.</span> <span class="nav-text">SCAN技术：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#端口规格和扫描-顺序：-p"><span class="nav-number">2.4.</span> <span class="nav-text">端口规格和扫描 顺序：-p</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务-版本检测："><span class="nav-number">2.5.</span> <span class="nav-text">服务/版本检测：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SCRIPT-SCAN："><span class="nav-number">2.6.</span> <span class="nav-text">SCRIPT SCAN：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#操作系统检测："><span class="nav-number">2.7.</span> <span class="nav-text">操作系统检测：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#时间和性能："><span class="nav-number">2.8.</span> <span class="nav-text">时间和性能：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#防火墙-IDS消除和防盗："><span class="nav-number">2.9.</span> <span class="nav-text">防火墙/ IDS消除和防盗：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OUTPUT"><span class="nav-number">2.10.</span> <span class="nav-text">OUTPUT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MISC："><span class="nav-number">2.11.</span> <span class="nav-text">MISC：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#另见"><span class="nav-number">2.12.</span> <span class="nav-text">另见</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jiang wang</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">39.9k</span>
+  
+</div>
+
+<!-- 注释掉底部说明
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+-->
+
+<!--
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'SJyyMLNz390B9X2k9tbsmUuU-gzGzoHsz',
+        appKey: 'OxRktB3EvJLfUzNDRR8MzIfa',
+        placeholder: 'The best things in the world is freedom of speech',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("SJyyMLNz390B9X2k9tbsmUuU-gzGzoHsz", "OxRktB3EvJLfUzNDRR8MzIfa");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+
+<!-- <script type="text/javascript" src="/js/src/crash_cheat.js"></script> -->
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+</html>
