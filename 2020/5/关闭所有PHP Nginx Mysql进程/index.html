@@ -100,18 +100,18 @@
 
 
 
-<meta name="description" content="前言有时需要关闭程序的所有进程 关闭PHP进程1kill $(ps aux | grep &apos;[p]hp&apos; | awk &apos;&amp;#123;print $2&amp;#125;&apos;) 关闭Nginx进程1kill $(ps aux | grep &apos;[n]ginx&apos; | awk &apos;&amp;#123;print $2&amp;#125;&apos;) 关闭Mysql进程1kill $(ps aux | grep &apos;[m]ysql&apos; | awk">
+<meta name="description" content="前言有时需要关闭程序的所有进程">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关闭所有PHP Nginx Mysql进程">
 <meta property="og:url" content="http://yoursite.com/2020/5/关闭所有PHP Nginx Mysql进程/index.html">
 <meta property="og:site_name" content="Jw Blog">
-<meta property="og:description" content="前言有时需要关闭程序的所有进程 关闭PHP进程1kill $(ps aux | grep &apos;[p]hp&apos; | awk &apos;&amp;#123;print $2&amp;#125;&apos;) 关闭Nginx进程1kill $(ps aux | grep &apos;[n]ginx&apos; | awk &apos;&amp;#123;print $2&amp;#125;&apos;) 关闭Mysql进程1kill $(ps aux | grep &apos;[m]ysql&apos; | awk">
+<meta property="og:description" content="前言有时需要关闭程序的所有进程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-18T10:52:01.939Z">
+<meta property="og:updated_time" content="2020-05-18T10:59:41.058Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关闭所有PHP Nginx Mysql进程">
-<meta name="twitter:description" content="前言有时需要关闭程序的所有进程 关闭PHP进程1kill $(ps aux | grep &apos;[p]hp&apos; | awk &apos;&amp;#123;print $2&amp;#125;&apos;) 关闭Nginx进程1kill $(ps aux | grep &apos;[n]ginx&apos; | awk &apos;&amp;#123;print $2&amp;#125;&apos;) 关闭Mysql进程1kill $(ps aux | grep &apos;[m]ysql&apos; | awk">
+<meta name="twitter:description" content="前言有时需要关闭程序的所有进程">
 
 
 
@@ -479,6 +479,7 @@
 
       
         <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>有时需要关闭程序的所有进程</p>
+<a id="more"></a>
 <h3 id="关闭PHP进程"><a href="#关闭PHP进程" class="headerlink" title="关闭PHP进程"></a>关闭PHP进程</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> $(ps aux | grep <span class="string">'[p]hp'</span> | awk <span class="string">'&#123;print $2&#125;'</span>)</span><br></pre></td></tr></table></figure>
 <h3 id="关闭Nginx进程"><a href="#关闭Nginx进程" class="headerlink" title="关闭Nginx进程"></a>关闭Nginx进程</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> $(ps aux | grep <span class="string">'[n]ginx'</span> | awk <span class="string">'&#123;print $2&#125;'</span>)</span><br></pre></td></tr></table></figure>
 <h3 id="关闭Mysql进程"><a href="#关闭Mysql进程" class="headerlink" title="关闭Mysql进程"></a>关闭Mysql进程</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> $(ps aux | grep <span class="string">'[m]ysql'</span> | awk <span class="string">'&#123;print $2&#125;'</span>)</span><br></pre></td></tr></table></figure>
