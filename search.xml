@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Mysql8修改事务隔离级别]]></title>
+    <url>%2F2020%2F6%2FMysql8%E4%BF%AE%E6%94%B9%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%2F</url>
+    <content type="text"><![CDATA[前言代码出现了bug，经查是mysql隔离级别引起的脏读，将数据库隔离级别改为更适合线上业务的读提交 查看事务隔离级别MySQL8中隔离级别的变量跟之前的版本不一样，之前是tx_isolation，MySQL8改成了transaction_isolation 1mysql&gt; show variables like 'transaction%'; 或 1mysql&gt; select @@transaction_isolation; 修改事务隔离级别由低到高分别为 read uncommitted（读未提交） read committed（读提交） repeatable read（重复读） Serializable（序列化） 设置本次会话的事务隔离级别，只在本会话有效，不会影响到其它会话 1mysql&gt; set session transaction isolation level read committed; 设置全局的事务隔离级别，该设置不会影响当前已经连接的会话，新打开的会话，将使用新设置的事务隔离级别 1mysql&gt; set global transaction isolation level read committed; 设置下一次事务操作的隔离级别，该设置会随着下一次事务的提交而失效 重启后继续生效修改my.ini 123[mysqld]transaction-isolation = REPEATABLE-READtransaction-read-only = OFF]]></content>
+      <categories>
+        <category>mysql</category>
+      </categories>
+      <tags>
+        <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[关闭所有PHP Nginx Mysql进程]]></title>
     <url>%2F2020%2F5%2F%E5%85%B3%E9%97%AD%E6%89%80%E6%9C%89PHP%20Nginx%20Mysql%E8%BF%9B%E7%A8%8B%2F</url>
     <content type="text"><![CDATA[前言有时需要关闭程序的所有进程 关闭PHP进程1kill $(ps aux | grep '[p]hp' | awk '&#123;print $2&#125;') 关闭Nginx进程1kill $(ps aux | grep '[n]ginx' | awk '&#123;print $2&#125;') 关闭Mysql进程1kill $(ps aux | grep '[m]ysql' | awk '&#123;print $2&#125;')]]></content>

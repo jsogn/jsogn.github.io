@@ -89,7 +89,7 @@
 
 
 
-  <meta name="keywords" content="linux,">
+  <meta name="keywords" content="mysql,">
 
 
 
@@ -100,18 +100,18 @@
 
 
 
-<meta name="description" content="前言有时需要关闭程序的所有进程">
-<meta name="keywords" content="linux">
+<meta name="description" content="前言代码出现了bug，经查是mysql隔离级别引起的脏读，将数据库隔离级别改为更适合线上业务的读提交">
+<meta name="keywords" content="mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关闭所有PHP Nginx Mysql进程">
-<meta property="og:url" content="http://yoursite.com/2020/5/关闭所有PHP Nginx Mysql进程/index.html">
+<meta property="og:title" content="Mysql8修改事务隔离级别">
+<meta property="og:url" content="http://yoursite.com/2020/6/Mysql8修改事务隔离级别/index.html">
 <meta property="og:site_name" content="Jw Blog">
-<meta property="og:description" content="前言有时需要关闭程序的所有进程">
+<meta property="og:description" content="前言代码出现了bug，经查是mysql隔离级别引起的脏读，将数据库隔离级别改为更适合线上业务的读提交">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-18T10:59:41.058Z">
+<meta property="og:updated_time" content="2020-06-28T11:12:33.487Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关闭所有PHP Nginx Mysql进程">
-<meta name="twitter:description" content="前言有时需要关闭程序的所有进程">
+<meta name="twitter:title" content="Mysql8修改事务隔离级别">
+<meta name="twitter:description" content="前言代码出现了bug，经查是mysql隔离级别引起的脏读，将数据库隔离级别改为更适合线上业务的读提交">
 
 
 
@@ -141,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/5/关闭所有PHP Nginx Mysql进程/">
+  <link rel="canonical" href="http://yoursite.com/2020/6/Mysql8修改事务隔离级别/">
 
 
 
 
 
-  <title>关闭所有PHP Nginx Mysql进程 | Jw Blog</title>
+  <title>Mysql8修改事务隔离级别 | Jw Blog</title>
   
 
 
@@ -334,7 +334,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/5/关闭所有PHP Nginx Mysql进程/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/6/Mysql8修改事务隔离级别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jiang wang">
@@ -351,7 +351,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">关闭所有PHP Nginx Mysql进程</h1>
+          <h1 class="post-title" itemprop="name headline">Mysql8修改事务隔离级别</h1>
         
 
         <div class="post-meta">
@@ -365,8 +365,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-18T18:51:15+08:00">
-                2020-05-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-28T19:00:14+08:00">
+                2020-06-28
               </time>
             
 
@@ -388,8 +388,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/mysql/" itemprop="url" rel="index">
+                    <span itemprop="name">mysql</span>
                   </a>
                 </span>
 
@@ -406,8 +406,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/5/关闭所有PHP Nginx Mysql进程/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/5/关闭所有PHP Nginx Mysql进程/" itemprop="commentCount"></span>
+                <a href="/2020/6/Mysql8修改事务隔离级别/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/6/Mysql8修改事务隔离级别/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -415,7 +415,7 @@
 
           
           
-             <span id="/2020/5/关闭所有PHP Nginx Mysql进程/" class="leancloud_visitors" data-flag-title="关闭所有PHP Nginx Mysql进程">
+             <span id="/2020/6/Mysql8修改事务隔离级别/" class="leancloud_visitors" data-flag-title="Mysql8修改事务隔离级别">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -441,7 +441,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  60
+                  266
                 </span>
               
 
@@ -478,11 +478,27 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>有时需要关闭程序的所有进程</p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>代码出现了bug，经查是mysql隔离级别引起的脏读，将数据库隔离级别改为更适合线上业务的读提交</p>
 <a id="more"></a>
-<h3 id="关闭PHP进程"><a href="#关闭PHP进程" class="headerlink" title="关闭PHP进程"></a>关闭PHP进程</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> $(ps aux | grep <span class="string">'[p]hp'</span> | awk <span class="string">'&#123;print $2&#125;'</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="关闭Nginx进程"><a href="#关闭Nginx进程" class="headerlink" title="关闭Nginx进程"></a>关闭Nginx进程</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> $(ps aux | grep <span class="string">'[n]ginx'</span> | awk <span class="string">'&#123;print $2&#125;'</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="关闭Mysql进程"><a href="#关闭Mysql进程" class="headerlink" title="关闭Mysql进程"></a>关闭Mysql进程</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> $(ps aux | grep <span class="string">'[m]ysql'</span> | awk <span class="string">'&#123;print $2&#125;'</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="查看事务隔离级别"><a href="#查看事务隔离级别" class="headerlink" title="查看事务隔离级别"></a>查看事务隔离级别</h3><p>MySQL8中隔离级别的变量跟之前的版本不一样，之前是tx_isolation，MySQL8改成了transaction_isolation</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like <span class="string">'transaction%'</span>;</span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select @@transaction_isolation;</span><br></pre></td></tr></table></figure>
+<h3 id="修改事务隔离级别"><a href="#修改事务隔离级别" class="headerlink" title="修改事务隔离级别"></a>修改事务隔离级别</h3><p>由低到高分别为</p>
+<ul>
+<li>read uncommitted（读未提交）</li>
+<li>read committed（读提交）</li>
+<li>repeatable read（重复读）</li>
+<li>Serializable（序列化）</li>
+</ul>
+<p>设置本次会话的事务隔离级别，只在本会话有效，不会影响到其它会话</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="built_in">set</span> session transaction isolation level <span class="built_in">read</span> committed;</span><br></pre></td></tr></table></figure>
+<p>设置全局的事务隔离级别，该设置不会影响当前已经连接的会话，新打开的会话，将使用新设置的事务隔离级别</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="built_in">set</span> global transaction isolation level <span class="built_in">read</span> committed;</span><br></pre></td></tr></table></figure>
+<p>设置下一次事务操作的隔离级别，该设置会随着下一次事务的提交而失效</p>
+<h3 id="重启后继续生效"><a href="#重启后继续生效" class="headerlink" title="重启后继续生效"></a>重启后继续生效</h3><p>修改my.ini</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[mysqld]</span></span><br><span class="line"><span class="attr">transaction-isolation</span> = REPEATABLE-READ</span><br><span class="line"><span class="attr">transaction-read-only</span> = <span class="literal">OFF</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -511,7 +527,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag"><i class="fa fa-tag"></i> linux</a>
+            <a href="/tags/mysql/" rel="tag"><i class="fa fa-tag"></i> mysql</a>
           
         </div>
       
@@ -524,8 +540,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/4/vue配置跨域代理/" rel="next" title="vue配置跨域代理">
-                <i class="fa fa-chevron-left"></i> vue配置跨域代理
+              <a href="/2020/5/关闭所有PHP Nginx Mysql进程/" rel="next" title="关闭所有PHP Nginx Mysql进程">
+                <i class="fa fa-chevron-left"></i> 关闭所有PHP Nginx Mysql进程
               </a>
             
           </div>
@@ -533,10 +549,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/6/Mysql8修改事务隔离级别/" rel="prev" title="Mysql8修改事务隔离级别">
-                Mysql8修改事务隔离级别 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -704,7 +716,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭PHP进程"><span class="nav-number">2.</span> <span class="nav-text">关闭PHP进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭Nginx进程"><span class="nav-number">3.</span> <span class="nav-text">关闭Nginx进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关闭Mysql进程"><span class="nav-number">4.</span> <span class="nav-text">关闭Mysql进程</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看事务隔离级别"><span class="nav-number">2.</span> <span class="nav-text">查看事务隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改事务隔离级别"><span class="nav-number">3.</span> <span class="nav-text">修改事务隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重启后继续生效"><span class="nav-number">4.</span> <span class="nav-text">重启后继续生效</span></a></li></ol></div>
             
 
           </div>
