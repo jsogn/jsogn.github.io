@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="Jw Blog">
 <meta property="og:description" content="前言以前都是用的破解版，今天想支持一下正版，到官网下载了最新版的IDEA，安装成功后发现无法正常启动，记录一下本次发现的坑">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-11-21T11:21:42.207Z">
+<meta property="og:updated_time" content="2020-11-21T11:35:57.469Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IDEA无法正常启动">
 <meta name="twitter:description" content="前言以前都是用的破解版，今天想支持一下正版，到官网下载了最新版的IDEA，安装成功后发现无法正常启动，记录一下本次发现的坑">
@@ -441,7 +441,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  289
+                  285
                 </span>
               
 
@@ -482,14 +482,14 @@
 <a id="more"></a>
 <h3 id="排查"><a href="#排查" class="headerlink" title="排查"></a>排查</h3><p>将 <code>/Applications/IntelliJ IDEA.app/Contents/MacOS/idea</code> 文件拖到命令行，观察日志输出</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Error opening zip file or JAR manifest missing : /Applications/IntelliJ IDEA.app/Contents/lib/jetbrains-agent.jar</span><br><span class="line">Error occurred during initialization of VM</span><br><span class="line">agent library failed to init: instrument</span><br></pre></td></tr></table></figure>
-<p>通过错误得知，是该lib目录下缺少了一个文件，官网下载的包里是没有包含这个文件的所以导致了无法读取错误</p>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>应将是以前下载的破解版导致的，破解版里面包含这个文件，官网的版本覆盖后这个文件就不存在了</p>
+<p>通过错误得知，是该lib目录下缺少了一个文件，官网下载的包里是没有包含这个文件的所以无法读取</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>应该是以前下载的破解版导致的，破解版里面包含这个文件，官网的版本覆盖后这个文件就不存在了</p>
 <ul>
 <li>找到 <code>/Library/Application Support/JetBrains</code> 目录</li>
 <li>找到当前版本的目录，我的是 <code>IntelliJIdea2020.2</code></li>
 <li>打开 <code>idea.vmoptions</code> 文件，删除有关 <code>jetbrains-agent.jar</code> 文件的这一条</li>
 </ul>
-<p>通过以上方法解决后，就可以顺利打开软件了，如果使用过破解版就可能会有此类问题，如果不了解的话还是会浪费很多时间的</p>
+<p>通过以上方法解决后，就可以顺利打开软件了，如果之前使用过破解版就可能有此类问题，如果不了解的话还是会浪费很多时间的</p>
 
       
     </div>
