@@ -89,7 +89,7 @@
 
 
 
-  <meta name="keywords" content="php,mac,">
+  <meta name="keywords" content="mac,php,">
 
 
 
@@ -101,7 +101,7 @@
 
 
 <meta name="description" content="在 Mac 下做 PHP 开发用的是 MAMP 集成开发环境，出现 PHP 不支持 pcntl 扩展，查下谷歌发现 MAMP 的集成环境是没有这个扩展包的，需要手动编译安装这个包。 具体步骤123456789101112131415161718# 下载源码包wget http://cn.php.net/distributions/php-7.2.1.tar.gz# 解压tar zxvf php-7">
-<meta name="keywords" content="php,mac">
+<meta name="keywords" content="mac,php">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mac 安装 PHP 扩展 pcntl">
 <meta property="og:url" content="http://yoursite.com/2019/5/Mac安装PHP扩展之pcntl/index.html">
@@ -479,7 +479,7 @@
 
       
         <p>在 Mac 下做 PHP 开发用的是 MAMP 集成开发环境，出现 PHP 不支持 pcntl 扩展，查下谷歌发现 MAMP 的集成环境是没有这个扩展包的，需要手动编译安装这个包。</p>
-<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载源码包</span></span><br><span class="line">wget http://cn.php.net/distributions/php-7.2.1.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 解压</span></span><br><span class="line">tar zxvf php-7.2.1.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入文件执行编译</span></span><br><span class="line">cd php-7.2.1/ext/pcntl</span><br><span class="line">phpize</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 拷贝编译.so文件到MAMP extensions目录(具体的文件夹看自己的目录哦)</span></span><br><span class="line">cp modules/pcntl.so /Applications/MAMP/bin/php/php7.2.1/lib/php/extensions/no-debug-non-zts-20170718</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 编辑php.ini引入扩展</span></span><br><span class="line">echo "extension=pcntl.so" &gt;&gt; /Applications/MAMP/bin/php/php7.2.1/conf/php.ini</span><br></pre></td></tr></table></figure>
+<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span> 下载源码包</span><br><span class="line">wget http://cn.php.net/distributions/php-7.2.1.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 解压</span><br><span class="line">tar zxvf php-7.2.1.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 进入文件执行编译</span><br><span class="line">cd php-7.2.1/ext/pcntl</span><br><span class="line">phpize</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 拷贝编译.so文件到MAMP extensions目录(具体的文件夹看自己的目录哦)</span><br><span class="line">cp modules/pcntl.so /Applications/MAMP/bin/php/php7.2.1/lib/php/extensions/no-debug-non-zts-20170718</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 编辑php.ini引入扩展</span><br><span class="line">echo "extension=pcntl.so" &gt;&gt; /Applications/MAMP/bin/php/php7.2.1/conf/php.ini</span><br></pre></td></tr></table></figure>
 <h3 id="检查是否安装成功"><a href="#检查是否安装成功" class="headerlink" title="检查是否安装成功"></a>检查是否安装成功</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">php --ri pcntl</span><br></pre></td></tr></table></figure>
 
       
@@ -510,9 +510,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/php/" rel="tag"><i class="fa fa-tag"></i> php</a>
-          
             <a href="/tags/mac/" rel="tag"><i class="fa fa-tag"></i> mac</a>
+          
+            <a href="/tags/php/" rel="tag"><i class="fa fa-tag"></i> php</a>
           
         </div>
       
@@ -615,7 +615,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">文章</span>
                 </a>
               </div>
@@ -626,7 +626,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -637,7 +637,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -665,6 +665,10 @@
         
         
         <li>
+            <a href="/2020/11/IDEA无法正常启动/" title="IDEA无法正常启动" target="_blank">IDEA无法正常启动</a>
+        </li>
+        
+        <li>
             <a href="/2020/6/Mysql8修改事务隔离级别/" title="Mysql8修改事务隔离级别" target="_blank">Mysql8修改事务隔离级别</a>
         </li>
         
@@ -678,10 +682,6 @@
         
         <li>
             <a href="/2020/4/Nginx访问控制/" title="Nginx访问控制" target="_blank">Nginx访问控制</a>
-        </li>
-        
-        <li>
-            <a href="/2020/4/平滑重启php-fpm/" title="平滑重启php-fpm" target="_blank">平滑重启php-fpm</a>
         </li>
         
     </ul>
@@ -737,7 +737,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">40.2k</span>
+    <span title="Site words total count">40.5k</span>
   
 </div>
 
