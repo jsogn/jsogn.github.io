@@ -1,37 +1,1543 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("/");
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="google," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言Google hacker (Google黑客)是利用GOOGLE提供的搜索功能查找黑客们想找到的信息，一般是查找网站后台，网管的个人信息，也可以用来查找某人在网络上的活动 Google hacker 一般是做为黑客在入侵时的一个手段，在入侵过程中有时需要查找后台的登陆口就需要用到GOOGLE HACKER，有时猜解密码的时候google也是提供查找管理员资料的有效平台">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GoogleHacking">
+<meta property="og:url" content="http://yoursite.com/2019/9/GoogleHacking/index.html">
+<meta property="og:site_name" content="Jw Blog">
+<meta property="og:description" content="前言Google hacker (Google黑客)是利用GOOGLE提供的搜索功能查找黑客们想找到的信息，一般是查找网站后台，网管的个人信息，也可以用来查找某人在网络上的活动 Google hacker 一般是做为黑客在入侵时的一个手段，在入侵过程中有时需要查找后台的登陆口就需要用到GOOGLE HACKER，有时猜解密码的时候google也是提供查找管理员资料的有效平台">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-09-06T11:48:00.905Z">
+<meta property="article:modified_time" content="2020-04-12T06:34:43.626Z">
+<meta property="article:author" content="jiang wang">
+<meta property="article:tag" content="google">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/9/GoogleHacking/"/>
+
+
+
+
+
+  <title>GoogleHacking | Jw Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jw Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-bookmark">
+          <a href="/bookmark/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-bookmark"></i> <br />
+            
+            书签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "0d952de7"
+    });
+  daovoice('update');
+  </script>
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/9/GoogleHacking/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jw Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GoogleHacking</h1>
+        
+
+        <div class="post-meta">
+            
+
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-06T19:48:00+08:00">
+                2019-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/hacker/" itemprop="url" rel="index">
+                    <span itemprop="name">hacker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/9/GoogleHacking/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/9/GoogleHacking/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2019/9/GoogleHacking/" class="leancloud_visitors" data-flag-title="GoogleHacking">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+                 <span>℃</span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Google hacker (Google黑客)是利用GOOGLE提供的搜索功能查找黑客们想找到的信息，一般是查找网站后台，网管的个人信息，也可以用来查找某人在网络上的活动</p>
+<p>Google hacker 一般是做为黑客在入侵时的一个手段，在入侵过程中有时需要查找后台的登陆口就需要用到GOOGLE HACKER，有时猜解密码的时候google也是提供查找管理员资料的有效平台</p>
+<span id="more"></span>
+
+<h3 id="常用语法"><a href="#常用语法" class="headerlink" title="常用语法"></a>常用语法</h3><h4 id="intext"><a href="#intext" class="headerlink" title="intext"></a>intext</h4><p>这个就是把网页中的正文内容中的某个字符做为搜索条件，例如在google里输入<code>intext:动漫</code>，将返回所有在网页正文部分包含”动漫”的网页，<code>allintext:</code>使用方法和<code>intext</code>类似</p>
+<h4 id="intitle"><a href="#intitle" class="headerlink" title="intitle"></a>intitle</h4><p>和intext差不多，搜索网页标题中是否有所要找的字符，例如搜索:<code>intitle:安全天使</code>，将返回所有网页标题中包含”安全天使”的网页，同理<code>allintitle:</code>也同<code>intitle</code>类似</p>
+<h4 id="cache"><a href="#cache" class="headerlink" title="cache"></a>cache</h4><p>搜索google里关于某些内容的缓存，也许能找到一些好东西</p>
+<h4 id="define"><a href="#define" class="headerlink" title="define"></a>define</h4><p>搜索某个词语的定义，搜索:<code>define:hacker</code>，将返回关于hacker的定义</p>
+<h4 id="filetype"><a href="#filetype" class="headerlink" title="filetype"></a>filetype</h4><p>搜索指定类型的文件，撒网式攻击还是对特定目标进行信息收集都需要用到这个，例如输入:<code>filetype:doc</code>，将返回所有以doc结尾的文件URL，如果找.bak、.mdb或.inc也是可以的，获得的信息也许会更丰富</p>
+<h4 id="info"><a href="#info" class="headerlink" title="info"></a>info</h4><p>查找指定站点的一些基本信息</p>
+<h4 id="inurl"><a href="#inurl" class="headerlink" title="inurl"></a>inurl</h4><p>搜索:<code>inurl:www.123.net</code>可以返回所有和<code>www.123.net</code>做了链接的URL</p>
+<h4 id="site"><a href="#site" class="headerlink" title="site"></a>site</h4><p>搜索:<code>site:www.123.net</code>，将返回所有和123.net这个站有关的URL</p>
+<p>还有一些操作符也是很有用的:</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">– 把某个字忽略</span><br><span class="line"></span><br><span class="line">~ 同意词</span><br><span class="line"></span><br><span class="line"><span class="bullet">. </span>单一的通配符</span><br><span class="line"></span><br><span class="line">“” 精确查询</span><br></pre></td></tr></table></figure>
+
+<h3 id="典型用法"><a href="#典型用法" class="headerlink" title="典型用法"></a>典型用法</h3><ul>
+<li>找管理后台地址</li>
+</ul>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">site:</span>xxx.com intext：管理后台登陆用户名密码系統账号</span><br><span class="line"><span class="symbol"></span></span><br><span class="line"><span class="symbol">site:</span>xxx.com inurl: login<span class="meta-keyword">/admin/</span>manage<span class="meta-keyword">/manager/</span>adminlogin/system </span><br><span class="line"><span class="symbol"></span></span><br><span class="line"><span class="symbol">site:</span>xxx.com intitle 管理后台登陆</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>找上传类漏洞地址：</li>
+</ul>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">site:xxx.<span class="keyword">com</span> inur<span class="variable">l:file</span> </span><br><span class="line"></span><br><span class="line">site:xxx.<span class="keyword">com</span> inur<span class="variable">l:upload</span> </span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>找注入页面</li>
+</ul>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">site:xxx.<span class="keyword">com</span> inur<span class="variable">l:php</span>?id=</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>找编辑器页面</li>
+</ul>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">site:xxx.<span class="keyword">com</span> inur<span class="variable">l:ewebeditor</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h3><p>对于攻击者来说，可能最感兴趣的就是密码文件了，而google正因为其强大的搜索能力往往会把一些敏感信息透露出来，用google搜索以下内容</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">intitle:</span>”index of” etc</span><br><span class="line"></span><br><span class="line"><span class="symbol">intitle:</span>”Index of” .sh_history</span><br><span class="line"></span><br><span class="line"><span class="symbol">intitle:</span>”Index of” .bash_history</span><br><span class="line"></span><br><span class="line"><span class="symbol">intitle:</span>”index of” passwd</span><br><span class="line"></span><br><span class="line"><span class="symbol">intitle:</span>”index of” people.lst</span><br><span class="line"></span><br><span class="line"><span class="symbol">intitle:</span>”index of” pwd<span class="meta">.db</span></span><br><span class="line"></span><br><span class="line"><span class="symbol">intitle:</span>”index of” etc/shadow</span><br><span class="line"></span><br><span class="line"><span class="symbol">intitle:</span>”index of” spwd</span><br><span class="line"></span><br><span class="line"><span class="symbol">intitle:</span>”index of” master.passwd</span><br><span class="line"></span><br><span class="line"><span class="symbol">intitle:</span>”index of” htpasswd</span><br><span class="line"></span><br><span class="line">“<span class="meta"># -FrontPage-” inurl:service.pwd</span></span><br></pre></td></tr></table></figure>
+
+
+<p>同样可以用google来搜索一些具有漏洞的程序，例如ZeroBoard前段时间发现个文件代码泄露漏洞，我们可以用google来找网上使用这套程序的站点:</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">intext</span>:<span class="type">ZeroBoard</span> file<span class="keyword">type</span>:php</span><br></pre></td></tr></table></figure>
+
+<p>或者使用:</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">inurl:</span>　outlogin.php?_zb_path= site:.jp</span><br></pre></td></tr></table></figure>
+
+
+<p>phpmyadmin是一套功能强大的数据库操作软件，一些站点由于配置失误，导致可以不使用密码直接对phpmyadmin进行操作，可以用google搜索存在这样漏洞的程序</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">intitle:phpmyadmin intext:<span class="keyword">Create</span> <span class="built_in">new</span> <span class="keyword">database</span></span><br></pre></td></tr></table></figure>
+
+<p>可以用google来搜索数据库文件，用上一些语法来精确查找能够获得更多东西(access的数据库,mssql、mysql的连接文件等等)</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">allinur<span class="variable">l:bbs</span> data</span><br><span class="line"></span><br><span class="line"><span class="keyword">filetype</span>:mdb inur<span class="variable">l:database</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">filetype</span>:inc conn</span><br><span class="line"></span><br><span class="line">inur<span class="variable">l:data</span> <span class="keyword">filetype</span>:mdb</span><br><span class="line"></span><br><span class="line">intitle:”<span class="built_in">index</span> of” data //在一些配置不正确的apache+win32的服务器上经常出现这种情况</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="实战演示"><a href="#实战演示" class="headerlink" title="实战演示"></a>实战演示</h3><p>利用google完全是可以对一个站点进行信息收集和渗透的，下面用google对特定站点进行一次测试</p>
+<p>首先用google先看这个站点的一些基本情况</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">site:</span>xxxx.com</span><br></pre></td></tr></table></figure>
+
+<p>从返回的信息中，找到几个该校的几个系院的域名：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//</span>a1.xxxx.com</span><br><span class="line"></span><br><span class="line">http:<span class="regexp">//</span>a2.xxxx.com</span><br><span class="line"></span><br><span class="line">http:<span class="regexp">//</span>a3.xxxx.com</span><br><span class="line"></span><br><span class="line">http:<span class="regexp">//</span>a4.xxxx.com</span><br></pre></td></tr></table></figure>
+
+<p>顺便ping了一下，应该是在不同的服务器，学校一般都会有不少好的资料</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">site</span>:xxxx.com file<span class="keyword">type</span>:doc</span><br></pre></td></tr></table></figure>
+
+
+<p>得到N个不错的doc。先找找网站的管理后台地址：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">site:xxxx.<span class="keyword">com</span> intex<span class="variable">t:</span>管理</span><br><span class="line"></span><br><span class="line">site:xxxx.<span class="keyword">com</span> inur<span class="variable">l:login</span></span><br><span class="line"></span><br><span class="line">site:xxxx.<span class="keyword">com</span> intitle:管理</span><br></pre></td></tr></table></figure>
+
+<p>超过获得2个管理后台地址：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//</span>a2.xxxx.com<span class="regexp">/sys/</span>admin_login.asp</span><br><span class="line"></span><br><span class="line">http:<span class="regexp">//</span>a3.xxxx.com:<span class="number">88</span><span class="regexp">/_admin/</span>login_in.asp</span><br></pre></td></tr></table></figure>
+
+
+<p>看看服务器上跑的是什么程序：</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">site</span>:a2.xxxx.com file<span class="keyword">type</span>:asp</span><br><span class="line"></span><br><span class="line"><span class="title">site</span>:a2.xxxx.com file<span class="keyword">type</span>:php</span><br><span class="line"></span><br><span class="line"><span class="title">site</span>:a2.xxxx.com file<span class="keyword">type</span>:aspx</span><br><span class="line"></span><br><span class="line"><span class="title">site</span>:a3.xxxx.com file<span class="keyword">type</span>:asp</span><br></pre></td></tr></table></figure>
+
+
+<p>a2服务器用的应该是IIS，上面用的是asp的整站程序，还有一个php的论坛</p>
+<p>a3服务器也是IIS，aspx+asp。web程序都应该是自己开发的。有论坛那就看看能不能遇见什么公共的FTP帐号什么的：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">site:a2<span class="selector-class">.xxxx</span><span class="selector-class">.com</span> intext:ftp:<span class="comment">//:</span></span><br></pre></td></tr></table></figure>
+
+<p>再看看有没有上传一类的漏洞：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">site:a2<span class="selector-class">.xxxx</span><span class="selector-class">.com</span> inurl:file</span><br><span class="line"></span><br><span class="line">site:a3<span class="selector-class">.xxxx</span><span class="selector-class">.com</span> inurl:load</span><br></pre></td></tr></table></figure>
+
+<p>在a2上发现一个上传文件的页面：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="regexp">//</span>a2.xxxx.com<span class="regexp">/sys/u</span>ploadfile.asp</span><br></pre></td></tr></table></figure>
+
+<p>用IE看了一下，没权限访问。试试注射</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">site</span>:a2.xxxx.com file<span class="keyword">type</span>:asp</span><br></pre></td></tr></table></figure>
+
+<p>一般学校的站点的密码都比较有规律，通常都是域名+电话一类的变形</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">site:xxxx<span class="selector-class">.com</span> <span class="comment">//得到N个二级域名</span></span><br><span class="line"></span><br><span class="line">site:xxxx<span class="selector-class">.com</span> intext:@xxxx<span class="selector-class">.com</span> <span class="comment">//得到N个邮件地址，还有邮箱的主人的名字什么的</span></span><br><span class="line"></span><br><span class="line">site:xxxx<span class="selector-class">.com</span> intext:电话 <span class="comment">//N个电话 </span></span><br></pre></td></tr></table></figure>
+
+<p>把这些信息做个字典，挂上慢慢跑。过了一段时间就跑出4个帐号，2个是学生会的，1个管理员，还有一个可能是老师的帐号</p>
+<p>google hack其实也都差不多是一些基本语法的灵活运用，或者配合某个脚本漏洞，主要还是靠个人的灵活思维</p>
+<p>对于一些在win上跑 apache的应该多注意一下这方面，一个<code>intitle:index of</code>就差不多都出来了 <code>echo “召唤” &gt; index.jsp</code> 现在看看首页，已经被改成: “召唤” 了。</p>
+<p>也可以用WGET上传一个文件上去，然后<code>execute Command输入 cat file &gt; index.html or echo “”&gt; file echo “test” &gt;&gt; file</code> 这样一条条打出来，站点首页就成功被替换了</p>
+<p>同样的也可以 <code>uname -a;cat /etc/passwd</code> 不过有点要注意，有些WEBSHELL程序有问题，执行不了的，</p>
+<h4 id="搜索INC敏感信息"><a href="#搜索INC敏感信息" class="headerlink" title="搜索INC敏感信息"></a>搜索INC敏感信息</h4><p>在google的搜索框中填入: <code>Code: .org filetype:inc</code> </p>
+<p>例：常用的google关键字： foo1 foo2 (也就是关联，比如搜索xx公司 xx美女) </p>
+<p><code>operator:foo filetype:123</code> 类型 </p>
+<p><code>site:foo.com</code> 相对直接看网站更有意思，可以得到许多意外的信息 </p>
+<p><code>intext:foo intitle: fooltitle</code> 标题 <code>allinurl:foo</code> 搜索xx网站的所有相关连接。（踩点必备） </p>
+<p><code>links:foo </code>不要说就知道是它的相关链接 </p>
+<p><code>allintilte:foo.com</code> 可以辅助<code>”-” “+”</code>来调整搜索的精确程度 直接搜索密码：(引号表示为精确搜索)</p>
+<p>可以再延伸到上面的结果里进行二次搜索</p>
+<p><code>“index of” htpasswd / passwd filetype:xls username password email “ws_ftp.log” “config.php” allinurl:admin mdb service filetype:pwd</code></p>
+<p>或者某个比如pcanywhere的密码后缀cif等</p>
+<p>再来点更敏感信息 <code>“robots.txt” “Disallow:” filetype:txt inurl:_vti_cnf</code> (FrontPage的关键索引啦，扫描器的CGI库一般都有) </p>
+<p><code>allinurl: /msadc/Samples/selector/showcode.asp /../../../passwd /examples/jsp/snp/snoop.jsp phpsysinfo intitle:index of /admin intitle:”documetation” inurl: 5800(vnc的端口)</code></p>
+<p>或者desktop port等多个关键字检索 <code>webmin port 10000 inurl:/admin/login.asp intext:　Powered by GBook365 intitle:”php shell” “Enable stderr” filetype:php</code> 直接搜索到phpwebshell</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">foo.org filetype:inc</span><br><span class="line"></span><br><span class="line">ipsec filetype:conf</span><br><span class="line"></span><br><span class="line">intilte:”error occurred” ODBC request <span class="keyword">where</span> (<span class="keyword">select</span>|<span class="keyword">insert</span>) 说白了就是说，可以直接试着查查数据库检索，针对目前流行的<span class="keyword">sql</span>注射</span><br><span class="line"></span><br><span class="line">“Dumping data <span class="keyword">for</span> <span class="keyword">table</span>” username <span class="keyword">password</span></span><br><span class="line"></span><br><span class="line">intitle:”Error <span class="keyword">using</span> Hypernews”</span><br><span class="line"></span><br><span class="line">“<span class="keyword">Server</span> Software”</span><br><span class="line"></span><br><span class="line">intitle:”HTTP_USER_AGENT=Googlebot”</span><br><span class="line"></span><br><span class="line">“HTTP_USER_ANGET=Googlebot” THS <span class="keyword">ADMIN</span></span><br><span class="line"></span><br><span class="line">filetype:.doc site:.mil classified 直接搜索军方相关word</span><br></pre></td></tr></table></figure>
+<p>检查多个关键字：</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">intitle</span>:config confixx login password</span><br><span class="line"></span><br><span class="line">“mydomain.com” nessus re<span class="keyword">port</span></span><br><span class="line"></span><br><span class="line">“re<span class="keyword">port</span> generated by”</span><br><span class="line"></span><br><span class="line">“ipconfig”</span><br><span class="line"></span><br><span class="line">“winipconfig”</span><br></pre></td></tr></table></figure>
+
+<p>google缓存利用，搜索时候多”选搜索所有网站”</p>
+<p>特别推荐：administrator users 等相关的东西，比如名字，生日等……最惨也可以拿来做字典</p>
+<p>一些技巧集合：</p>
+<ol>
+<li><p>index.of.password</p>
+</li>
+<li><p>filetype:blt “buddylist”</p>
+</li>
+<li><p>“access denied for user” “using password”</p>
+</li>
+<li><p>intitle:”index of” inurl:ftp (pub | incoming)</p>
+</li>
+<li><p>“http://:@www” domainname</p>
+</li>
+<li><p>filetype:cnf inurl:_vti_pvt access.cnf</p>
+</li>
+<li><p>auth_user_file.txt</p>
+</li>
+<li><p>allinurl:”//_vti_pvt/” | allinurl:”//_vti_cnf/”</p>
+</li>
+<li><p>The Master List</p>
+</li>
+<li><p>inurl:”install/install.php”</p>
+</li>
+<li><p>allinurl: admin mdb</p>
+</li>
+<li><p>intitle:”welcome.to.squeezebox”</p>
+</li>
+<li><p>passlist.txt (a better way)</p>
+</li>
+<li><p>intext:””BiTBOARD v2.0″ BiTSHiFTERS Bulletin Board”</p>
+</li>
+<li><p>“A syntax error has occurred” filetype:ihtml</p>
+</li>
+<li><p>intitle:　Login intext:”RT is ? Copyright”</p>
+</li>
+<li><p>“# -FrontPage-” inurl:service.pwd</p>
+</li>
+<li><p>ext:php program_listing intitle:MythWeb.Program.Listing</p>
+</li>
+<li><p>ORA-00921: unexpected end of SQL command</p>
+</li>
+<li><p>intitle:index.of abyss.conf</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+<!--
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------我是有底线的-------------</div>
+    
+</div>
+
+      
+    </div>
+-->
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/google/" rel="tag"><i class="fa fa-tag"></i> google</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/6/Shll%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" rel="next" title="shell编程基础">
+                <i class="fa fa-chevron-left"></i> shell编程基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/9/sqlmap%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" rel="prev" title="sqlmap基本使用">
+                sqlmap基本使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-name">文章</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+    <div class="links-of-blogroll motion-element links-of-blogroll-block">
+    <div class="links-of-blogroll-title">
+        <i class="fa fa-history fa-" aria-hidden="true"></i>
+        近期文章
+    </div>
+    <ul class="links-of-blogroll-list">
+        
+        
+        <li>
+            <a href="/2021/05/Keepalived+LVS+nginx%20%E6%90%AD%E5%BB%BA%20nginx%20%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4/" title="Keepalived+LVS+nginx 搭建 nginx 高可用集群" target="_blank">Keepalived+LVS+nginx 搭建 nginx 高可用集群</a>
+        </li>
+        
+        <li>
+            <a href="/2021/05/SpringBoot%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E6%95%B4%E5%90%88/" title="SpringBoot常用配置整合" target="_blank">SpringBoot常用配置整合</a>
+        </li>
+        
+        <li>
+            <a href="/2021/04/uni-app%20%E5%BC%80%E5%8F%91%E8%A7%86%E9%A2%91%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E6%92%AD%E6%94%BE%E9%97%AE%E9%A2%98/" title="uni-app 开发视频项目中的播放问题" target="_blank">uni-app 开发视频项目中的播放问题</a>
+        </li>
+        
+        <li>
+            <a href="/2021/03/Linux%20%E7%BD%91%E7%BB%9C%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96/" title="Linux 网络内核参数优化" target="_blank">Linux 网络内核参数优化</a>
+        </li>
+        
+        <li>
+            <a href="/2020/11/IDEA%E6%97%A0%E6%B3%95%E6%AD%A3%E5%B8%B8%E5%90%AF%E5%8A%A8/" title="IDEA无法正常启动" target="_blank">IDEA无法正常启动</a>
+        </li>
+        
+    </ul>
+    </div>
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E8%AF%AD%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">常用语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#intext"><span class="nav-number">2.1.</span> <span class="nav-text">intext</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#intitle"><span class="nav-number">2.2.</span> <span class="nav-text">intitle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cache"><span class="nav-number">2.3.</span> <span class="nav-text">cache</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#define"><span class="nav-number">2.4.</span> <span class="nav-text">define</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#filetype"><span class="nav-number">2.5.</span> <span class="nav-text">filetype</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#info"><span class="nav-number">2.6.</span> <span class="nav-text">info</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inurl"><span class="nav-number">2.7.</span> <span class="nav-text">inurl</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#site"><span class="nav-number">2.8.</span> <span class="nav-text">site</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B8%E5%9E%8B%E7%94%A8%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">典型用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">实际应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E6%BC%94%E7%A4%BA"><span class="nav-number">5.</span> <span class="nav-text">实战演示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2INC%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF"><span class="nav-number">5.1.</span> <span class="nav-text">搜索INC敏感信息</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jiang wang</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">50.5k</span>
+  
+</div>
+
+<!-- 注释掉底部说明
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+-->
+
+<!--
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+-->
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'SJyyMLNz390B9X2k9tbsmUuU-gzGzoHsz',
+        appKey: 'OxRktB3EvJLfUzNDRR8MzIfa',
+        placeholder: 'The best things in the world is freedom of speech',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("SJyyMLNz390B9X2k9tbsmUuU-gzGzoHsz", "OxRktB3EvJLfUzNDRR8MzIfa");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+
+<!-- <script type="text/javascript" src="/js/src/crash_cheat.js"></script> -->
+<!-- 代码块复制功能 -->
+<script type="text/javascript" src="/js/src/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/src/clipboard-use.js"></script>
+</html>
