@@ -679,36 +679,14 @@
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>自己经常用的一些梯子，且用且珍惜</p>
 <span id="more"></span>
 
-<h3 id="MENGDI-Cloud"><a href="#MENGDI-Cloud" class="headerlink" title="MENGDI-Cloud"></a>MENGDI-Cloud</h3><p>现已接入台湾HINET中华电信,香港HKT、WTT、HKBN、HGC、阿里云CN2、俄罗斯伯力、韩国KT、SK、LG、azure、新加坡CN2、美国CN2、香港azure、日本IIJ、软银,高达1Gbps数据传输最大全力保证大陆宽带,旗下站点X-AIR主要运营V2ray加速</p>
-<p>官方网址：<a href="https://wan.sc.cn/">https://wan.sc.cn</a></p>
-<h3 id="Dler-Cloud"><a href="#Dler-Cloud" class="headerlink" title="Dler Cloud"></a>Dler Cloud</h3><p>价格实惠，支持按量付费，界面小清新，速度还可以</p>
-<p>官方网站: <a href="https://v2.suda.moe/">https://v2.suda.moe</a></p>
-<h3 id="Dler-Cloud-1"><a href="#Dler-Cloud-1" class="headerlink" title="Dler Cloud"></a>Dler Cloud</h3><p>机场包括部分中继节点，港台日等地区节点也挺多，150+节点，包括国际标准节点、国际高级节点、国际优化节点、中国大陆节点等等。</p>
-<p>官方网站: <a href="https://dlercloud.io/">https://dlercloud.io</a></p>
-<h3 id="RixCloud"><a href="#RixCloud" class="headerlink" title="RixCloud"></a>RixCloud</h3><p>全部节点BGP中继阿里云机房（500M/300M/200M） 虽然看起来延迟比直连要高一些，但是实际起速要比直连还快很多，而且稳定</p>
-<p>官网：<a href="https://bit.ly/2M7G1Rm">https://bit.ly/2M7G1Rm</a></p>
-<h3 id="ssrcloud"><a href="#ssrcloud" class="headerlink" title="ssrcloud"></a>ssrcloud</h3><p>性价比也很好，部分线路0.1倍率。  180+节点，新增多条BGP线路</p>
-<p>网站：<a href="https://bit.ly/2IvnxVW">https://bit.ly/2IvnxVW</a></p>
-<h3 id="MunCloud"><a href="#MunCloud" class="headerlink" title="MunCloud"></a>MunCloud</h3><p>新增部分阿里云内网专线。总体来说还算不错的一家，性价比不错。60+节点。</p>
-<p>网站：<a href="https://bit.ly/2QOlRdV">https://bit.ly/2QOlRdV</a></p>
-<h3 id="百草园"><a href="#百草园" class="headerlink" title="百草园"></a>百草园</h3><p>晚高峰测了测，速度还算不错，流量给的也很足</p>
-<p>官网：<a href="https://bit.ly/2wDqDkX">https://bit.ly/2wDqDkX</a></p>
-<h3 id="次元链接"><a href="#次元链接" class="headerlink" title="次元链接"></a>次元链接</h3><p>也是一家大站了，之前在youtube上见过，人数不少，试了试总体速度还不错，性价比还可以。总节点数90+</p>
-<p>官网：<a href="https://k0.pw/vrrno1">https://k0.pw/vrrno1</a></p>
-<h3 id="SWCloud星愿云"><a href="#SWCloud星愿云" class="headerlink" title="SWCloud星愿云"></a>SWCloud星愿云</h3><p>试速度还可以，性价比也OK。总节点数50+</p>
-<p>官网： <a href="https://bit.ly/2MN614G">https://bit.ly/2MN614G</a></p>
-<h3 id="CTCloud"><a href="#CTCloud" class="headerlink" title="CTCloud"></a>CTCloud</h3><p>晚高峰的时候测过几天速，还不错，价钱也不贵，性价比还可以，线路大概在40条</p>
-<p>官网：<a href="https://bit.ly/2K25mcR">https://bit.ly/2K25mcR</a></p>
-<h3 id="STC-server"><a href="#STC-server" class="headerlink" title="STC-server"></a>STC-server</h3><p>不过速度还不错，性价比不错</p>
-<p>官网：<a href="https://bit.ly/2IsvRFI">https://bit.ly/2IsvRFI</a></p>
-<h3 id="BigHead"><a href="#BigHead" class="headerlink" title="BigHead"></a>BigHead</h3><p>一家运营快一年的机场，之前是公益机场，现在主打AZ节点</p>
-<p>官网：<a href="https://bit.ly/2VPGjM9">https://bit.ly/2VPGjM9</a></p>
-<p>TG： <a href="https://t.me/BigHeadSSRV2ray">https://t.me/BigHeadSSRV2ray</a></p>
-<h3 id="Catchflying"><a href="#Catchflying" class="headerlink" title="Catchflying"></a>Catchflying</h3><p>速度还不错。35+节点</p>
-<p>官网：<a href="https://bit.ly/2F7O3DH">https://bit.ly/2F7O3DH</a></p>
-<p>TG： <a href="https://t.me/catchflying">https://t.me/catchflying</a></p>
-<h3 id="AAEX"><a href="#AAEX" class="headerlink" title="AAEX"></a>AAEX</h3><p>大概有45+节点</p>
-<p>官网：<a href="https://bit.ly/2VRui99">https://bit.ly/2VRui99</a></p>
+<h3 id="SuperSTAR"><a href="#SuperSTAR" class="headerlink" title="SuperSTAR"></a>SuperSTAR</h3><p>白嫖公益机场，每月100G，不限速，还要啥自行车</p>
+<p>注册地址: <a href="https://srayx.com/#/register?code=flzfKPoM">https://srayx.com/#/register?code=flzfKPoM</a></p>
+<h3 id="MENGDI-Cloud"><a href="#MENGDI-Cloud" class="headerlink" title="MENGDI-Cloud"></a>MENGDI-Cloud</h3><p>老牌机场，维持多年，现已接入台湾HINET中华电信,香港HKT、WTT、HKBN、HGC、阿里云CN2、俄罗斯伯力、韩国KT、SK、LG、azure、新加坡CN2、美国CN2、香港azure、日本IIJ、软银,高达1Gbps数据传输最大全力保证大陆宽带,旗下站点X-AIR主要运营V2ray加速</p>
+<p>注册地址：<a href="https://dash.nexthud.com/aff/?code=XdZQ">https://dash.nexthud.com/aff/?code=XdZQ</a></p>
+<h3 id="Suda-Cloud"><a href="#Suda-Cloud" class="headerlink" title="Suda Cloud"></a>Suda Cloud</h3><p>价格实惠，支持按量付费，界面小清新，速度还可以</p>
+<p>注册地址: <a href="https://v2.suda.moe/auth/register?code=GLMx">https://v2.suda.moe/auth/register?code=GLMx</a></p>
+<h3 id="Dler-Cloud"><a href="#Dler-Cloud" class="headerlink" title="Dler Cloud"></a>Dler Cloud</h3><p>有点小贵，功能强大，机场包括部分中继节点，港台日等地区节点也挺多，150+节点，包括国际标准节点、国际高级节点、国际优化节点、中国大陆节点等等。</p>
+<p>官方网站: <a href="https://dlercloud.com/">https://dlercloud.com/</a></p>
 ]]></content>
       <categories>
         <category>科学上网</category>
@@ -2185,6 +2163,89 @@
       </categories>
       <tags>
         <tag>mysql</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Docker 本地开发容器集合</title>
+    <url>/2021/08/Docker%20%E6%9C%AC%E5%9C%B0%E5%BC%80%E5%8F%91%E5%AE%B9%E5%99%A8%E9%9B%86%E5%90%88/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>自己常用的容器集合，做个记录</p>
+<span id="more"></span>
+
+<h3 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -it \</span><br><span class="line">--name redis \</span><br><span class="line">--network dev \</span><br><span class="line">-p 6379:6379 \</span><br><span class="line">-v ~/docker/data/redis/:/data \</span><br><span class="line">-v ~/docker/conf/redis/:/etc/redis/ \</span><br><span class="line">-d redis:latest \</span><br><span class="line">redis-server /etc/redis/redis.conf \</span><br><span class="line">--appendonly yes</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>参数解释<ul>
+<li><code>redis-server /etc/redis/redis.conf</code> - 以配置文件启动redis</li>
+<li><code>appendonly yes</code> - 开启redis持久化，也可从配置文件中开启</li>
+</ul>
+</li>
+</ul>
+<h3 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -it \</span><br><span class="line">  --name mysql \</span><br><span class="line">  --network dev \</span><br><span class="line">  -p 3306:3306 \</span><br><span class="line">  -v ~/docker/data/mysql:/var/lib/mysql \</span><br><span class="line">  -v ~/docker/conf/mysql:/etc/mysql/conf.d \</span><br><span class="line">  -e MYSQL_ROOT_PASSWORD=root \</span><br><span class="line">  -d mysql:latest</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>参数解释<ul>
+<li><code>MYSQL_ROOT_PASSWORD=root</code> - 设置数据库密码为root</li>
+</ul>
+</li>
+</ul>
+<h3 id="Mongodb"><a href="#Mongodb" class="headerlink" title="Mongodb"></a>Mongodb</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -it \</span><br><span class="line">  --name mongo \</span><br><span class="line">  --network dev \</span><br><span class="line">  -p 27017:27017 \</span><br><span class="line">  -v ~/docker/data/mongo:/data/db \</span><br><span class="line">  -e MONGO_INITDB_ROOT_USERNAME=root \</span><br><span class="line">  -e MONGO_INITDB_ROOT_PASSWORD=root \</span><br><span class="line">  -d mongo:latest</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>参数解释<ul>
+<li><code>MONGO_INITDB_ROOT_USERNAME=root</code> - 设置用户名</li>
+<li><code>MONGO_INITDB_ROOT_PASSWORD=root</code> - 设置密码</li>
+</ul>
+</li>
+</ul>
+<h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -it \</span><br><span class="line">  --name php7.4 \</span><br><span class="line">  --network dev \</span><br><span class="line">  -p 8080:8080 \</span><br><span class="line">  -v ~/wwwroot:/wwwroot \</span><br><span class="line">  -d php:7.4</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>额外操作<ul>
+<li><code>pecl install redis &amp;&amp; docker-php-ext-enable redis</code> - 添加redis支持</li>
+<li><code>pecl install swoole &amp;&amp; docker-php-ext-enable swoole</code> - 添加swoole支持</li>
+<li><code>docker-php-ext-install pdo pdo_mysql</code> - 添加pdo支持</li>
+</ul>
+</li>
+</ul>
+<h3 id="Dozzle"><a href="#Dozzle" class="headerlink" title="Dozzle"></a>Dozzle</h3><p>Dozzle 是一个小型的轻量级的日志监控程序，它有一个基于 web 的界面来监视 Docker 日志</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run \</span><br><span class="line">  --name dozzle \</span><br><span class="line">  --volume=/var/run/docker.sock:/var/run/docker.sock \</span><br><span class="line">  -p 8888:8080 \</span><br><span class="line">  -d amir20/dozzle:latest</span><br></pre></td></tr></table></figure>
+
+<p>具体配置参考: <a href="https://hub.docker.com/r/amir20/dozzle">https://hub.docker.com/r/amir20/dozzle</a></p>
+<h3 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h3><p>Elasticsearch 是一个分布式、 RESTful 搜索和分析引擎</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run \</span><br><span class="line"> --name es \</span><br><span class="line"> --net dev \</span><br><span class="line"> -p 9200:9200 \</span><br><span class="line"> -p 9300:9300 \</span><br><span class="line"> -e <span class="string">&quot;discovery.type=single-node&quot;</span> \</span><br><span class="line"> -e <span class="string">&quot;http.cors.enabled=true&quot;</span> \</span><br><span class="line"> -e <span class="string">&quot;http.cors.allow-origin=*&quot;</span> \</span><br><span class="line"> -e <span class="string">&quot;http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization&quot;</span> \</span><br><span class="line"> -e <span class="string">&quot;http.cors.allow-credentials=true&quot;</span> \</span><br><span class="line"> -d elasticsearch:7.14</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>参数解释<ul>
+<li><code>discovery.type=single-node</code> - 单机运行</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>如果启动不了，可以加大内存设置：<code>-e ES_JAVA_OPTS=&quot;-Xms512m -Xmx512m&quot;</code></p>
+</blockquote>
+<h4 id="中文分词"><a href="#中文分词" class="headerlink" title="中文分词"></a>中文分词</h4><p>进入容器内部后执行, 完成后重启es容器</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./bin/elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v7.14.0/elasticsearch-analysis-ik-7.14.0.zip</span><br></pre></td></tr></table></figure>
+
+<h4 id="可视化工具"><a href="#可视化工具" class="headerlink" title="可视化工具"></a>可视化工具</h4><p>现代化的 Elasticsearch Web UI</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run -p 1358:1358 -d appbaseio/dejavu1</span><br></pre></td></tr></table></figure>
+
+<p>具体配置参考: <a href="https://hub.docker.com/r/appbaseio/dejavu">https://hub.docker.com/r/appbaseio/dejavu</a></p>
+<h3 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">docker run \</span><br><span class="line">  --network dev \</span><br><span class="line">  --hostname my-rabbit \</span><br><span class="line">  --name some-rabbit \</span><br><span class="line">  -p 15672:15672 \</span><br><span class="line">  -p 5672:5672 \</span><br><span class="line">  -v ~/docker/data/rabbitmq/:/var/lib/rabbitmq/ \</span><br><span class="line">  -e RABBITMQ_DEFAULT_USER=admin \</span><br><span class="line">  -e RABBITMQ_DEFAULT_PASS=admin \</span><br><span class="line">  -d rabbitmq:3.8.18-management</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>参数解释<ul>
+<li><code>--hostname my-rabbit</code> - 主机名</li>
+<li><code>RABBITMQ_DEFAULT_USER=admin</code> - 设置默认账户</li>
+<li><code>RABBITMQ_DEFAULT_PASS=admin</code> - 设置默认密码</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>docker</category>
+      </categories>
+      <tags>
+        <tag>docker</tag>
       </tags>
   </entry>
 </search>
