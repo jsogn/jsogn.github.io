@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jiangwangblog.com","root":"/","images":"/images","scheme":"Gemini","version":"8.7.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="前言Nmap 是个端口扫描器，这意味着它可以向一些指定 IP 的 TCP 或 UDP 端口发送封包，并检查是否有响应。如果有的话，这意味着端口是打开的，因此，端口上运行着服务 Nmap代表Network Mapper，是一款用于网络探索和安全审计的开源工具，它与Kali Linux标准兼容，但也可用于Windows，OSX和许多其他UNIX平台。Nmap还有一个称为Zenmap的图形用户界面。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nmap基本使用">
+<meta property="og:url" content="https://jiangwangblog.com/post/5820/index.html">
+<meta property="og:site_name" content="Jw Blog">
+<meta property="og:description" content="前言Nmap 是个端口扫描器，这意味着它可以向一些指定 IP 的 TCP 或 UDP 端口发送封包，并检查是否有响应。如果有的话，这意味着端口是打开的，因此，端口上运行着服务 Nmap代表Network Mapper，是一款用于网络探索和安全审计的开源工具，它与Kali Linux标准兼容，但也可用于Windows，OSX和许多其他UNIX平台。Nmap还有一个称为Zenmap的图形用户界面。">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-09-09T07:39:17.776Z">
+<meta property="article:modified_time" content="2020-04-12T06:34:43.628Z">
+<meta property="article:author" content="jiang wang">
+<meta property="article:tag" content="tool">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://jiangwangblog.com/post/5820/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://jiangwangblog.com/post/5820/","path":"post/5820/","title":"nmap基本使用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>nmap基本使用 | Jw Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jw Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-bookmark"><a href="/bookmark/" rel="section"><i class="fa fa-bookmark fa-fw"></i>书签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E5%92%8C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A3%80%E6%B5%8B"><span class="nav-number">1.1.</span> <span class="nav-text">打开端口扫描和操作系统检测</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%98%AF%E5%90%A6%E5%93%8D%E5%BA%94-ping%EF%BC%8C%E6%88%96%E8%80%85%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%98%AF%E5%90%A6%E6%89%93%E5%BC%80"><span class="nav-number">1.2.</span> <span class="nav-text">服务器是否响应 ping，或者服务器是否打开</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E4%BA%86%E5%93%AA%E4%BA%9B%E7%AB%AF%E5%8F%A3"><span class="nav-number">1.3.</span> <span class="nav-text">打开了哪些端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nmap-%E5%90%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AF%A2%E9%97%AE%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%9A%84%E7%89%88%E6%9C%AC%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%9F%BA%E4%BA%8E%E5%AE%83%E7%8C%9C%E6%B5%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.4.</span> <span class="nav-text">Nmap 向服务器询问正在运行的服务的版本，并且基于它猜测操作系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E5%8A%A0%E6%B8%85%E6%A5%9A%E7%9A%84%E6%9F%A5%E7%9C%8B%E8%BF%99%E4%B8%AA%E7%AB%AF%E5%8F%A3%EF%BC%8C%E5%B9%B6%E4%B8%94%E7%9C%8B%E7%9C%8B%E5%8F%AF%E4%BB%A5%E7%A1%AE%E8%AE%A4%E4%BB%80%E4%B9%88"><span class="nav-number">1.5.</span> <span class="nav-text">更加清楚的查看这个端口，并且看看可以确认什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nmap-%E5%8C%85%E5%90%AB%E4%BA%86%E4%B8%80%E4%BA%9B%E8%84%9A%E6%9C%AC%EF%BC%8C%E7%94%A8%E4%BA%8E%E6%B5%8B%E8%AF%95-WAF-%E7%9A%84%E5%AD%98%E5%9C%A8"><span class="nav-number">1.6.</span> <span class="nav-text">Nmap 包含了一些脚本，用于测试 WAF 的存在</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%A6%E4%B8%80%E4%B8%AA-Nmap-%E8%84%9A%E6%9C%AC%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%B8%AE%E5%8A%A9%E6%88%91%E4%BB%AC%E8%AF%86%E5%88%AB%E6%89%80%E4%BD%BF%E7%94%A8%E7%9A%84%E8%AE%BE%E5%A4%87%EF%BC%8C%E5%B9%B6%E6%9B%B4%E5%8A%A0%E7%B2%BE%E7%A1%AE"><span class="nav-number">1.7.</span> <span class="nav-text">另一个 Nmap 脚本，可以帮助我们识别所使用的设备，并更加精确</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%89%E4%B8%80%E4%BA%9B%E5%85%B6%E5%AE%83%E7%9A%84%E5%AE%9E%E7%94%A8%E5%8F%82%E6%95%B0%EF%BC%9A"><span class="nav-number">1.8.</span> <span class="nav-text">有一些其它的实用参数：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nmap%E9%80%89%E9%A1%B9%E6%91%98%E8%A6%81"><span class="nav-number">2.</span> <span class="nav-text">Nmap选项摘要</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87%E8%A7%84%E6%A0%BC%EF%BC%9A"><span class="nav-number">2.1.</span> <span class="nav-text">目标规格：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E6%9C%BA%E5%8F%91%E7%8E%B0%EF%BC%9A"><span class="nav-number">2.2.</span> <span class="nav-text">主机发现：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SCAN%E6%8A%80%E6%9C%AF%EF%BC%9A"><span class="nav-number">2.3.</span> <span class="nav-text">SCAN技术：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AB%AF%E5%8F%A3%E8%A7%84%E6%A0%BC%E5%92%8C%E6%89%AB%E6%8F%8F-%E9%A1%BA%E5%BA%8F%EF%BC%9A-p"><span class="nav-number">2.4.</span> <span class="nav-text">端口规格和扫描 顺序：-p</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1-%E7%89%88%E6%9C%AC%E6%A3%80%E6%B5%8B%EF%BC%9A"><span class="nav-number">2.5.</span> <span class="nav-text">服务&#x2F;版本检测：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SCRIPT-SCAN%EF%BC%9A"><span class="nav-number">2.6.</span> <span class="nav-text">SCRIPT SCAN：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A3%80%E6%B5%8B%EF%BC%9A"><span class="nav-number">2.7.</span> <span class="nav-text">操作系统检测：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E5%92%8C%E6%80%A7%E8%83%BD%EF%BC%9A"><span class="nav-number">2.8.</span> <span class="nav-text">时间和性能：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99-IDS%E6%B6%88%E9%99%A4%E5%92%8C%E9%98%B2%E7%9B%97%EF%BC%9A"><span class="nav-number">2.9.</span> <span class="nav-text">防火墙&#x2F; IDS消除和防盗：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OUTPUT"><span class="nav-number">2.10.</span> <span class="nav-text">OUTPUT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MISC%EF%BC%9A"><span class="nav-number">2.11.</span> <span class="nav-text">MISC：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%A6%E8%A7%81"><span class="nav-number">2.12.</span> <span class="nav-text">另见</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="jiang wang"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">jiang wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://jiangwangblog.com/post/5820/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="jiang wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jw Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          nmap基本使用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-09-09 15:39:17" itemprop="dateCreated datePublished" datetime="2019-09-09T15:39:17+08:00">2019-09-09</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-04-12 14:34:43" itemprop="dateModified" datetime="2020-04-12T14:34:43+08:00">2020-04-12</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/hacker/" itemprop="url" rel="index"><span itemprop="name">hacker</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/post/5820/" class="post-meta-item leancloud_visitors" data-flag-title="nmap基本使用" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Nmap 是个端口扫描器，这意味着它可以向一些指定 IP 的 TCP 或 UDP 端口发送封包，并检查是否有响应。如果有的话，这意味着端口是打开的，因此，端口上运行着服务</p>
+<p>Nmap代表Network Mapper，是一款用于网络探索和安全审计的开源工具，它与Kali Linux标准兼容，但也可用于Windows，OSX和许多其他UNIX平台。Nmap还有一个称为Zenmap的图形用户界面。</p>
+<span id="more"></span>
+
+<h4 id="打开端口扫描和操作系统检测"><a href="#打开端口扫描和操作系统检测" class="headerlink" title="打开端口扫描和操作系统检测"></a>打开端口扫描和操作系统检测</h4><p>使用以下命令确定活动主机：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nmap</span> -sP <span class="number">192.168.0.0</span>-<span class="number">100</span></span><br></pre></td></tr></table></figure>
+
+<p>使用以下命令在其中一个实时主机上启动带有操作系统检测的SYN扫描</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -<span class="built_in">sS</span> [<span class="built_in">IP</span>地址] -O</span><br></pre></td></tr></table></figure>
+
+<p>使用以下命令启动一个开放端口扫描和版本检测</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV <span class="number">192.168.0.1</span> -<span class="keyword">A</span></span><br></pre></td></tr></table></figure>
+
+<p>将-v添加到命令中时，可以增加冗长度</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV <span class="number">192.168.0.13</span> -<span class="keyword">A</span> -v</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="服务器是否响应-ping，或者服务器是否打开"><a href="#服务器是否响应-ping，或者服务器是否打开" class="headerlink" title="服务器是否响应 ping，或者服务器是否打开"></a>服务器是否响应 ping，或者服务器是否打开</h4><p>使用-sn参数，我们让 Nmap 只检查是否服务器响应 ICMP 请求（或 ping）</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nmap</span> -sn <span class="number">192.168.56.102</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="打开了哪些端口"><a href="#打开了哪些端口" class="headerlink" title="打开了哪些端口"></a>打开了哪些端口</h4><p>调用 Nmap 的最简方式，它只指定目标 IP。所做的事情是先 ping 服务器，如果它响应了，Nmap 会向 1000 个 TCP 端口列表发送探针，来观察哪个端口响应，之后报告响应端口的结果</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nmap</span> <span class="number">192.168.56.102</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="Nmap-向服务器询问正在运行的服务的版本，并且基于它猜测操作系统"><a href="#Nmap-向服务器询问正在运行的服务的版本，并且基于它猜测操作系统" class="headerlink" title="Nmap 向服务器询问正在运行的服务的版本，并且基于它猜测操作系统"></a>Nmap 向服务器询问正在运行的服务的版本，并且基于它猜测操作系统</h4><ul>
+<li><p>sV请求每个被发现的开放端口的标识（头部或者自我识别），这是它用作版本的东西。</p>
+</li>
+<li><p>O告诉 Nmap，尝试猜测运行在目标上的操作系统。使用开放端口和版本收集的信息。</p>
+</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nmap</span> -sV -O <span class="number">192.168.56.10</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="更加清楚的查看这个端口，并且看看可以确认什么"><a href="#更加清楚的查看这个端口，并且看看可以确认什么" class="headerlink" title="更加清楚的查看这个端口，并且看看可以确认什么"></a>更加清楚的查看这个端口，并且看看可以确认什么</h4><p>使用此命令，让 nmap 在主机上的 FTP 端口（-p 21）上运行其默认脚本（-sC）</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nmap</span> -sC <span class="number">192.168.56.102</span> -p <span class="number">21</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Nmap-包含了一些脚本，用于测试-WAF-的存在"><a href="#Nmap-包含了一些脚本，用于测试-WAF-的存在" class="headerlink" title="Nmap 包含了一些脚本，用于测试 WAF 的存在"></a>Nmap 包含了一些脚本，用于测试 WAF 的存在</h4><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">map</span> -p <span class="number">80</span>,<span class="number">443</span> --script=http-waf-detect <span class="number">192.168.56.102</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="另一个-Nmap-脚本，可以帮助我们识别所使用的设备，并更加精确"><a href="#另一个-Nmap-脚本，可以帮助我们识别所使用的设备，并更加精确" class="headerlink" title="另一个 Nmap 脚本，可以帮助我们识别所使用的设备，并更加精确"></a>另一个 Nmap 脚本，可以帮助我们识别所使用的设备，并更加精确</h4><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nmap</span> -p <span class="number">80</span>,<span class="number">443</span> --script=http-waf-fingerprint www.example.com</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="有一些其它的实用参数："><a href="#有一些其它的实用参数：" class="headerlink" title="有一些其它的实用参数："></a>有一些其它的实用参数：</h4><ul>
+<li><p>sT：通常，在 root 用户下运行 Nmap 时，它使用 SYN 扫描类型。使用这个参数，我们就强制让扫描器执行完全连接的扫描。它更慢，并且会在服务器的日志中留下记录，但是它不太可能被入侵检测系统检测到。</p>
+</li>
+<li><p>Pn：如果我们已经知道了主机是活动的或者不响应 ping，我们可以使用这个参数告诉 Nmap 跳过 ping 测试，并扫描所有指定目标，假设它们是开启的。</p>
+</li>
+<li><p>v：这会开启详细模式。Nmap 会展示更多关于它所做事情和得到回复的信息。参数可以在相同命令中重复多次：次数越多，就越详细（也就是说，-vv或-v -v -v -v）。</p>
+</li>
+<li><p>p N1,N2,Nn：如果我们打算测试特定端口或一些非标准端口，我们可能想这个参数。N1到Nn是打算让 Nmap 扫描的端口。例如，要扫描端口 21，80 到 90，和 137，参数应为：-p 21,80-90,137。</p>
+</li>
+<li><p>–script=script_name：Nmap 包含很多实用的漏洞检测、扫描和识别、登录测试、命令执行、用户枚举以及其它脚本。使用这个参数来告诉 Nmap 在目标的开放端口上运行脚本。查看一些 Nmap 脚本，它们在：<a target="_blank" rel="noopener" href="https://nmap.org/nsedoc/scripts/%E3%80%82">https://nmap.org/nsedoc/scripts/。</a></p>
+</li>
+</ul>
+<h3 id="Nmap选项摘要"><a href="#Nmap选项摘要" class="headerlink" title="Nmap选项摘要"></a>Nmap选项摘要</h3><p><strong>用法：nmap [扫描类型] [选项] {目标规格}</strong></p>
+<h4 id="目标规格："><a href="#目标规格：" class="headerlink" title="目标规格："></a>目标规格：</h4><p>可以传递主机名，IP地址，网络等。<br>例如：scanme.nmap.org，microsoft.com/24,192.168.0.1; 10.0.0-255.1-254</p>
+<ul>
+<li>-iL <inputfilename>：从主机/网络列表中输入</li>
+<li>-iR <num hosts>：选择随机目标</li>
+<li>-exclude &lt;host1 [，host2] [，host3]，…&gt;：排除主机/网络</li>
+<li>-excludefile <exclude_file>：从文件中排除列表</li>
+</ul>
+<h4 id="主机发现："><a href="#主机发现：" class="headerlink" title="主机发现："></a>主机发现：</h4><ul>
+<li>-sL：列表扫描 – 仅列出要扫描的目标</li>
+<li>-sn：Ping扫描 – 禁用端口扫描</li>
+<li>-Pn：将所有主机视为联机 – 跳过主机发现</li>
+<li>-PS / PA / PU / PY [portlist]：TCP SYN / ACK / UDP / SCTP发现到指定端口</li>
+<li>-PE / PP / PM：ICMP回显，时间戳和网络掩码请求发现探测</li>
+<li>-PO [协议列表]：IP协议Ping</li>
+<li>-n / -R：从不执行DNS解析/总是解析[默认：有时]</li>
+<li>-dns-servers &lt;serv1 [，serv2]，…&gt;：指定自定义DNS服务器</li>
+<li>-system-dns：使用操作系统的DNS解析器</li>
+<li>-traceroute：每个主机的跟踪跳转路径</li>
+</ul>
+<h4 id="SCAN技术："><a href="#SCAN技术：" class="headerlink" title="SCAN技术："></a>SCAN技术：</h4><ul>
+<li>-sS / sT / sA / sW / sM：TCP SYN / Connect（）/ ACK / Window / Maimon扫描</li>
+<li>-sU：UDP 扫描-sN</li>
+<li>/ sF / sX：TCP Null，FIN和Xmas扫描</li>
+<li>–scanflags &lt; flags&gt;：自定义TCP扫描标志</li>
+<li>-sI &lt;zombie host [：probeport]&gt;：空闲扫描</li>
+<li>-sY / sZ：SCTP INIT / COOKIE-ECHO扫描</li>
+<li>-sO：IP协议扫描</li>
+<li>-b &lt;FTP中继主机&gt;：FTP反弹扫描</li>
+</ul>
+<h4 id="端口规格和扫描-顺序：-p"><a href="#端口规格和扫描-顺序：-p" class="headerlink" title="端口规格和扫描 顺序：-p"></a>端口规格和扫描 顺序：-p</h4><p>&lt;端口范围&gt;：仅扫描指定的端口</p>
+<ul>
+<li>例如：-p22; -p1-65535; -p U：53,111,137，T：21-25,80,139,8080，S：9</li>
+<li>-exclude-ports &lt;端口范围&gt;：从扫描中排除指定端口</li>
+<li>-F：快速模式 – 扫描端口少于默认扫描</li>
+<li>-r：连续扫描端口 – 不随机化</li>
+<li>-top-ports <number>：扫描<number>最常用的端口</li>
+<li>-port-ratio <ratio>：扫描比<ratio></li>
+</ul>
+<h4 id="服务-版本检测："><a href="#服务-版本检测：" class="headerlink" title="服务/版本检测："></a>服务/版本检测：</h4><ul>
+<li>-sV：探测开放端口以确定服务/版本info</li>
+<li>-version-intensity <level>：设置从0（亮）到9（尝试所有探测器）</li>
+<li>-version-light：限制最可能的探测器2）</li>
+<li>-version-all：尝试每个探测器（强度9）</li>
+<li>-version-trace：显示详细版本的扫描活动（用于调试）</li>
+</ul>
+<h4 id="SCRIPT-SCAN："><a href="#SCRIPT-SCAN：" class="headerlink" title="SCRIPT SCAN："></a>SCRIPT SCAN：</h4><ul>
+<li>-sC：相当于-script =默认</li>
+<li>-script = &lt;Lua脚本&gt;：<Lua scripts>是逗号分隔的</li>
+<li>目录列表，脚本文件或脚本类别</li>
+<li>-script-args = &lt;n1 = v1，[ n2 = v2，…]&gt;：为脚本提供参数</li>
+<li>-script-args-file = filename：在文件中提供NSE脚本参数</li>
+<li>-script-trace：显示所有发送和接收的数据</li>
+<li>-script-updatedb：更新脚本数据库。</li>
+<li>-script-help = <Lua scripts>：显示有关脚本的帮助。</li>
+<li><Lua scripts>是脚本文件或</li>
+<li>脚本类别的逗号分隔列表。</li>
+</ul>
+<h4 id="操作系统检测："><a href="#操作系统检测：" class="headerlink" title="操作系统检测："></a>操作系统检测：</h4><ul>
+<li>-O：启用操作系统检测</li>
+<li>-osscan-limit：限制操作系统检测为有前途的目标</li>
+<li>-osscan-guess：猜测操作系统更积极</li>
+</ul>
+<h4 id="时间和性能："><a href="#时间和性能：" class="headerlink" title="时间和性能："></a>时间和性能：</h4><ul>
+<li>采用<code>&lt;time&gt;</code>的选项以秒为单位，或附加’ms’（毫秒），‘s’（秒），’m’（分钟）或’h’（小时） ）。</li>
+<li>-T &lt;0-5&gt;：设置定时模板（更高更快）</li>
+<li>-min-hostgroup / max-hostgroup <size>：并行主机扫描组大小</li>
+<li>-min-parallelism / max-parallelism <numprobes>：探针并行化</li>
+<li>-min- rtt-timeout / max-rtt-timeout / initial-rtt-timeout <time>：指定</li>
+<li>探测往返时间。</li>
+<li>-max-retries <tries>：端口扫描探测器重新传输的大小数量。</li>
+<li>-host-timeout <time>：在这个long</li>
+<li>-scan-delay 之后放弃目标/ -max-scan-delay <time>：调整探针之间的延迟</li>
+<li>-min-rate <number>：</li>
+<li>-max-rate <number>：发送数据包不超过每秒<number></li>
+</ul>
+<h4 id="防火墙-IDS消除和防盗："><a href="#防火墙-IDS消除和防盗：" class="headerlink" title="防火墙/ IDS消除和防盗："></a>防火墙/ IDS消除和防盗：</h4><ul>
+<li>-f; -mtu <val>：片段数据包（可选w / given MTU）</li>
+<li>-D &lt;decoy1，decoy2 [，ME]，…&gt;：用诱饵隐藏扫描</li>
+<li>-S <IP_Address>：欺骗源地址</li>
+<li>-e <iface>：使用指定的接口</li>
+<li>-g / -source-port &lt;</li>
+<li>portnum &gt;：使用给定的端口号-proxies &lt;url1，[url2]，…&gt;：通过HTTP / SOCKS4代理服务器的中继连接</li>
+<li>-data &lt;十六进制字符串&gt;：将自定义有效内容附加到已发送数据包</li>
+<li>-data-string <string>：将自定义ASCII字符串附加到已发送数据包</li>
+<li>-data-length <num>：将随机数据附加到已发送数据包</li>
+<li>-ip-options &lt;选项&gt;：发送指定ip选项的数据包</li>
+<li>-ttl <val>：设置IP生存时间字段</li>
+<li>-spoof-mac &lt;</li>
+<li>-badsum：发送虚假TCP / UDP / SCTP校验和的数据包</li>
+</ul>
+<h4 id="OUTPUT"><a href="#OUTPUT" class="headerlink" title="OUTPUT"></a>OUTPUT</h4><ul>
+<li>-oN / -oX / -oS / -oG <file>：分别以正常，XML，s | &lt;rIpt kIddi3</li>
+<li>和Grepable格式输出扫描到给定的文件名。</li>
+<li>-oA <basename>：一次输出三种主要格式</li>
+<li>-v：提高详细级别（使用-vv或更多以获得更大效果）</li>
+<li>-d：提高调试级别（使用-dd或更多以获得更大效果）</li>
+<li>-reason：Display端口处于特定状态的原因</li>
+<li>-open：只显示打开的（或可能打开的）端口</li>
+<li>-packet-trace：显示所有发送和接收的数据包</li>
+<li>-iflist：打印主机接口和路由（用于调试）</li>
+<li>-log-errors：Log错误/警告到正常格式的输出文件</li>
+<li>-append-output：附加到指定的输出文件而不是clobber</li>
+<li>-resume <filename>：恢复中止的扫描</li>
+<li>-stylesheet &lt;path / URL&gt;：XSL样式表将XML输出转换为HTML</li>
+<li>-webxml：Nmap.Org的参考样式表，用于更多可移植的XML</li>
+<li>-no-stylesheet：防止关联XSL样式表w / XML输出</li>
+</ul>
+<h4 id="MISC："><a href="#MISC：" class="headerlink" title="MISC："></a>MISC：</h4><ul>
+<li>-6：启用IPv6扫描</li>
+<li>-A：启用OS检测，版本检测，脚本扫描和traceroute</li>
+<li>-datadir <dirname>：指定自定义Nmap数据文件位置</li>
+<li>-send-eth / -send-ip：使用原始以太网帧进行发送或IP数据包</li>
+<li>-privileged：假设用户具有完全特权</li>
+<li>-unprivileged：假定用户缺少原始套接字权限</li>
+<li>-V：打印版本号</li>
+<li>-h：打印此帮助摘要页面</li>
+</ul>
+<h4 id="另见"><a href="#另见" class="headerlink" title="另见"></a>另见</h4><p>虽然它最为流行，但是 Nmap 不是唯一可用的端口扫描器，并且，取决于不同的喜好，可能也不是最好的。下面是 Kali 中包含的一些其它的替代品：</p>
+<ul>
+<li>unicornscan</li>
+<li>hping3</li>
+<li>masscan</li>
+<li>amap</li>
+<li>Metasploit scanning module</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/tool/" rel="tag"># tool</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/41891/" rel="prev" title="sqlmap基本使用">
+                  <i class="fa fa-chevron-left"></i> sqlmap基本使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/63116/" rel="next" title="nmap脚本检测">
+                  nmap脚本检测 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jiang wang</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">151k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:17</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"SJyyMLNz390B9X2k9tbsmUuU-gzGzoHsz","app_key":"OxRktB3EvJLfUzNDRR8MzIfa","server_url":null,"security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"jsogn","repo":"gitalk","client_id":"a3129e0de2949def44c3","client_secret":"cea4d50f199ac465d9c20195a4459ea36cbe00b0","admin_user":"jbanxian@gmail.com","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"89c014e56440863245315239904a5308"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

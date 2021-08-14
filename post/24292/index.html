@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jiangwangblog.com","root":"/","images":"/images","scheme":"Gemini","version":"8.7.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="前言前提：mac 本身已经安装 ss，并且可以通过 ss 科学上网（或者 win 也一样）想要实现：Parallels Desktop 里的虚拟机也想科学上网（或者 win 里安装 vmware 也一样，或者是另一台物理机也是一样的）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac设置虚拟机使用宿主机代理">
+<meta property="og:url" content="https://jiangwangblog.com/post/24292/index.html">
+<meta property="og:site_name" content="Jw Blog">
+<meta property="og:description" content="前言前提：mac 本身已经安装 ss，并且可以通过 ss 科学上网（或者 win 也一样）想要实现：Parallels Desktop 里的虚拟机也想科学上网（或者 win 里安装 vmware 也一样，或者是另一台物理机也是一样的）">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-09-28T08:36:19.326Z">
+<meta property="article:modified_time" content="2020-04-12T06:34:43.627Z">
+<meta property="article:author" content="jiang wang">
+<meta property="article:tag" content="mac">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://jiangwangblog.com/post/24292/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://jiangwangblog.com/post/24292/","path":"post/24292/","title":"Mac设置虚拟机使用宿主机代理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Mac设置虚拟机使用宿主机代理 | Jw Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jw Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-bookmark"><a href="/bookmark/" rel="section"><i class="fa fa-bookmark fa-fw"></i>书签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B9%9F%E5%AE%89%E8%A3%85%E4%B8%80%E4%B8%AA-ss-%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">2.</span> <span class="nav-text">方法一：虚拟机也安装一个 ss 客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86%E5%88%B0%E5%AE%BF%E4%B8%BB%E6%9C%BA"><span class="nav-number">3.</span> <span class="nav-text">方法二：虚拟机设置代理到宿主机</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="jiang wang"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">jiang wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://jiangwangblog.com/post/24292/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="jiang wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jw Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mac设置虚拟机使用宿主机代理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-09-28 16:36:19" itemprop="dateCreated datePublished" datetime="2019-09-28T16:36:19+08:00">2019-09-28</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-04-12 14:34:43" itemprop="dateModified" datetime="2020-04-12T14:34:43+08:00">2020-04-12</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/" itemprop="url" rel="index"><span itemprop="name">科学上网</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/post/24292/" class="post-meta-item leancloud_visitors" data-flag-title="Mac设置虚拟机使用宿主机代理" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>前提：mac 本身已经安装 ss，并且可以通过 ss 科学上网（或者 win 也一样）<br>想要实现：Parallels Desktop 里的虚拟机也想科学上网（或者 win 里安装 vmware 也一样，或者是另一台物理机也是一样的）</p>
+<span id="more"></span>
+
+<h3 id="方法一：虚拟机也安装一个-ss-客户端"><a href="#方法一：虚拟机也安装一个-ss-客户端" class="headerlink" title="方法一：虚拟机也安装一个 ss 客户端"></a>方法一：虚拟机也安装一个 ss 客户端</h3><p>对于有窗口的系统，比如你虚拟机里安装的是 win、或者 ubuntu 等，那么再安装一个客户端是很方便的，这就相当于在另一台电脑里使用 ss 客户端，既然 mac 上你会用了，那在其他电脑上也是一样的。</p>
+<p>但是如果虚拟机里是最小化安装的纯命令行的 centos，那么使用客户端可能有一定的麻烦，yum 无法安装，pip 安装的感觉也是 ssserver，并没有客户端，所以客户端还得编译，编译还有很多依赖，编译好还得写对配置文件，很多人都不太清楚这个，所以还是挺麻烦的。</p>
+<h3 id="方法二：虚拟机设置代理到宿主机"><a href="#方法二：虚拟机设置代理到宿主机" class="headerlink" title="方法二：虚拟机设置代理到宿主机"></a>方法二：虚拟机设置代理到宿主机</h3><p>即虚拟机里设置代理到 mac（这里 mac 就是虚拟机的宿主机），让虚拟机通过 mac 的 ss 科学上网，这里如果宿主机换成 win，虚拟机软件换成 vmware 或 virtualbox，它的原理也都是一样的。</p>
+<p><strong>设置方法：</strong></p>
+<p>1、首先把宿主机的 ss 设置里的 Local Socks5 Listen Address 由原来的<code>127.0.0.1</code>设置为<code>0.0.0.0</code>，如果需要通过 HTTP 代理，那么也要把 ss 里的 HTTP 选项打开，并把 HTTP proxy Listen Address 地址由原来的<code>127.0.0.1</code>设置为<code>0.0.0.0</code>，这样做表示代理所有 ip，而不只是本机的<code>127.0.0.1</code>。如果用的是其他科学上网工具，也有些写成 “share over LAN(通过局域网共享)”，如果有这个选项，选上了就表示监听<code>0.0.0.0</code>。</p>
+<p>2、搞清楚虚拟机是通过什么方式联网的，虚拟机连网无非有两种方式：</p>
+<ul>
+<li>  桥接</li>
+<li>  NAT</li>
+</ul>
+<p>如果是桥接连网，那么只要找出宿主机的联网 ip 即可（mac 的话，一般都是 wifi，或者通过转接头插网线的话，那就是转接头对应的 ip）</p>
+<p>如果是 NAT 连网的，那么要找出宿主机中 NAT 网卡的 ip（在 mac 里使用 parallels desktop 虚拟机的话，NAT 网卡一般是 parallels Shared 开头的）</p>
+<p>3、在虚拟机里的<code>~/.bashrc</code>或<code>~/.zshrc</code>里，添加以下两句的其中一句：</p>
+<p>一般填入局域网IP即可</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">ALL_PROXY</span>=SOCKS5://IP:端口</span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">ALL_PROXY</span>=HTTP://IP:端口</span><br></pre></td></tr></table></figure>
+
+<p>第一句表示使用 SOCKS5 代理，第二句表示使用 HTTP 代理，ip 就是第 2 步中找到的 ip，端口就是 ss 对应的端口，打开 ss 的设置里就有，一般 ss 有两个端口，一个 socks5 端口，一个 http 端口，找到对应端口填进去即可。</p>
+<p>最后 source 一下配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<p>或者用 zsh shell 的话就是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+<p>测试 ip 是哪里的：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https:<span class="regexp">//i</span>p.cn</span><br></pre></td></tr></table></figure>
+
+<p>如果显示的是代理服务器所在地址 (比如美国) 和 ip，那说明代理设置成功。</p>
+<p>然后试试能否访问 google：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https:<span class="regexp">//</span>www.google.com</span><br></pre></td></tr></table></figure>
+
+<p>如果是 Windows，可以直接在 cmd 里设用<code>set http_proxy=http://127.0.0.1:1087</code>，<code>set https_proxy=http://127.0.0.1:1087</code>，<code>set all_proxy=http://127.0.0.1:1087</code></p>
+<hr>
+<p>更好的写法</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置使用代理</span></span><br><span class="line"><span class="built_in">alias</span> setproxy=<span class="string">&quot;export https_proxy=http://127.0.0.1:1087; export http_proxy=http://127.0.0.1:1087; export all_proxy=socks5://127.0.0.1:1086; echo &#x27;Set proxy successfully&#x27;&quot;</span></span><br><span class="line"><span class="comment"># 设置取消使用代理</span></span><br><span class="line"><span class="built_in">alias</span> unsetproxy=<span class="string">&quot;unset http_proxy; unset https_proxy; unset all_proxy; echo &#x27;Unset proxy successfully&#x27;&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/mac/" rel="tag"># mac</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/12551/" rel="prev" title="PHPStudy后门rec批量利用脚本">
+                  <i class="fa fa-chevron-left"></i> PHPStudy后门rec批量利用脚本
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/1747/" rel="next" title="Linux文件的隐藏属性">
+                  Linux文件的隐藏属性 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jiang wang</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">151k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:17</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"SJyyMLNz390B9X2k9tbsmUuU-gzGzoHsz","app_key":"OxRktB3EvJLfUzNDRR8MzIfa","server_url":null,"security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"jsogn","repo":"gitalk","client_id":"a3129e0de2949def44c3","client_secret":"cea4d50f199ac465d9c20195a4459ea36cbe00b0","admin_user":"jbanxian@gmail.com","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"d994c6c5b4af4bf55fb6490406de39f8"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

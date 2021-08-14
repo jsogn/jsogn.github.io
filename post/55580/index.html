@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jiangwangblog.com","root":"/","images":"/images","scheme":"Gemini","version":"8.7.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<meta name="description" content="前言工欲善其事，必先利其器，一个健壮的API必要有优秀的设计规范，本文是最基本的设计理念">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RESETful API 设计规范">
+<meta property="og:url" content="https://jiangwangblog.com/post/55580/index.html">
+<meta property="og:site_name" content="Jw Blog">
+<meta property="og:description" content="前言工欲善其事，必先利其器，一个健壮的API必要有优秀的设计规范，本文是最基本的设计理念">
+<meta property="og:locale">
+<meta property="article:published_time" content="2019-05-31T12:14:52.000Z">
+<meta property="article:modified_time" content="2020-04-12T06:34:43.625Z">
+<meta property="article:author" content="jiang wang">
+<meta property="article:tag" content="api">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://jiangwangblog.com/post/55580/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://jiangwangblog.com/post/55580/","path":"post/55580/","title":"RESETful API 设计规范"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>RESETful API 设计规范 | Jw Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jw Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-bookmark"><a href="/bookmark/" rel="section"><i class="fa fa-bookmark fa-fw"></i>书签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE"><span class="nav-number">2.</span> <span class="nav-text">协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API-Root-URL"><span class="nav-number">3.</span> <span class="nav-text">API Root URL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Versioning"><span class="nav-number">4.</span> <span class="nav-text">Versioning</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Endpoints"><span class="nav-number">5.</span> <span class="nav-text">Endpoints</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-%E5%8A%A8%E8%AF%8D"><span class="nav-number">6.</span> <span class="nav-text">HTTP 动词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Filtering"><span class="nav-number">7.</span> <span class="nav-text">Filtering</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Authentication"><span class="nav-number">8.</span> <span class="nav-text">Authentication</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Response"><span class="nav-number">9.</span> <span class="nav-text">Response</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#200-ok"><span class="nav-number">10.</span> <span class="nav-text">200 ok</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#201-Created"><span class="nav-number">11.</span> <span class="nav-text">201 Created</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#202-Accepted"><span class="nav-number">12.</span> <span class="nav-text">202 Accepted</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#204-No-Content"><span class="nav-number">13.</span> <span class="nav-text">204 No Content</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3xx-%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">14.</span> <span class="nav-text">3xx 重定向</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#400-Bad-Request"><span class="nav-number">15.</span> <span class="nav-text">400 Bad Request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#401-Unauthorized"><span class="nav-number">16.</span> <span class="nav-text">401 Unauthorized</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#403-Forbidden"><span class="nav-number">17.</span> <span class="nav-text">403 Forbidden</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#404-Not-Found"><span class="nav-number">18.</span> <span class="nav-text">404 Not Found</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#405-Method-Not-Allowd"><span class="nav-number">19.</span> <span class="nav-text">405 Method Not Allowd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#406-Not-Acceptable"><span class="nav-number">20.</span> <span class="nav-text">406 Not Acceptable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#408-Request-Timeout"><span class="nav-number">21.</span> <span class="nav-text">408 Request Timeout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#409-Gonfilct"><span class="nav-number">22.</span> <span class="nav-text">409 Gonfilct</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#410-Gone"><span class="nav-number">23.</span> <span class="nav-text">410 Gone</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#413-Request-Entity-Too-Large"><span class="nav-number">24.</span> <span class="nav-text">413 Request Entity Too Large</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#414-Request-URI-Too-Long"><span class="nav-number">25.</span> <span class="nav-text">414 Request-URI Too Long</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#415-Unsupported-Media-Type"><span class="nav-number">26.</span> <span class="nav-text">415 Unsupported Media Type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#429-Too-Many-Request"><span class="nav-number">27.</span> <span class="nav-text">429 Too Many Request</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#500-Internal-Server-Error"><span class="nav-number">28.</span> <span class="nav-text">500 Internal Server Error</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#503-Service-Unavailable"><span class="nav-number">29.</span> <span class="nav-text">503 Service Unavailable</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="jiang wang"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">jiang wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://jiangwangblog.com/post/55580/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="jiang wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jw Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RESETful API 设计规范
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-31 20:14:52" itemprop="dateCreated datePublished" datetime="2019-05-31T20:14:52+08:00">2019-05-31</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-04-12 14:34:43" itemprop="dateModified" datetime="2020-04-12T14:34:43+08:00">2020-04-12</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/api/" itemprop="url" rel="index"><span itemprop="name">api</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/post/55580/" class="post-meta-item leancloud_visitors" data-flag-title="RESETful API 设计规范" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>工欲善其事，必先利其器，一个健壮的API必要有优秀的设计规范，本文是最基本的设计理念</p>
+<span id="more"></span>
+
+<h3 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h3><p>在通过 API 于后端服务通信的过程中，应该 使用 HTTPS 协议。</p>
+<h3 id="API-Root-URL"><a href="#API-Root-URL" class="headerlink" title="API Root URL"></a>API Root URL</h3><p>API 的根入口点应尽可能保持足够简单，这里有两个常见的 URL 根例子：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">api.example.com/*</span><br><span class="line">example.com<span class="regexp">/api/</span>*</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果你的应用很庞大或者你预计它将会变的很庞大，那 应该 将 API 放到子域下。这种做法可以保持某些规模化上的灵活性。</p>
+</blockquote>
+<h3 id="Versioning"><a href="#Versioning" class="headerlink" title="Versioning"></a>Versioning</h3><p>所有的 API 必须保持向后兼容，你 必须 在引入新版本 API 的同时确保旧版本 API 仍然可用。所以 应该 为其提供版本支持。</p>
+<p>目前比较常见的两种版本号形式：</p>
+<p>在 URL 中嵌入版本编号</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">api.example.com<span class="regexp">/v1/</span>*</span><br></pre></td></tr></table></figure>
+<p>这种做法是版本号直观、易于调试；另一种做法是，将版本号放在 HTTP Header 头中：<br>通过媒体类型来指定版本信息</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Accept: application/vnd<span class="selector-class">.example</span><span class="selector-class">.com</span>.v1+json</span><br></pre></td></tr></table></figure>
+
+<p>其中 vnd 表示 Standards Tree 标准树类型，有三个不同的树: x，prs 和 vnd。你使用的标准树需要取决于你开发的项目</p>
+<ul>
+<li>未注册的树（x）主要表示本地和私有环境</li>
+<li>私有树（prs）主要表示没有商业发布的项目</li>
+<li>供应商树（vnd）主要表示公开发布的项目</li>
+</ul>
+<blockquote>
+<p>后面几个参数依次为应用名称（一般为应用域名）、版本号、期望的返回格式。</p>
+</blockquote>
+<h3 id="Endpoints"><a href="#Endpoints" class="headerlink" title="Endpoints"></a>Endpoints</h3><p>端点就是指向特定资源或资源集合的 URL。在端点的设计中，你 必须 遵守下列约定:</p>
+<ul>
+<li>URL 的命名 必须 全部小写</li>
+<li>URL 中资源（resource）的命名 必须 是名词，并且 必须 是复数形式</li>
+<li>必须 优先使用 Restful 类型的 URL</li>
+<li>URL 中不能出现 -，必须 用下划线 _ 代替</li>
+<li>URL 必须 是易读的</li>
+<li>URL 一定不可 暴露服务器架构</li>
+</ul>
+<h3 id="HTTP-动词"><a href="#HTTP-动词" class="headerlink" title="HTTP 动词"></a>HTTP 动词</h3><p>对于资源的具体操作类型，由 HTTP 动词表示。常用的 HTTP 动词有下面五个（括号里是对应的 SQL 命令）。</p>
+<ul>
+<li>GET（SELECT）：从服务器取出资源（一项或多项）。</li>
+<li>POST（CREATE）：在服务器新建一个资源。</li>
+<li>PUT（UPDATE）：在服务器更新资源（客户端提供改变后的完整资源）。</li>
+<li>PATCH（UPDATE）：在服务器更新资源（客户端提供改变的属性）。</li>
+<li>DELETE（DELETE）：从服务器删除资源。</li>
+</ul>
+<h3 id="Filtering"><a href="#Filtering" class="headerlink" title="Filtering"></a>Filtering</h3><blockquote>
+<p>如果记录数量很多，服务器不可能都将它们返回给用户。API 应该 提供参数，过滤返回结果。下面是一些常见的参数。</p>
+</blockquote>
+<ul>
+<li>?limit=10：指定返回记录的数量</li>
+<li>?offset=10：指定返回记录的开始位置。</li>
+<li>?page=2&amp;per_page=100：指定第几页，以及每页的记录数。</li>
+<li>?sortby=name&amp;order=asc：指定返回结果按照哪个属性排序，以及排序顺序。</li>
+<li>?animal_type_id=1：指定筛选条件</li>
+</ul>
+<p>所有 URL 参数 必须 是全小写，必须 使用下划线类型的参数形式。</p>
+<p>经常使用的、复杂的查询 应该 标签化，降低维护成本。如</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">GET</span> /trades?<span class="attribute">status</span>=closed&amp;sort=sortby=name&amp;order=asc</span><br><span class="line"><span class="comment"># 可为其定制快捷方式</span></span><br><span class="line"><span class="builtin-name">GET</span> /trades/recently_closed</span><br></pre></td></tr></table></figure>
+
+<h3 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h3><p>应该 使用 OAuth2.0 的方式为 API 调用者提供登录认证。必须 先通过登录接口获取 Access Token 后再通过该 token 调用需要身份认证的 API。</p>
+<p>Oauth 的端点设计示列</p>
+<ul>
+<li>RFC 6749   /token</li>
+<li>Twitter    /oauth2/token</li>
+<li>Fackbook   /oauth/access_token</li>
+<li>Google     /o/oauth2/token</li>
+<li>Github     /login/oauth/access_token</li>
+<li>Instagram  /oauth/authorize</li>
+</ul>
+<p>客户端在获得 access token 的同时 必须 在响应中包含一个名为 expires_in 的数据，它表示当前获得的 token 会在多少 秒 后失效。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;access_token&quot;</span>: <span class="string">&quot;token....&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;token_type&quot;</span>: <span class="string">&quot;Bearer&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;expires_in&quot;</span>: <span class="number">3600</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端在请求需要认证的 API 时，必须 在请求头 Authorization 中带上 access_token。</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Authorization:</span> Bearer token...</span><br></pre></td></tr></table></figure>
+
+<p>当超过指定的秒数后，access token 就会过期，再次用过期/或无效的 token 访问时，服务端 应该 返回 invalid_token 的错误或 401 错误码。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">401</span> Unauthorized</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/json</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>no-store</span><br><span class="line"><span class="attribute">Pragma</span><span class="punctuation">: </span>no-cache</span><br><span class="line"></span><br><span class="line"><span class="json">&#123;</span></span><br><span class="line"><span class="json">    <span class="attr">&quot;error&quot;</span>: <span class="string">&quot;invalid_token&quot;</span></span></span><br><span class="line"><span class="json">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Laravel 开发中，应该 使用 JWT 来为管理你的 Token，并且 一定不可 在 api 中间件中开启请求 session。</p>
+</blockquote>
+<h3 id="Response"><a href="#Response" class="headerlink" title="Response"></a>Response</h3><p>所有的 API 响应，必须 遵守 HTTP 设计规范，必须 选择合适的 HTTP 状态码。一定不可 所有接口都返回状态码为 200 的 HTTP 响应，如:</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">200</span> ok</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/json</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>example.com</span><br><span class="line"></span><br><span class="line"><span class="json">&#123;</span></span><br><span class="line"><span class="json">    <span class="attr">&quot;code&quot;</span>: <span class="number">0</span>,</span></span><br><span class="line"><span class="json">    <span class="attr">&quot;msg&quot;</span>: <span class="string">&quot;success&quot;</span>,</span></span><br><span class="line"><span class="json">    <span class="attr">&quot;data&quot;</span>: &#123;</span></span><br><span class="line"><span class="json">        <span class="attr">&quot;username&quot;</span>: <span class="string">&quot;username&quot;</span></span></span><br><span class="line"><span class="json">    &#125;</span></span><br><span class="line"><span class="json">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>常见的 HTTP 状态码</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1xx</td>
+<td>代表请求已被接受，需要继续处理</td>
+</tr>
+<tr>
+<td>2xx</td>
+<td>请求已成功，请求所希望的响应头或数据体将随此响应返回</td>
+</tr>
+<tr>
+<td>3xx</td>
+<td>重定向</td>
+</tr>
+<tr>
+<td>4xx</td>
+<td>客户端引起的错误</td>
+</tr>
+<tr>
+<td>5xx</td>
+<td>服务端引起的错误</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>只有来自客户端的请求被正确的处理后才能返回 2xx 的响应，所以当 API 返回 2xx 类型的状态码时，前端 必须 认定该请求已处理成功。</p>
+</blockquote>
+<p>必须强调的是，所有 API 一定不可 返回 1xx 类型的状态码。当 API 发生错误时，必须 返回出错时的详细信息。目前常见返回错误信息的方法有两种：</p>
+<p>1、将错误详细放入 HTTP 响应首部；</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">X</span>-MYNAME-<span class="meta">ERROR</span>-CODE: 4001</span><br><span class="line"><span class="meta">X</span>-MYNAME-<span class="meta">ERROR</span>-<span class="meta">MESSAGE</span>: Bad authentication token</span><br><span class="line"><span class="meta">X</span>-MYNAME-<span class="meta">ERROR</span>-INFO: http://docs.example.com/api/v1/authentication</span><br></pre></td></tr></table></figure>
+
+<p>2、直接放入响应实体中；</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">401</span> Unauthorized</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.11.9</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/json</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>no-cache, private</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Sun, 24 Jun 2018 10:02:59 GMT</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"></span><br><span class="line"><span class="json">&#123;<span class="attr">&quot;error_code&quot;</span>:<span class="number">40100</span>,<span class="attr">&quot;message&quot;</span>:<span class="string">&quot;Unauthorized&quot;</span>&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>考虑到易读性和客户端的易处理性，我们 必须 把错误信息直接放到响应实体中，并且错误格式 应该 满足如下格式：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;message&quot;</span>: <span class="string">&quot;您查找的资源不存在&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;error_code&quot;</span>: <span class="number">404001</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中错误码（error_code）必须 和 HTTP 状态码对应，也方便错误码归类，如：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">429</span> Too Many Requests</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.11.9</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/json</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>no-cache, private</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Sun, 24 Jun 2018 10:15:52 GMT</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"></span><br><span class="line"><span class="json">&#123;<span class="attr">&quot;error_code&quot;</span>:<span class="number">429001</span>,<span class="attr">&quot;message&quot;</span>:<span class="string">&quot;你操作太频繁了&quot;</span>&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>应该 在返回的错误信息中，同时包含面向开发者和面向用户的提示信息，前者可方便开发人员调试，后者可直接展示给终端用户查看如：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;message&quot;</span>: <span class="string">&quot;直接展示给终端用户的错误信息&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;error_code&quot;</span>: <span class="string">&quot;业务错误码&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;error&quot;</span>: <span class="string">&quot;供开发者查看的错误信息&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;debug&quot;</span>: [</span><br><span class="line">        <span class="string">&quot;错误堆栈，必须开启 debug 才存在&quot;</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面详细列举了各种情况 API 的返回说明。</p>
+<h3 id="200-ok"><a href="#200-ok" class="headerlink" title="200 ok"></a>200 ok</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">200 状态码是最常见的 HTTP 状态码，在所有 成功 的 <span class="builtin-name">GET</span> 请求中，必须 返回此状态码。HTTP 响应实体部分 必须 直接就是数据，不要做多余的包装。</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;data&quot;</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;id&quot;</span>: 1,</span><br><span class="line">            <span class="string">&quot;avatar&quot;</span>: <span class="string">&quot;https://lorempixel.com/640/480/?32556&quot;</span>,</span><br><span class="line">            <span class="string">&quot;nickname&quot;</span>: <span class="string">&quot;fwest&quot;</span>,</span><br><span class="line">            <span class="string">&quot;last_logined_time&quot;</span>: <span class="string">&quot;2018-05-29 04:56:43&quot;</span>,</span><br><span class="line">            <span class="string">&quot;has_registed&quot;</span>: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">&quot;id&quot;</span>: 2,</span><br><span class="line">            <span class="string">&quot;avatar&quot;</span>: <span class="string">&quot;https://lorempixel.com/640/480/?86144&quot;</span>,</span><br><span class="line">            <span class="string">&quot;nickname&quot;</span>: <span class="string">&quot;zschowalter&quot;</span>,</span><br><span class="line">            <span class="string">&quot;last_logined_time&quot;</span>: <span class="string">&quot;2018-06-16 15:18:34&quot;</span>,</span><br><span class="line">            <span class="string">&quot;has_registed&quot;</span>: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">&quot;meta&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;pagination&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;total&quot;</span>: 101,</span><br><span class="line">            <span class="string">&quot;count&quot;</span>: 2,</span><br><span class="line">            <span class="string">&quot;per_page&quot;</span>: 2,</span><br><span class="line">            <span class="string">&quot;current_page&quot;</span>: 1,</span><br><span class="line">            <span class="string">&quot;total_pages&quot;</span>: 51,</span><br><span class="line">            <span class="string">&quot;links&quot;</span>: &#123;</span><br><span class="line">                <span class="string">&quot;next&quot;</span>: <span class="string">&quot;http://api.example.com?page=2&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其中，分页和其他额外的媒体信息，必须放到 meta 字段中。</p>
+</blockquote>
+<h3 id="201-Created"><a href="#201-Created" class="headerlink" title="201 Created"></a>201 Created</h3><p>当服务器创建数据成功时，应该 返回此状态码。常见的应用场景是使用 POST 提交用户信息，如：</p>
+<ul>
+<li>添加了新用户</li>
+<li>上传了图片</li>
+<li>创建了新活动</li>
+</ul>
+<p>等，都可以返回 201 状态码。需要注意的是，你可以选择在用户创建成功后返回新用户的数据</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">201</span> Created</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.11.9</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/json</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Sun, 24 Jun 2018 09:13:40 GMT</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"></span><br><span class="line"><span class="json">&#123;</span></span><br><span class="line"><span class="json">    <span class="attr">&quot;id&quot;</span>: <span class="number">1</span>,</span></span><br><span class="line"><span class="json">    <span class="attr">&quot;avatar&quot;</span>: <span class="string">&quot;https:\/\/lorempixel.com\/640\/480\/?32556&quot;</span>,</span></span><br><span class="line"><span class="json">    <span class="attr">&quot;nickname&quot;</span>: <span class="string">&quot;fwest&quot;</span>,</span></span><br><span class="line"><span class="json">    <span class="attr">&quot;last_logined_time&quot;</span>: <span class="string">&quot;2018-05-29 04:56:43&quot;</span>,</span></span><br><span class="line"><span class="json">    <span class="attr">&quot;created_at&quot;</span>: <span class="string">&quot;2018-06-16 17:55:55&quot;</span>,</span></span><br><span class="line"><span class="json">    <span class="attr">&quot;updated_at&quot;</span>: <span class="string">&quot;2018-06-16 17:55:55&quot;</span></span></span><br><span class="line"><span class="json">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以返回一个响应实体为空的 HTTP Response 如：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">201</span> Created</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.11.9</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>text/html; charset=UTF-8</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Sun, 24 Jun 2018 09:12:20 GMT</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里我们 应该 采用第二种方式，因为大多数情况下，客户端只需要知道该请求操作成功与否，并不需要返回新资源的信息。</p>
+</blockquote>
+<h3 id="202-Accepted"><a href="#202-Accepted" class="headerlink" title="202 Accepted"></a>202 Accepted</h3><p>该状态码表示服务器已经接受到了来自客户端的请求，但还未开始处理。常用短信发送、邮件通知、模板消息推送等这类很耗时需要队列支持的场景中；</p>
+<blockquote>
+<p>返回该状态码时，响应实体 必须 为空。</p>
+</blockquote>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">202</span> Accepted</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.11.9</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>text/html; charset=UTF-8</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Sun, 24 Jun 2018 09:25:15 GMT</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br></pre></td></tr></table></figure>
+
+<h3 id="204-No-Content"><a href="#204-No-Content" class="headerlink" title="204 No Content"></a>204 No Content</h3><p>该状态码表示响应实体不包含任何数据，其中：</p>
+<p>在使用 DELETE 方法删除资源 成功 时，必须 返回该状态码<br>使用 PUT、PATCH 方法更新数据 成功 时，也 应该 返回此状态码</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">HTTP</span>/<span class="number">1</span>.<span class="number">1</span> <span class="number">204</span> No Content</span><br><span class="line"><span class="attribute">Server</span>: nginx/<span class="number">1</span>.<span class="number">11</span>.<span class="number">9</span></span><br><span class="line"><span class="attribute">Date</span>: Sun, <span class="number">24</span> Jun <span class="number">2018</span> <span class="number">09</span>:<span class="number">29</span>:<span class="number">12</span> GMT</span><br><span class="line"><span class="attribute">Connection</span>: keep-alive</span><br></pre></td></tr></table></figure>
+
+<h3 id="3xx-重定向"><a href="#3xx-重定向" class="headerlink" title="3xx 重定向"></a>3xx 重定向</h3><p>所有 API 一定不可 返回 3xx 类型的状态码。因为 3xx 类型的响应格式一般为下列格式:</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">302</span> Found</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.11.9</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>text/html; charset=UTF-8</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>no-cache, private</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Sun, 24 Jun 2018 09:41:50 GMT</span><br><span class="line"><span class="attribute">Location</span><span class="punctuation">: </span>https://example.com</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;refresh&quot;</span> <span class="attr">content</span>=<span class="string">&quot;0;url=https://example.com&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Redirecting to https://example.com<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml">        Redirecting to <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;https://example.com&quot;</span>&gt;</span>https://example.com<span class="tag">&lt;/<span class="name">a</span>&gt;</span>.</span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>API 一定不可 返回纯 HTML 结构的响应；若一定要使用重定向功能，应该 返回一个响应实体为空的 3xx 响应，并在响应头中加上 Location 字段:</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">302</span> Found</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.11.9</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>text/html; charset=UTF-8</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Sun, 24 Jun 2018 09:52:50 GMT</span><br><span class="line"><span class="attribute">Location</span><span class="punctuation">: </span>https://godruoyi.com</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br></pre></td></tr></table></figure>
+
+<h3 id="400-Bad-Request"><a href="#400-Bad-Request" class="headerlink" title="400 Bad Request"></a>400 Bad Request</h3><p>由于明显的客户端错误（例如，请求语法格式错误、无效的请求、无效的签名等），服务器 应该 放弃该请求。</p>
+<blockquote>
+<p>当服务器无法从其他 4xx 类型的状态码中找出合适的来表示错误类型时，都 必须 返回该状态码。</p>
+</blockquote>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">400</span> Bad Request</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.11.9</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/json</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>no-cache, private</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Sun, 24 Jun 2018 13:22:36 GMT</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"></span><br><span class="line"><span class="json">&#123;<span class="attr">&quot;error_code&quot;</span>:<span class="number">40000</span>,<span class="attr">&quot;message&quot;</span>:<span class="string">&quot;无效的签名&quot;</span>&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="401-Unauthorized"><a href="#401-Unauthorized" class="headerlink" title="401 Unauthorized"></a>401 Unauthorized</h3><p>该状态码表示当前请求需要身份认证，以下情况都 必须 返回该状态码。</p>
+<ul>
+<li>未认证用户访问需要认证的 API</li>
+<li>access_token 无效/过期</li>
+<li>客户端在收到 401 响应后，都 应该 提示用户进行下一步的登录操作。</li>
+</ul>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">401</span> Unauthorized</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.11.9</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/json</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"><span class="attribute">WWW-Authenticate</span><span class="punctuation">: </span>JWTAuth</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>no-cache, private</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Sun, 24 Jun 2018 13:17:02 GMT</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"></span><br><span class="line"><span class="1c"><span class="string">&quot;message&quot;</span>:<span class="string">&quot;Token Signature could not be verified.&quot;</span>,<span class="string">&quot;error_code&quot;</span>: <span class="string">&quot;40100&quot;</span>&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="403-Forbidden"><a href="#403-Forbidden" class="headerlink" title="403 Forbidden"></a>403 Forbidden</h3><p>该状态码可以简单的理解为没有权限访问该请求，服务器收到请求但拒绝提供服务。</p>
+<p>如当普通用户请求操作管理员用户时，必须 返回该状态码。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">403</span> Forbidden</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.11.9</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/json</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>no-cache, private</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Sun, 24 Jun 2018 13:05:34 GMT</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"></span><br><span class="line"><span class="json">&#123;<span class="attr">&quot;error_code&quot;</span>:<span class="number">40301</span>,<span class="attr">&quot;message&quot;</span>:<span class="string">&quot;权限不足&quot;</span>&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="404-Not-Found"><a href="#404-Not-Found" class="headerlink" title="404 Not Found"></a>404 Not Found</h3><p>该状态码表示用户请求的资源不存在，如</p>
+<ul>
+<li>获取不存在的用户信息 （get /users/9999999）</li>
+<li>访问不存在的端点</li>
+</ul>
+<p>都 必须 返回该状态码，若该资源已永久不存在，则 应该 返回 401 响应。</p>
+<h3 id="405-Method-Not-Allowd"><a href="#405-Method-Not-Allowd" class="headerlink" title="405 Method Not Allowd"></a>405 Method Not Allowd</h3><p>当客户端使用的 HTTP 请求方法不被服务器允许时，必须 返回该状态码。</p>
+<blockquote>
+<p>如客户端调用了 POST 方法来访问只支持 GET 方法的 API</p>
+</blockquote>
+<p>该响应 必须 返回一个 Allow 头信息用以表示出当前资源能够接受的请求方法的列表。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">405</span> Method Not Allowed</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.11.9</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/json</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"><span class="attribute">Allow</span><span class="punctuation">: </span>GET, HEAD</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>no-cache, private</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Sun, 24 Jun 2018 12:30:57 GMT</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"></span><br><span class="line"><span class="json">&#123;<span class="attr">&quot;message&quot;</span>:<span class="string">&quot;405 Method Not Allowed&quot;</span>,<span class="attr">&quot;error_code&quot;</span>: <span class="number">40500</span>&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="406-Not-Acceptable"><a href="#406-Not-Acceptable" class="headerlink" title="406 Not Acceptable"></a>406 Not Acceptable</h3><p>API 在不支持客户端指定的数据格式时，应该返回此状态码。如支持 JSON 和 XML 输出的 API 被指定返回 YAML 格式的数据时。</p>
+<blockquote>
+<p>Http 协议一般通过请求首部的 Accept 来指定数据格式</p>
+</blockquote>
+<h3 id="408-Request-Timeout"><a href="#408-Request-Timeout" class="headerlink" title="408 Request Timeout"></a>408 Request Timeout</h3><p>客户端请求超时时 必须 返回该状态码，需要注意的时，该状态码表示 客户端请求超时，在涉及第三方 API 调用超时时，一定不可 返回该状态码。</p>
+<h3 id="409-Gonfilct"><a href="#409-Gonfilct" class="headerlink" title="409 Gonfilct"></a>409 Gonfilct</h3><p>该状态码表示因为请求存在冲突无法处理。如通过手机号码提供注册功能的 API，当用户提交的手机号已存在时，必须 返回此状态码。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">409</span> Conflict</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.11.9</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/json</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>no-cache, private</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Sun, 24 Jun 2018 12:19:04 GMT</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"></span><br><span class="line"><span class="json">&#123;<span class="attr">&quot;error_code&quot;</span>:<span class="number">40900</span>,<span class="attr">&quot;message&quot;</span>:<span class="string">&quot;手机号已存在&quot;</span>&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="410-Gone"><a href="#410-Gone" class="headerlink" title="410 Gone"></a>410 Gone</h3><p>和 404 类似，该状态码也表示请求的资源不存在，只是 410 状态码进一步表示所请求的资源已不存在，并且未来也不会存在。在收到 410 状态码后，客户端 应该 停止再次请求该资源。</p>
+<h3 id="413-Request-Entity-Too-Large"><a href="#413-Request-Entity-Too-Large" class="headerlink" title="413 Request Entity Too Large"></a>413 Request Entity Too Large</h3><p>该状态码表示服务器拒绝处理当前请求，因为该请求提交的实体数据大小超过了服务器愿意或者能够处理的范围。</p>
+<blockquote>
+<p>此种情况下，服务器可以关闭连接以免客户端继续发送此请求。</p>
+</blockquote>
+<p>如果这个状况是临时的，服务器 应该 返回一个 Retry-After 的响应头，以告知客户端可以在多少时间以后重新尝试。</p>
+<h3 id="414-Request-URI-Too-Long"><a href="#414-Request-URI-Too-Long" class="headerlink" title="414 Request-URI Too Long"></a>414 Request-URI Too Long</h3><p>该状态码表示请求的 URI 长度超过了服务器能够解释的长度，因此服务器拒绝对该请求提供服务。</p>
+<h3 id="415-Unsupported-Media-Type"><a href="#415-Unsupported-Media-Type" class="headerlink" title="415 Unsupported Media Type"></a>415 Unsupported Media Type</h3><p>通常表示服务器不支持客户端请求首部 Content-Type 指定的数据格式。如在只接受 JSON 格式的 API 中放入 XML 类型的数据并向服务器发送，都 应该 返回该状态码。</p>
+<p>该状态码也可用于如：只允许上传图片格式的文件，但是客户端提交媒体文件非法或不是图片类型，这时 应该 返回该状态码：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">415</span> Unsupported Media Type</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.11.9</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/json</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>no-cache, private</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Sun, 24 Jun 2018 12:09:40 GMT</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"></span><br><span class="line"><span class="json">&#123;<span class="attr">&quot;error_code&quot;</span>:<span class="number">41500</span>,<span class="attr">&quot;message&quot;</span>:<span class="string">&quot;不允许上传的图片格式&quot;</span>&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="429-Too-Many-Request"><a href="#429-Too-Many-Request" class="headerlink" title="429 Too Many Request"></a>429 Too Many Request</h3><p>该状态码表示用户请求次数超过允许范围。如 API 设定为 60次/分钟，当用户在一分钟内请求次数超过 60 次后，都 应该 返回该状态码。并且也 应该 在响应首部中加上下列头部：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">X</span>-RateLimit-Limit: <span class="number">10</span> 请求速率（由应用设定，其单位一般为小时/分钟等，这里是 <span class="number">10</span>次/<span class="number">5</span>分钟）</span><br><span class="line"><span class="attribute">X</span>-RateLimit-Remaining: <span class="number">0</span> 当前剩余的请求数量</span><br><span class="line"><span class="attribute">X</span>-RateLimit-Reset: <span class="number">1529839462</span> 重置时间</span><br><span class="line"><span class="attribute">Retry</span>-After: <span class="number">120</span> 下一次访问应该等待的时间（秒）</span><br></pre></td></tr></table></figure>
+
+<p>列子</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">429</span> Too Many Requests</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.11.9</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/json</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"><span class="attribute">X-RateLimit-Limit</span><span class="punctuation">: </span>10</span><br><span class="line"><span class="attribute">X-RateLimit-Remaining</span><span class="punctuation">: </span>0</span><br><span class="line"><span class="attribute">X-RateLimit-Reset</span><span class="punctuation">: </span>1529839462</span><br><span class="line"><span class="attribute">Retry-After</span><span class="punctuation">: </span>290</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>no-cache, private</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Sun, 24 Jun 2018 11:19:32 GMT</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"></span><br><span class="line"><span class="json">&#123;<span class="attr">&quot;message&quot;</span>:<span class="string">&quot;You have exceeded your rate limit.&quot;</span>,<span class="attr">&quot;error_code&quot;</span>:<span class="number">42900</span>&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>必须 为所有的 API 设置 Rate Limit 支持。</p>
+<h3 id="500-Internal-Server-Error"><a href="#500-Internal-Server-Error" class="headerlink" title="500 Internal Server Error"></a>500 Internal Server Error</h3><p>该状态码 必须 在服务器出错时抛出，对于所有的 500 错误，都 应该 提供完整的错误信息支持，也方便跟踪调试。</p>
+<h3 id="503-Service-Unavailable"><a href="#503-Service-Unavailable" class="headerlink" title="503 Service Unavailable"></a>503 Service Unavailable</h3><p>该状态码表示服务器暂时处理不可用状态，当服务器需要维护或第三方 API 请求超时/不可达时，都 应该 返回该状态码，其中若是主动关闭 API 服务，应该在返回的响应首部加上 Retry-After 头部，表示多少秒后可以再次访问。</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">503</span> Service Unavailable</span><br><span class="line"><span class="attribute">Server</span><span class="punctuation">: </span>nginx/1.11.9</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>application/json</span><br><span class="line"><span class="attribute">Transfer-Encoding</span><span class="punctuation">: </span>chunked</span><br><span class="line"><span class="attribute">Cache-Control</span><span class="punctuation">: </span>no-cache, private</span><br><span class="line"><span class="attribute">Date</span><span class="punctuation">: </span>Sun, 24 Jun 2018 10:56:20 GMT</span><br><span class="line"><span class="attribute">Retry-After</span><span class="punctuation">: </span>60</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive</span><br><span class="line"></span><br><span class="line"><span class="json">&#123;<span class="attr">&quot;error_code&quot;</span>:<span class="number">50300</span>,<span class="attr">&quot;message&quot;</span>:<span class="string">&quot;服务维护中&quot;</span>&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>其他 HTTP 状态码请参考 <a href="https://link.juejin.im/?target=https://zh.wikipedia.org/zh-hans/HTTP%25E7%258A%25B6%25E6%2580%2581%25E7%25A0%2581">HTTP 状态码- 维基百科</a>。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/api/" rel="tag"># api</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/60442/" rel="prev" title="轻松生成jwt的插件">
+                  <i class="fa fa-chevron-left"></i> 轻松生成jwt的插件
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/25578/" rel="next" title="乐购菠菜添加支付方式">
+                  乐购菠菜添加支付方式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jiang wang</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">151k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:17</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"SJyyMLNz390B9X2k9tbsmUuU-gzGzoHsz","app_key":"OxRktB3EvJLfUzNDRR8MzIfa","server_url":null,"security":true}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"jsogn","repo":"gitalk","client_id":"a3129e0de2949def44c3","client_secret":"cea4d50f199ac465d9c20195a4459ea36cbe00b0","admin_user":"jbanxian@gmail.com","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"69ee6595217e17580123b8887031e7d8"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>

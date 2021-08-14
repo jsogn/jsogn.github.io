@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>0 1 互转</title>
-    <url>/2019/5/0%201%E4%BA%92%E8%BD%AC/</url>
+    <url>/post/47721/</url>
     <content><![CDATA[<p>平时翻转0、1操作，一般使用if语句或三目运算符完成，有些繁琐</p>
 <h3 id="按位非"><a href="#按位非" class="headerlink" title="按位非"></a>按位非</h3><figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line"><span class="symbol">~value + 2</span>;</span><br></pre></td></tr></table></figure>
 
@@ -18,7 +18,7 @@
   </entry>
   <entry>
     <title>Mac 安装 PHP 扩展 pcntl</title>
-    <url>/2019/5/Mac%E5%AE%89%E8%A3%85PHP%E6%89%A9%E5%B1%95%E4%B9%8Bpcntl/</url>
+    <url>/post/33840/</url>
     <content><![CDATA[<p>在 Mac 下做 PHP 开发用的是 MAMP 集成开发环境，出现 PHP 不支持 pcntl 扩展，查下谷歌发现 MAMP 的集成环境是没有这个扩展包的，需要手动编译安装这个包。</p>
 <h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载源码包</span></span><br><span class="line">wget http://cn.php.net/distributions/php-7.2.1.tar.gz</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 解压</span></span><br><span class="line">tar zxvf php-7.2.1.tar.gz</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入文件执行编译</span></span><br><span class="line">cd php-7.2.1/ext/pcntl</span><br><span class="line">phpize</span><br><span class="line">./configure</span><br><span class="line">make</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 拷贝编译.so文件到MAMP extensions目录(具体的文件夹看自己的目录哦)</span></span><br><span class="line">cp modules/pcntl.so /Applications/MAMP/bin/php/php7.2.1/lib/php/extensions/no-debug-non-zts-20170718</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 编辑php.ini引入扩展</span></span><br><span class="line">echo &quot;extension=pcntl.so&quot; &gt;&gt; /Applications/MAMP/bin/php/php7.2.1/conf/php.ini</span><br></pre></td></tr></table></figure>
 
@@ -34,7 +34,7 @@
   </entry>
   <entry>
     <title>crontab实现N秒定时</title>
-    <url>/2019/5/crontab%E5%AE%9E%E7%8E%B0N%E7%A7%92%E5%AE%9A%E6%97%B6/</url>
+    <url>/post/65133/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>crontab 命令最小的执行时间是一分钟，有时需要按秒执行定时任务，有两种方法可以实现</p>
 <span id="more"></span>
 
@@ -66,7 +66,7 @@
   </entry>
   <entry>
     <title>php代码加密-tonyenc</title>
-    <url>/2019/5/tonyenc/</url>
+    <url>/post/50056/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近公司出售了一个项目，商业源码自然要加密，网上的一些加密被破解的可能性较大，用起来也不方便，作为github的伟大搬运工，找到了一个简洁、高性能、跨平台的 PHP7 代码加密扩展-tonyenc</p>
 <span id="more"></span>
 
@@ -96,7 +96,7 @@
   </entry>
   <entry>
     <title>巧用PHP数组函数</title>
-    <url>/2019/5/%E5%B7%A7%E7%94%A8%20PHP%20%E6%95%B0%E7%BB%84%E5%87%BD%E6%95%B0/</url>
+    <url>/post/32349/</url>
     <content><![CDATA[<p>PHP 的数组是一种很强大的数据类型，与此同时 PHP 内置了一系列与数组相关的函数可以很轻易的实现日常开发的功能，善用 PHP 内置函数能极大的提高开发效率和运行效率（内置函数都是用 C 写的效率比用 PHP 写的高很多）</p>
 <span id="more"></span>
 
@@ -177,7 +177,7 @@
   </entry>
   <entry>
     <title>短链接</title>
-    <url>/2019/5/%E7%9F%AD%E9%93%BE%E6%8E%A5/</url>
+    <url>/post/61992/</url>
     <content><![CDATA[<p>最近一个项目中要求使用短链接，谷歌了一下明白基本原理，懒得自己动手，随便找了一个php github项目</p>
 <h3 id="github项目地址"><a href="#github项目地址" class="headerlink" title="github项目地址"></a>github项目地址</h3><p><a href="https://github.com/achais/shorturl">https://github.com/achais/shorturl</a></p>
 <h3 id="新浪微博app-key"><a href="#新浪微博app-key" class="headerlink" title="新浪微博app key"></a>新浪微博app key</h3><p><a href="https://fengmk2.com/blog/appkey.html">https://fengmk2.com/blog/appkey.html</a></p>
@@ -192,7 +192,7 @@
   </entry>
   <entry>
     <title>轻松生成jwt的插件</title>
-    <url>/2019/5/%E8%BD%BB%E6%9D%BE%E7%94%9F%E6%88%90jwt%E7%9A%84%E6%8F%92%E4%BB%B6/</url>
+    <url>/post/60442/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>json web token，无需多说</p>
 <span id="more"></span>
 
@@ -219,7 +219,7 @@
   </entry>
   <entry>
     <title>PHP中的错误处理</title>
-    <url>/2019/6/PHP%E4%B8%AD%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</url>
+    <url>/post/30879/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>PHP里有一套错误处理机制，可以使用set_error_handler接管PHP错误处理，也可以使用trigger_error函数主动抛出一个错误。</p>
 <span id="more"></span>
 
@@ -265,7 +265,7 @@
   </entry>
   <entry>
     <title>PHP类反射</title>
-    <url>/2019/6/PHP%E7%B1%BB%E5%8F%8D%E5%B0%84/</url>
+    <url>/post/46494/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>面向对象编程中对象被赋予了自省的能力，而这个自省的过程就是反射，反射直观的理解就是根据到达地找出出发地和来源</p>
 <p>反射指在PHP运行状态中，扩展分析PHP程序，到处或提取出类，方法，属性，参数等详细信息，包括注释</p>
 <span id="more"></span>
@@ -295,7 +295,7 @@
   </entry>
   <entry>
     <title>SS/SSR提供商</title>
-    <url>/2019/6/SS%20SSR%E6%8F%90%E4%BE%9B%E5%95%86/</url>
+    <url>/post/39062/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>自己经常用的一些梯子，且用且珍惜</p>
 <span id="more"></span>
 
@@ -317,7 +317,7 @@
   </entry>
   <entry>
     <title>shell编程基础</title>
-    <url>/2019/6/Shll%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/</url>
+    <url>/post/16363/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Shell的概念是源自Unix的命令解释器。Shell不仅可解释用户输入的命令，同时，可解释执行基于命令的脚本语言。使用shell脚本能提高用户操作和管理员进行系统管理的效率。shell脚本擅长处理纯文本类型的数据，而Linux中几乎所有的配置文件、日志都是纯文本类型。</p>
 <span id="more"></span>
 
@@ -395,7 +395,7 @@
   </entry>
   <entry>
     <title>Redis由于连接过多导致的异常</title>
-    <url>/2019/12/Redis%E7%94%B1%E4%BA%8E%E8%BF%9E%E6%8E%A5%E8%BF%87%E5%A4%9A%E5%AF%BC%E8%87%B4%E7%9A%84%E5%BC%82%E5%B8%B8/</url>
+    <url>/post/16422/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>近期服务器在高峰的时候经常报错，日志记录为：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Redis-&gt;connect(&#x27;127.0.0.1&#x27;, 6379)</span><br><span class="line">#1 &#123;main&#125;</span><br><span class="line">  thrown in /wwwroot/test.php on line 9</span><br><span class="line">[13-Jun-2019 11:07:47 PRC] PHP Fatal error:  Uncaught RedisException: Cannot assign requested address in /wwwroot/test.php:9</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
@@ -438,7 +438,7 @@
   </entry>
   <entry>
     <title>网站访问日志的日常操作</title>
-    <url>/2019/12/%E7%BD%91%E7%AB%99%E8%AE%BF%E9%97%AE%E6%97%A5%E5%BF%97%E7%9A%84%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C/</url>
+    <url>/post/63154/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>日常工作中，网站如果遇到异常情况，经常需要查看访问日志来查找问题，由于日志文件庞大查找起来很不放便，所以需要进行一些过滤处理</p>
 <span id="more"></span>
 
@@ -458,7 +458,7 @@
   </entry>
   <entry>
     <title>Vue 中 axios 的封装</title>
-    <url>/2019/11/Vue%20%E4%B8%AD%20axios%20%E7%9A%84%E5%B0%81%E8%A3%85/</url>
+    <url>/post/11917/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>虽然，axios 是个优秀的 HTTP 库，但是，直接在项目中使用并不是那么方便，所以，我们需要对其进行一定程度上的配置封装，减少重复代码，方便调用。</p>
 <span id="more"></span>
 
@@ -518,7 +518,7 @@
   </entry>
   <entry>
     <title>Nginx 服务部署 Vue 项目后,出现 404 问题</title>
-    <url>/2019/11/%E6%9C%8D%E5%8A%A1%E9%83%A8%E7%BD%B2Vue%E9%A1%B9%E7%9B%AE%E5%90%8E%E5%87%BA%E7%8E%B0%20404%20%E9%97%AE%E9%A2%98/</url>
+    <url>/post/59640/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在本地与部署线上环境后都没有问题，使用‘history’路由模式，部署线上环境后，首页能正常访问，点击其他页面，出现 404 Not Found</p>
 <span id="more"></span>
 
@@ -537,7 +537,7 @@
   </entry>
   <entry>
     <title>GoogleHacking</title>
-    <url>/2019/9/GoogleHacking/</url>
+    <url>/post/47235/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Google hacker (Google黑客)是利用GOOGLE提供的搜索功能查找黑客们想找到的信息，一般是查找网站后台，网管的个人信息，也可以用来查找某人在网络上的活动</p>
 <p>Google hacker 一般是做为黑客在入侵时的一个手段，在入侵过程中有时需要查找后台的登陆口就需要用到GOOGLE HACKER，有时猜解密码的时候google也是提供查找管理员资料的有效平台</p>
 <span id="more"></span>
@@ -706,7 +706,7 @@
   </entry>
   <entry>
     <title>Mac设置虚拟机使用宿主机代理</title>
-    <url>/2019/9/Mac%E8%AE%BE%E7%BD%AE%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%BD%BF%E7%94%A8%E5%AE%BF%E4%B8%BB%E6%9C%BA%E4%BB%A3%E7%90%86/</url>
+    <url>/post/24292/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>前提：mac 本身已经安装 ss，并且可以通过 ss 科学上网（或者 win 也一样）<br>想要实现：Parallels Desktop 里的虚拟机也想科学上网（或者 win 里安装 vmware 也一样，或者是另一台物理机也是一样的）</p>
 <span id="more"></span>
 
@@ -758,7 +758,7 @@
   </entry>
   <entry>
     <title>PHPStudy后门rec批量利用脚本</title>
-    <url>/2019/9/PHPStudy%E5%90%8E%E9%97%A8%E5%88%A9%E7%94%A8%E8%84%9A%E6%9C%AC/</url>
+    <url>/post/12551/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>北京时间9月20日，杭州公安发布《杭州警方通报打击涉网违法犯罪暨‘净网2019’专项行动战果》一文，文章曝光了国内知名PHP调试环境程序集成包“PhpStudy软件”遭到黑客篡改并植入“后门”。截至案发，近百万PHP用户中超过67万用户已被黑客控制，并大肆盗取账号密码、聊天记录、设备码类等敏感数据多达10万多组，非法牟利600多万元。</p>
 <span id="more"></span>
 
@@ -774,7 +774,7 @@
   </entry>
   <entry>
     <title>nmap基本使用</title>
-    <url>/2019/9/nmap%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
+    <url>/post/5820/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Nmap 是个端口扫描器，这意味着它可以向一些指定 IP 的 TCP 或 UDP 端口发送封包，并检查是否有响应。如果有的话，这意味着端口是打开的，因此，端口上运行着服务</p>
 <p>Nmap代表Network Mapper，是一款用于网络探索和安全审计的开源工具，它与Kali Linux标准兼容，但也可用于Windows，OSX和许多其他UNIX平台。Nmap还有一个称为Zenmap的图形用户界面。</p>
 <span id="more"></span>
@@ -964,7 +964,7 @@
   </entry>
   <entry>
     <title>nmap脚本检测</title>
-    <url>/2019/9/nmap%E8%84%9A%E6%9C%AC%E6%A3%80%E6%B5%8B/</url>
+    <url>/post/63116/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在实战中相对比较实用的nmap脚本</p>
 <span id="more"></span>
 
@@ -1183,7 +1183,7 @@
   </entry>
   <entry>
     <title>PAC规则配置</title>
-    <url>/2020/2/PAC%E8%A7%84%E5%88%99%E9%85%8D%E7%BD%AE/</url>
+    <url>/post/57233/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>访问github加载过慢，下载项目奇慢无比，开启全局后可以秒下，反应过来github.com默认没有走代理，整理了一些PAC规则的基本配置</p>
 <span id="more"></span>
 
@@ -1216,7 +1216,7 @@
   </entry>
   <entry>
     <title>设置CentOS服务器IP地址</title>
-    <url>/2020/2/%E8%AE%BE%E7%BD%AECentOS%E6%9C%8D%E5%8A%A1%E5%99%A8IP%E5%9C%B0%E5%9D%80/</url>
+    <url>/post/33748/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如何在CentOS服务器中配置网络IP地址</p>
 <span id="more"></span>
 
@@ -1242,7 +1242,7 @@
   </entry>
   <entry>
     <title>阿里云RDS与ECS服务器数据库做主从</title>
-    <url>/2020/2/%E9%98%BF%E9%87%8C%E4%BA%91RDS%E4%B8%8EECS%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E5%81%9A%E4%B8%BB%E4%BB%8E/</url>
+    <url>/post/13832/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>实现RDS for mysql与线下ECS上自建数据库数据实时同步，阿里云官方推荐使用DTS方式进行。原因有两个：</p>
 <ul>
 <li><p>mysql-bin正常情况下,RDS在本地只保存18个小时</p>
@@ -1299,7 +1299,7 @@
   </entry>
   <entry>
     <title>Linux文件的隐藏属性</title>
-    <url>/2019/10/Linux%E6%96%87%E4%BB%B6%E7%9A%84%E9%9A%90%E8%97%8F%E5%B1%9E%E6%80%A7/</url>
+    <url>/post/1747/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Linux系统中的文件除了具备一般权限和特殊权限之外，还有一种隐藏权限，即被隐藏起来的权限，默认情况下不能直接被用户发觉。明明权限充足但却无法删除某个文件的情况，或者仅能在日志文件中追加内容而不能修改或删除内容，这在一定程度上阻止了黑客篡改系统日志的图谋，因此这种“奇怪”的文件也保障了Linux系统的安全性。</p>
 <span id="more"></span>
 
@@ -1352,7 +1352,7 @@
   </entry>
   <entry>
     <title>Mysql8修改事务隔离级别</title>
-    <url>/2020/6/Mysql8%E4%BF%AE%E6%94%B9%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</url>
+    <url>/post/63403/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>线上代码出现了bug，经查是mysql隔离级别引起的问题，将数据库隔离级别改为更适合线上业务的读提交</p>
 <span id="more"></span>
 
@@ -1388,7 +1388,7 @@
   </entry>
   <entry>
     <title>Linux文件访问控制列表</title>
-    <url>/2019/10/Linux%E6%96%87%E4%BB%B6%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%88%97%E8%A1%A8/</url>
+    <url>/post/36849/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如果希望对某个指定的用户进行单独的权限控制，就需要用到文件的访问控制列表（ACL）了。通俗来讲，基于普通文件或目录设置ACL其实就是针对指定的用户或用户组设置文件或目录的操作权限。另外，如果针对某个目录设置了ACL，则目录中的文件会继承其ACL；若针对文件设置了ACL，则文件不再继承其所在目录的ACL。</p>
 <span id="more"></span>
 
@@ -1417,7 +1417,7 @@
   </entry>
   <entry>
     <title>IDEA无法正常启动</title>
-    <url>/2020/11/IDEA%E6%97%A0%E6%B3%95%E6%AD%A3%E5%B8%B8%E5%90%AF%E5%8A%A8/</url>
+    <url>/post/35800/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>以前都是用的破解版，今天想支持一下正版，到官网下载了最新版的IDEA，安装成功后发现无法正常启动，记录一下本次发现的坑</p>
 <span id="more"></span>
 
@@ -1442,7 +1442,7 @@
   </entry>
   <entry>
     <title>Nginx访问控制</title>
-    <url>/2020/4/Nginx%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/</url>
+    <url>/post/16692/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>有时，网站会被恶意入侵，可用Nginx做一些访问控制，加强一些网站安全性</p>
 <span id="more"></span>
 
@@ -1493,7 +1493,7 @@
   </entry>
   <entry>
     <title>vue配置跨域代理</title>
-    <url>/2020/4/vue%E9%85%8D%E7%BD%AE%E8%B7%A8%E5%9F%9F%E4%BB%A3%E7%90%86/</url>
+    <url>/post/42883/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>如果前端应用和后端 API 服务器没有运行在同一个主机上，需要在开发环境下将 API 请求代理到 API 服务器。这个问题可以通过 vue.config.js 中的 devServer.proxy 选项来配置。</p>
 <span id="more"></span>
 
@@ -1519,7 +1519,7 @@
   </entry>
   <entry>
     <title>平滑重启php-fpm</title>
-    <url>/2020/4/%E5%B9%B3%E6%BB%91%E9%87%8D%E5%90%AFphp-fpm/</url>
+    <url>/post/52587/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>php-fpm 会对下面几个信号作（自己的）处理</p>
 <ul>
 <li>SIGINT, SIGTERM: immediate termination</li>
@@ -1555,7 +1555,7 @@
   </entry>
   <entry>
     <title>关闭所有PHP Nginx Mysql进程</title>
-    <url>/2020/5/%E5%85%B3%E9%97%AD%E6%89%80%E6%9C%89PHP%20Nginx%20Mysql%E8%BF%9B%E7%A8%8B/</url>
+    <url>/post/40230/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>有时需要关闭程序的所有进程</p>
 <span id="more"></span>
 
@@ -1573,7 +1573,7 @@
   </entry>
   <entry>
     <title>Linux 网络内核参数优化</title>
-    <url>/2021/03/Linux%20%E7%BD%91%E7%BB%9C%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96/</url>
+    <url>/post/43734/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在硬件资源有限的情况下，最大的压榨服务器的性能，提高服务器的并发处理能力，是很多运维技术人员思考的问题</p>
 <span id="more"></span>
 
@@ -1611,7 +1611,7 @@
   </entry>
   <entry>
     <title>Docker 本地开发容器集合</title>
-    <url>/2021/08/Docker%20%E6%9C%AC%E5%9C%B0%E5%BC%80%E5%8F%91%E5%AE%B9%E5%99%A8%E9%9B%86%E5%90%88/</url>
+    <url>/post/58712/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>自己常用的容器集合，做个记录</p>
 <span id="more"></span>
 
@@ -1694,7 +1694,7 @@
   </entry>
   <entry>
     <title>Dockerfile-maven 构建镜像</title>
-    <url>/2021/08/Dockerfile-maven%20%E6%9E%84%E5%BB%BA%E9%95%9C%E5%83%8F/</url>
+    <url>/post/9563/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><code>Maven</code> 有几个 <code>Docker</code> 插件可以使用，这里使用的是由 <code>Spotify</code> 公司开发的 <code>Maven</code> 插件，由于<code>docker-maven-plugin</code> 这个插件已经不推荐使用了，<code>docker-maven-plugin</code> 插件可以不使用 <code>Dockerfile</code> 而直接在 <code>pom.xml</code> 中来构建镜像，这种方式可能导致很多不必要的混淆，所以推荐更好的 <code>dockerfile-maven</code> 插件作为替代</p>
 <span id="more"></span>
 
@@ -1756,7 +1756,7 @@
   </entry>
   <entry>
     <title>Redis性能优化整理</title>
-    <url>/2020/3/Redis%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%95%B4%E7%90%86/</url>
+    <url>/post/33866/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>Redis 是基于单线程模型实现的，也就是 Redis 是使用一个线程来处理所有的客户端请求的，尽管 Redis 使用了非阻塞式 IO，并且对各种命令都做了优化（大部分命令操作时间复杂度都是 O(1)），但由于 Redis 是单线程执行的特点，因此它对性能的要求更加苛刻。</p>
 <span id="more"></span>
 
@@ -1829,7 +1829,7 @@
   </entry>
   <entry>
     <title>Keepalived+LVS+nginx 搭建 nginx 高可用集群</title>
-    <url>/2021/05/Keepalived+LVS+nginx%20%E6%90%AD%E5%BB%BA%20nginx%20%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4/</url>
+    <url>/post/36452/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>nginx 是一款非常优秀的反向代理工具，支持请求分发，负载均衡，以及缓存等等非常实用的功能。在请求处理上，nginx 采用的是 epoll 模型，这是一种基于事件监听的模型，因而其具备非常高效的请求处理效率，单机并发能力能够达到上百万。nginx 接收到的请求可以通过负载均衡策略分发到其下一级的应用服务器，这些服务器一般是以集群方式部署的，因而在性能不足的情况下，应用服务器可以通过加机器的方式扩展流量。此时，对于一些特大型的网站，性能的瓶颈就来自于 nginx 了，因为单机的 nginx 的并发能力是有上限的，而 nginx 本身是不支持集群模式的，因而此时对 nginx 的横向扩展就显得尤为重要。</p>
 <span id="more"></span>
 
@@ -1909,7 +1909,7 @@
   </entry>
   <entry>
     <title>SpringBoot常用配置整合</title>
-    <url>/2021/05/SpringBoot%E5%B8%B8%E7%94%A8%E9%85%8D%E7%BD%AE%E6%95%B4%E5%90%88/</url>
+    <url>/post/33451/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>SpringBoot常用配置整合，方便参考</p>
 <span id="more"></span>
 
@@ -1943,7 +1943,7 @@
   </entry>
   <entry>
     <title>uni-app 开发视频项目中的播放问题</title>
-    <url>/2021/04/uni-app%20%E5%BC%80%E5%8F%91%E8%A7%86%E9%A2%91%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%9A%84%E6%92%AD%E6%94%BE%E9%97%AE%E9%A2%98/</url>
+    <url>/post/4242/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在使用uni-app开发app中发现框架的原生视频组件性能太差，并且H5的视频组件不支持<code>u3m8</code>格式的视频</p>
 <span id="more"></span>
 
@@ -1974,7 +1974,7 @@
   </entry>
   <entry>
     <title>RESETful API 设计规范</title>
-    <url>/2019/6/RESETfulAPI%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/</url>
+    <url>/post/55580/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>工欲善其事，必先利其器，一个健壮的API必要有优秀的设计规范，本文是最基本的设计理念</p>
 <span id="more"></span>
 
@@ -2214,7 +2214,7 @@
   </entry>
   <entry>
     <title>乐购菠菜添加支付方式</title>
-    <url>/2019/6/%E4%B9%90%E8%B4%AD%E8%8F%A0%E8%8F%9C%E6%B7%BB%E5%8A%A0%E6%94%AF%E4%BB%98%E6%96%B9%E5%BC%8F/</url>
+    <url>/post/25578/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>突然有一天老板扔给我一个错误百出的文档（文档不规范，码农两行泪），让我往某不知名网站添加某不可描述支付</p>
 <span id="more"></span>
 
@@ -2254,7 +2254,7 @@
   </entry>
   <entry>
     <title>sqlmap基本使用</title>
-    <url>/2019/9/sqlmap%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</url>
+    <url>/post/41891/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>SQLMap 是一个开源的渗透测试工具，可以用来进行自动化检测，利用 SQL 注入漏洞，获取数据库服务器的权限。它具有功能强大的检测引擎，针对各种不同类型数据库的渗透测试的功能选项，包括获取数据库中存储的数据，访问操作系统文件甚至可以通过外带数据连接的方式执行操作系统命令。</p>
 <span id="more"></span>
 
