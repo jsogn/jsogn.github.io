@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jiangwangblog.com","root":"/","images":"/images","scheme":"Gemini","version":"8.7.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":null,"activeClass":"gitalk"},"motion":{"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "0d952de7"
+    });
+  daovoice('update');
+  </script>
+
+<meta name="description" content="前言PHP RabbitMQ 基本使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP RabbitMQ 基本使用">
+<meta property="og:url" content="https://jiangwangblog.com/post/4b1674e8/index.html">
+<meta property="og:site_name" content="Jw Blog">
+<meta property="og:description" content="前言PHP RabbitMQ 基本使用">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-04-07T06:36:44.255Z">
+<meta property="article:modified_time" content="2022-04-07T06:50:13.512Z">
+<meta property="article:author" content="jiang wang">
+<meta property="article:tag" content="php">
+<meta property="article:tag" content="RabbitMQ">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://jiangwangblog.com/post/4b1674e8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://jiangwangblog.com/post/4b1674e8/","path":"post/4b1674e8/","title":"PHP RabbitMQ 基本使用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>PHP RabbitMQ 基本使用 | Jw Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jw Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-bookmark"><a href="/bookmark/" rel="section"><i class="fa fa-bookmark fa-fw"></i>书签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E9%98%9F%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">工作队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.1.</span> <span class="nav-text">发布任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.2.</span> <span class="nav-text">消费任务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%EF%BC%8F%E8%AE%A2%E9%98%85"><span class="nav-number">3.</span> <span class="nav-text">发布／订阅</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E4%BB%BB%E5%8A%A1-1"><span class="nav-number">3.1.</span> <span class="nav-text">发布任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A2%E9%98%85%E4%BB%BB%E5%8A%A1"><span class="nav-number">3.2.</span> <span class="nav-text">订阅任务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1"><span class="nav-number">4.</span> <span class="nav-text">路由</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E9%98%9F%E5%88%97"><span class="nav-number">4.1.</span> <span class="nav-text">发布队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E9%98%9F%E5%88%97"><span class="nav-number">4.2.</span> <span class="nav-text">消费队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E9%98%9F%E5%88%97-1"><span class="nav-number">5.1.</span> <span class="nav-text">发布队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E8%B4%B9%E9%98%9F%E5%88%97-1"><span class="nav-number">5.2.</span> <span class="nav-text">消费队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9C%E7%A8%8B%E8%BF%87%E7%A8%8B%E8%B0%83%E7%94%A8"><span class="nav-number">6.</span> <span class="nav-text">远程过程调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">6.1.</span> <span class="nav-text">服务端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="nav-number">6.2.</span> <span class="nav-text">客户端</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="jiang wang"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">jiang wang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+  <div class="links-of-recent-posts motion-element">
+    <div class="links-of-recent-posts-title">
+      <i class="fa fa-history fa-fw"></i>
+      最近发表
+    </div>
+    <ul class="links-of-recent-posts-list">
+        <li class="links-of-recent-posts-item">
+          <a href="/post/1255fdd2/" title="post&#x2F;1255fdd2&#x2F;">CommonJS,AMD,CMD,ES6</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/post/4b1674e8/" title="post&#x2F;4b1674e8&#x2F;">PHP RabbitMQ 基本使用</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/post/1d8035c6/" title="post&#x2F;1d8035c6&#x2F;">Github 密码暂时禁用问题</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/post/9563/" title="post&#x2F;9563&#x2F;">Dockerfile-maven 构建镜像</a>
+        </li>
+        <li class="links-of-recent-posts-item">
+          <a href="/post/58712/" title="post&#x2F;58712&#x2F;">Docker 本地开发容器集合</a>
+        </li>
+    </ul>
+  </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://jiangwangblog.com/post/4b1674e8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="jiang wang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jw Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PHP RabbitMQ 基本使用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-04-07 14:36:44 / 修改时间：14:50:13" itemprop="dateCreated datePublished" datetime="2022-04-07T14:36:44+08:00">2022-04-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/php/" itemprop="url" rel="index"><span itemprop="name">php</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/post/4b1674e8/" class="post-meta-item leancloud_visitors" data-flag-title="PHP RabbitMQ 基本使用" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>10k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>PHP RabbitMQ 基本使用</p>
+<span id="more"></span>
+
+<h2 id="工作队列"><a href="#工作队列" class="headerlink" title="工作队列"></a>工作队列</h2><h3 id="发布任务"><a href="#发布任务" class="headerlink" title="发布任务"></a>发布任务</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require_once</span> <span class="keyword">__DIR__</span> . <span class="string">&#x27;/vendor/autoload.php&#x27;</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpAmqpLib</span>\<span class="title">Connection</span>\<span class="title">AMQPStreamConnection</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpAmqpLib</span>\<span class="title">Message</span>\<span class="title">AMQPMessage</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$connection</span> = <span class="keyword">new</span> AMQPStreamConnection(<span class="string">&#x27;localhost&#x27;</span>, <span class="number">5672</span>, <span class="string">&#x27;guest&#x27;</span>, <span class="string">&#x27;guest&#x27;</span>);</span><br><span class="line"><span class="variable">$channel</span> = <span class="variable">$connection</span>-&gt;channel();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明队列，并不需要ack</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;queue_declare(<span class="string">&#x27;task_queue&#x27;</span>, <span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable">$data</span> = implode(<span class="string">&#x27; &#x27;</span>, array_slice(<span class="variable">$argv</span>, <span class="number">1</span>));</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">empty</span>(<span class="variable">$data</span>)) <span class="variable">$data</span> = <span class="string">&quot;Hello World!&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建持久化消息</span></span><br><span class="line"><span class="variable">$msg</span> = <span class="keyword">new</span> AMQPMessage(<span class="variable">$data</span>,</span><br><span class="line">                        <span class="keyword">array</span>(<span class="string">&#x27;delivery_mode&#x27;</span> =&gt; AMQPMessage::DELIVERY_MODE_PERSISTENT)</span><br><span class="line">                      );</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送消息到队列，并使用了匿名交换机</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;basic_publish(<span class="variable">$msg</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;task_queue&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot; [x] Sent &quot;</span>, <span class="variable">$data</span>, <span class="string">&quot;\n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;close();</span><br><span class="line"><span class="variable">$connection</span>-&gt;close();</span><br></pre></td></tr></table></figure>
+
+<h3 id="消费任务"><a href="#消费任务" class="headerlink" title="消费任务"></a>消费任务</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require_once</span> <span class="keyword">__DIR__</span> . <span class="string">&#x27;/vendor/autoload.php&#x27;</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpAmqpLib</span>\<span class="title">Connection</span>\<span class="title">AMQPStreamConnection</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$connection</span> = <span class="keyword">new</span> AMQPStreamConnection(<span class="string">&#x27;localhost&#x27;</span>, <span class="number">5672</span>, <span class="string">&#x27;guest&#x27;</span>, <span class="string">&#x27;guest&#x27;</span>);</span><br><span class="line"><span class="variable">$channel</span> = <span class="variable">$connection</span>-&gt;channel();</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;queue_declare(<span class="string">&#x27;task_queue&#x27;</span>, <span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27; [*] Waiting for messages. To exit press CTRL+C&#x27;</span>, <span class="string">&quot;\n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$callback</span> = <span class="function"><span class="keyword">function</span>(<span class="params"><span class="variable">$msg</span></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">&quot; [x] Received &quot;</span>, <span class="variable">$msg</span>-&gt;body, <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">  sleep(substr_count(<span class="variable">$msg</span>-&gt;body, <span class="string">&#x27;.&#x27;</span>));</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">&quot; [x] Done&quot;</span>, <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">  <span class="variable">$msg</span>-&gt;delivery_info[<span class="string">&#x27;channel&#x27;</span>]-&gt;basic_ack(<span class="variable">$msg</span>-&gt;delivery_info[<span class="string">&#x27;delivery_tag&#x27;</span>]);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 上次任务消费完成，才可以开始一条</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;basic_qos(<span class="literal">null</span>, <span class="number">1</span>, <span class="literal">null</span>);</span><br><span class="line"><span class="variable">$channel</span>-&gt;basic_consume(<span class="string">&#x27;task_queue&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="variable">$callback</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(count(<span class="variable">$channel</span>-&gt;callbacks)) &#123;</span><br><span class="line">    <span class="variable">$channel</span>-&gt;wait();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;close();</span><br><span class="line"><span class="variable">$connection</span>-&gt;close();</span><br></pre></td></tr></table></figure>
+
+<h2 id="发布／订阅"><a href="#发布／订阅" class="headerlink" title="发布／订阅"></a>发布／订阅</h2><p>将队列分发给多个消费者</p>
+<h3 id="发布任务-1"><a href="#发布任务-1" class="headerlink" title="发布任务"></a>发布任务</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require_once</span> <span class="keyword">__DIR__</span> . <span class="string">&#x27;/vendor/autoload.php&#x27;</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpAmqpLib</span>\<span class="title">Connection</span>\<span class="title">AMQPStreamConnection</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpAmqpLib</span>\<span class="title">Message</span>\<span class="title">AMQPMessage</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$connection</span> = <span class="keyword">new</span> AMQPStreamConnection(<span class="string">&#x27;localhost&#x27;</span>, <span class="number">5672</span>, <span class="string">&#x27;guest&#x27;</span>, <span class="string">&#x27;guest&#x27;</span>);</span><br><span class="line"><span class="variable">$channel</span> = <span class="variable">$connection</span>-&gt;channel();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明交换机队列，指定类型为扇形交换机fanout</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;exchange_declare(<span class="string">&#x27;logs&#x27;</span>, <span class="string">&#x27;fanout&#x27;</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable">$data</span> = implode(<span class="string">&#x27; &#x27;</span>, array_slice(<span class="variable">$argv</span>, <span class="number">1</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">empty</span>(<span class="variable">$data</span>)) <span class="variable">$data</span> = <span class="string">&quot;info: Hello World!&quot;</span>;</span><br><span class="line"><span class="variable">$msg</span> = <span class="keyword">new</span> AMQPMessage(<span class="variable">$data</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布消息到指定交换机</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;basic_publish(<span class="variable">$msg</span>, <span class="string">&#x27;logs&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot; [x] Sent &quot;</span>, <span class="variable">$data</span>, <span class="string">&quot;\n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;close();</span><br><span class="line"><span class="variable">$connection</span>-&gt;close();</span><br></pre></td></tr></table></figure>
+
+<h3 id="订阅任务"><a href="#订阅任务" class="headerlink" title="订阅任务"></a>订阅任务</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require_once</span> <span class="keyword">__DIR__</span> . <span class="string">&#x27;/vendor/autoload.php&#x27;</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpAmqpLib</span>\<span class="title">Connection</span>\<span class="title">AMQPStreamConnection</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$connection</span> = <span class="keyword">new</span> AMQPStreamConnection(<span class="string">&#x27;localhost&#x27;</span>, <span class="number">5672</span>, <span class="string">&#x27;guest&#x27;</span>, <span class="string">&#x27;guest&#x27;</span>);</span><br><span class="line"><span class="variable">$channel</span> = <span class="variable">$connection</span>-&gt;channel();</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;exchange_declare(<span class="string">&#x27;logs&#x27;</span>, <span class="string">&#x27;fanout&#x27;</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明一个临时队列</span></span><br><span class="line"><span class="keyword">list</span>(<span class="variable">$queue_name</span>, ,) = <span class="variable">$channel</span>-&gt;queue_declare(<span class="string">&quot;&quot;</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>);</span><br><span class="line"><span class="comment">// 将临时队列绑定到交换机</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;queue_bind(<span class="variable">$queue_name</span>, <span class="string">&#x27;logs&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27; [*] Waiting for logs. To exit press CTRL+C&#x27;</span>, <span class="string">&quot;\n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$callback</span> = <span class="function"><span class="keyword">function</span>(<span class="params"><span class="variable">$msg</span></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">&#x27; [x] &#x27;</span>, <span class="variable">$msg</span>-&gt;body, <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;basic_consume(<span class="variable">$queue_name</span>, <span class="string">&#x27;&#x27;</span>, <span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="variable">$callback</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(count(<span class="variable">$channel</span>-&gt;callbacks)) &#123;</span><br><span class="line">    <span class="variable">$channel</span>-&gt;wait();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;close();</span><br><span class="line"><span class="variable">$connection</span>-&gt;close();</span><br></pre></td></tr></table></figure>
+
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><h3 id="发布队列"><a href="#发布队列" class="headerlink" title="发布队列"></a>发布队列</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require_once</span> <span class="keyword">__DIR__</span> . <span class="string">&#x27;/vendor/autoload.php&#x27;</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpAmqpLib</span>\<span class="title">Connection</span>\<span class="title">AMQPStreamConnection</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpAmqpLib</span>\<span class="title">Message</span>\<span class="title">AMQPMessage</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$connection</span> = <span class="keyword">new</span> AMQPStreamConnection(<span class="string">&#x27;localhost&#x27;</span>, <span class="number">5672</span>, <span class="string">&#x27;guest&#x27;</span>, <span class="string">&#x27;guest&#x27;</span>);</span><br><span class="line"><span class="variable">$channel</span> = <span class="variable">$connection</span>-&gt;channel();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明一个直联类型的交换机</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;exchange_declare(<span class="string">&#x27;direct_logs&#x27;</span>, <span class="string">&#x27;direct&#x27;</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable">$severity</span> = <span class="keyword">isset</span>(<span class="variable">$argv</span>[<span class="number">1</span>]) &amp;&amp; !<span class="keyword">empty</span>(<span class="variable">$argv</span>[<span class="number">1</span>]) ? <span class="variable">$argv</span>[<span class="number">1</span>] : <span class="string">&#x27;info&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$data</span> = implode(<span class="string">&#x27; &#x27;</span>, array_slice(<span class="variable">$argv</span>, <span class="number">2</span>));</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">empty</span>(<span class="variable">$data</span>)) <span class="variable">$data</span> = <span class="string">&quot;Hello World!&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$msg</span> = <span class="keyword">new</span> AMQPMessage(<span class="variable">$data</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布到指定路由的交换机上</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;basic_publish(<span class="variable">$msg</span>, <span class="string">&#x27;direct_logs&#x27;</span>, <span class="variable">$severity</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot; [x] Sent &quot;</span>,<span class="variable">$severity</span>,<span class="string">&#x27;:&#x27;</span>,<span class="variable">$data</span>,<span class="string">&quot; \n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;close();</span><br><span class="line"><span class="variable">$connection</span>-&gt;close();</span><br></pre></td></tr></table></figure>
+
+<h3 id="消费队列"><a href="#消费队列" class="headerlink" title="消费队列"></a>消费队列</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require_once</span> <span class="keyword">__DIR__</span> . <span class="string">&#x27;/vendor/autoload.php&#x27;</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpAmqpLib</span>\<span class="title">Connection</span>\<span class="title">AMQPStreamConnection</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$connection</span> = <span class="keyword">new</span> AMQPStreamConnection(<span class="string">&#x27;localhost&#x27;</span>, <span class="number">5672</span>, <span class="string">&#x27;guest&#x27;</span>, <span class="string">&#x27;guest&#x27;</span>);</span><br><span class="line"><span class="variable">$channel</span> = <span class="variable">$connection</span>-&gt;channel();</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;exchange_declare(<span class="string">&#x27;direct_logs&#x27;</span>, <span class="string">&#x27;direct&#x27;</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">list</span>(<span class="variable">$queue_name</span>, ,) = <span class="variable">$channel</span>-&gt;queue_declare(<span class="string">&quot;&quot;</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable">$severities</span> = array_slice(<span class="variable">$argv</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">empty</span>(<span class="variable">$severities</span> )) &#123;</span><br><span class="line">    file_put_contents(<span class="string">&#x27;php://stderr&#x27;</span>, <span class="string">&quot;Usage: <span class="subst">$argv</span>[0] [info] [warning] [error]\n&quot;</span>);</span><br><span class="line">    <span class="keyword">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 队列绑定指定的交换机路由</span></span><br><span class="line"><span class="keyword">foreach</span>(<span class="variable">$severities</span> <span class="keyword">as</span> <span class="variable">$severity</span>) &#123;</span><br><span class="line">    <span class="variable">$channel</span>-&gt;queue_bind(<span class="variable">$queue_name</span>, <span class="string">&#x27;direct_logs&#x27;</span>, <span class="variable">$severity</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27; [*] Waiting for logs. To exit press CTRL+C&#x27;</span>, <span class="string">&quot;\n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$callback</span> = <span class="function"><span class="keyword">function</span>(<span class="params"><span class="variable">$msg</span></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">&#x27; [x] &#x27;</span>,<span class="variable">$msg</span>-&gt;delivery_info[<span class="string">&#x27;routing_key&#x27;</span>], <span class="string">&#x27;:&#x27;</span>, <span class="variable">$msg</span>-&gt;body, <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;basic_consume(<span class="variable">$queue_name</span>, <span class="string">&#x27;&#x27;</span>, <span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="variable">$callback</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(count(<span class="variable">$channel</span>-&gt;callbacks)) &#123;</span><br><span class="line">    <span class="variable">$channel</span>-&gt;wait();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;close();</span><br><span class="line"><span class="variable">$connection</span>-&gt;close();</span><br></pre></td></tr></table></figure>
+
+<h2 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h2><p>发送到主题交换机（topic exchange）的消息不可以携带随意什么样子的路由键（routing_key），它的路由键必须是一个由.分隔开的词语列表。这些单词随便是什么都可以，但是最好是跟携带它们的消息有关系的词汇。</p>
+<p>绑定键也必须拥有同样的格式。主题交换机背后的逻辑跟直连交换机很相似 —— 一个携带着特定路由键的消息会被主题交换机投递给绑定键与之想匹配的队列。但是它的绑定键和路由键有两个特殊应用方式：</p>
+<ul>
+<li>* (星号) 用来表示一个单词.</li>
+<li># (井号) 用来表示任意数量（零个或多个）单词。</li>
+</ul>
+<h3 id="发布队列-1"><a href="#发布队列-1" class="headerlink" title="发布队列"></a>发布队列</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require_once</span> <span class="keyword">__DIR__</span> . <span class="string">&#x27;/vendor/autoload.php&#x27;</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpAmqpLib</span>\<span class="title">Connection</span>\<span class="title">AMQPStreamConnection</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpAmqpLib</span>\<span class="title">Message</span>\<span class="title">AMQPMessage</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$connection</span> = <span class="keyword">new</span> AMQPStreamConnection(<span class="string">&#x27;localhost&#x27;</span>, <span class="number">5672</span>, <span class="string">&#x27;guest&#x27;</span>, <span class="string">&#x27;guest&#x27;</span>);</span><br><span class="line"><span class="variable">$channel</span> = <span class="variable">$connection</span>-&gt;channel();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明一个主题类型的交换机</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;exchange_declare(<span class="string">&#x27;topic_logs&#x27;</span>, <span class="string">&#x27;topic&#x27;</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable">$routing_key</span> = <span class="keyword">isset</span>(<span class="variable">$argv</span>[<span class="number">1</span>]) &amp;&amp; !<span class="keyword">empty</span>(<span class="variable">$argv</span>[<span class="number">1</span>]) ? <span class="variable">$argv</span>[<span class="number">1</span>] : <span class="string">&#x27;anonymous.info&#x27;</span>;</span><br><span class="line"><span class="variable">$data</span> = implode(<span class="string">&#x27; &#x27;</span>, array_slice(<span class="variable">$argv</span>, <span class="number">2</span>));</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">empty</span>(<span class="variable">$data</span>)) <span class="variable">$data</span> = <span class="string">&quot;Hello World!&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$msg</span> = <span class="keyword">new</span> AMQPMessage(<span class="variable">$data</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;basic_publish(<span class="variable">$msg</span>, <span class="string">&#x27;topic_logs&#x27;</span>, <span class="variable">$routing_key</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot; [x] Sent &quot;</span>,<span class="variable">$routing_key</span>,<span class="string">&#x27;:&#x27;</span>,<span class="variable">$data</span>,<span class="string">&quot; \n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;close();</span><br><span class="line"><span class="variable">$connection</span>-&gt;close();</span><br></pre></td></tr></table></figure>
+
+<h3 id="消费队列-1"><a href="#消费队列-1" class="headerlink" title="消费队列"></a>消费队列</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require_once</span> <span class="keyword">__DIR__</span> . <span class="string">&#x27;/vendor/autoload.php&#x27;</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpAmqpLib</span>\<span class="title">Connection</span>\<span class="title">AMQPStreamConnection</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$connection</span> = <span class="keyword">new</span> AMQPStreamConnection(<span class="string">&#x27;localhost&#x27;</span>, <span class="number">5672</span>, <span class="string">&#x27;guest&#x27;</span>, <span class="string">&#x27;guest&#x27;</span>);</span><br><span class="line"><span class="variable">$channel</span> = <span class="variable">$connection</span>-&gt;channel();</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;exchange_declare(<span class="string">&#x27;topic_logs&#x27;</span>, <span class="string">&#x27;topic&#x27;</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">list</span>(<span class="variable">$queue_name</span>, ,) = <span class="variable">$channel</span>-&gt;queue_declare(<span class="string">&quot;&quot;</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable">$binding_keys</span> = array_slice(<span class="variable">$argv</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">if</span>( <span class="keyword">empty</span>(<span class="variable">$binding_keys</span> )) &#123;</span><br><span class="line">    file_put_contents(<span class="string">&#x27;php://stderr&#x27;</span>, <span class="string">&quot;Usage: <span class="subst">$argv</span>[0] [binding_key]\n&quot;</span>);</span><br><span class="line">    <span class="keyword">exit</span>(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>(<span class="variable">$binding_keys</span> <span class="keyword">as</span> <span class="variable">$binding_key</span>) &#123;</span><br><span class="line">    <span class="variable">$channel</span>-&gt;queue_bind(<span class="variable">$queue_name</span>, <span class="string">&#x27;topic_logs&#x27;</span>, <span class="variable">$binding_key</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27; [*] Waiting for logs. To exit press CTRL+C&#x27;</span>, <span class="string">&quot;\n&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$callback</span> = <span class="function"><span class="keyword">function</span>(<span class="params"><span class="variable">$msg</span></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">echo</span> <span class="string">&#x27; [x] &#x27;</span>,<span class="variable">$msg</span>-&gt;delivery_info[<span class="string">&#x27;routing_key&#x27;</span>], <span class="string">&#x27;:&#x27;</span>, <span class="variable">$msg</span>-&gt;body, <span class="string">&quot;\n&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;basic_consume(<span class="variable">$queue_name</span>, <span class="string">&#x27;&#x27;</span>, <span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="variable">$callback</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(count(<span class="variable">$channel</span>-&gt;callbacks)) &#123;</span><br><span class="line">    <span class="variable">$channel</span>-&gt;wait();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;close();</span><br><span class="line"><span class="variable">$connection</span>-&gt;close();</span><br></pre></td></tr></table></figure>
+
+<h2 id="远程过程调用"><a href="#远程过程调用" class="headerlink" title="远程过程调用"></a>远程过程调用</h2><h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require_once</span> <span class="keyword">__DIR__</span> . <span class="string">&#x27;/vendor/autoload.php&#x27;</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpAmqpLib</span>\<span class="title">Connection</span>\<span class="title">AMQPStreamConnection</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpAmqpLib</span>\<span class="title">Message</span>\<span class="title">AMQPMessage</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$connection</span> = <span class="keyword">new</span> AMQPStreamConnection(<span class="string">&#x27;localhost&#x27;</span>, <span class="number">5672</span>, <span class="string">&#x27;guest&#x27;</span>, <span class="string">&#x27;guest&#x27;</span>);</span><br><span class="line"><span class="variable">$channel</span> = <span class="variable">$connection</span>-&gt;channel();</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;queue_declare(<span class="string">&#x27;rpc_queue&#x27;</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fib</span>(<span class="params"><span class="variable">$n</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$n</span> == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$n</span> == <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> fib(<span class="variable">$n</span>-<span class="number">1</span>) + fib(<span class="variable">$n</span>-<span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot; [x] Awaiting RPC requests\n&quot;</span>;</span><br><span class="line"><span class="variable">$callback</span> = <span class="function"><span class="keyword">function</span>(<span class="params"><span class="variable">$req</span></span>) </span>&#123;</span><br><span class="line">    <span class="variable">$n</span> = intval(<span class="variable">$req</span>-&gt;body);</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&quot; [.] fib(&quot;</span>, <span class="variable">$n</span>, <span class="string">&quot;)\n&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="variable">$msg</span> = <span class="keyword">new</span> AMQPMessage(</span><br><span class="line">        (<span class="keyword">string</span>) fib(<span class="variable">$n</span>),</span><br><span class="line">        <span class="keyword">array</span>(<span class="string">&#x27;correlation_id&#x27;</span> =&gt; <span class="variable">$req</span>-&gt;get(<span class="string">&#x27;correlation_id&#x27;</span>))</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">    <span class="variable">$req</span>-&gt;delivery_info[<span class="string">&#x27;channel&#x27;</span>]-&gt;basic_publish(</span><br><span class="line">        <span class="variable">$msg</span>, <span class="string">&#x27;&#x27;</span>, <span class="variable">$req</span>-&gt;get(<span class="string">&#x27;reply_to&#x27;</span>));</span><br><span class="line">    <span class="variable">$req</span>-&gt;delivery_info[<span class="string">&#x27;channel&#x27;</span>]-&gt;basic_ack(</span><br><span class="line">        <span class="variable">$req</span>-&gt;delivery_info[<span class="string">&#x27;delivery_tag&#x27;</span>]);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;basic_qos(<span class="literal">null</span>, <span class="number">1</span>, <span class="literal">null</span>);</span><br><span class="line"><span class="variable">$channel</span>-&gt;basic_consume(<span class="string">&#x27;rpc_queue&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="variable">$callback</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(count(<span class="variable">$channel</span>-&gt;callbacks)) &#123;</span><br><span class="line">    <span class="variable">$channel</span>-&gt;wait();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$channel</span>-&gt;close();</span><br><span class="line"><span class="variable">$connection</span>-&gt;close();</span><br></pre></td></tr></table></figure>
+
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">require_once</span> <span class="keyword">__DIR__</span> . <span class="string">&#x27;/vendor/autoload.php&#x27;</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpAmqpLib</span>\<span class="title">Connection</span>\<span class="title">AMQPStreamConnection</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">PhpAmqpLib</span>\<span class="title">Message</span>\<span class="title">AMQPMessage</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FibonacciRpcClient</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$connection</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$channel</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$callback_queue</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$response</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$corr_id</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;connection = <span class="keyword">new</span> AMQPStreamConnection(</span><br><span class="line">            <span class="string">&#x27;localhost&#x27;</span>, <span class="number">5672</span>, <span class="string">&#x27;guest&#x27;</span>, <span class="string">&#x27;guest&#x27;</span>);</span><br><span class="line">        <span class="keyword">$this</span>-&gt;channel = <span class="keyword">$this</span>-&gt;connection-&gt;channel();</span><br><span class="line">        <span class="keyword">list</span>(<span class="keyword">$this</span>-&gt;callback_queue, ,) = <span class="keyword">$this</span>-&gt;channel-&gt;queue_declare(</span><br><span class="line">            <span class="string">&quot;&quot;</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>);</span><br><span class="line">        <span class="keyword">$this</span>-&gt;channel-&gt;basic_consume(</span><br><span class="line">            <span class="keyword">$this</span>-&gt;callback_queue, <span class="string">&#x27;&#x27;</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">false</span>,</span><br><span class="line">            <span class="keyword">array</span>(<span class="keyword">$this</span>, <span class="string">&#x27;on_response&#x27;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">on_response</span>(<span class="params"><span class="variable">$rep</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="variable">$rep</span>-&gt;get(<span class="string">&#x27;correlation_id&#x27;</span>) == <span class="keyword">$this</span>-&gt;corr_id) &#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;response = <span class="variable">$rep</span>-&gt;body;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">call</span>(<span class="params"><span class="variable">$n</span></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;response = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;corr_id = uniqid();</span><br><span class="line"></span><br><span class="line">        <span class="variable">$msg</span> = <span class="keyword">new</span> AMQPMessage(</span><br><span class="line">            (<span class="keyword">string</span>) <span class="variable">$n</span>,</span><br><span class="line">            <span class="keyword">array</span>(<span class="string">&#x27;correlation_id&#x27;</span> =&gt; <span class="keyword">$this</span>-&gt;corr_id,</span><br><span class="line">                  <span class="string">&#x27;reply_to&#x27;</span> =&gt; <span class="keyword">$this</span>-&gt;callback_queue)</span><br><span class="line">            );</span><br><span class="line">        <span class="keyword">$this</span>-&gt;channel-&gt;basic_publish(<span class="variable">$msg</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;rpc_queue&#x27;</span>);</span><br><span class="line">        <span class="keyword">while</span>(!<span class="keyword">$this</span>-&gt;response) &#123;</span><br><span class="line">            <span class="keyword">$this</span>-&gt;channel-&gt;wait();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> intval(<span class="keyword">$this</span>-&gt;response);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="variable">$fibonacci_rpc</span> = <span class="keyword">new</span> FibonacciRpcClient();</span><br><span class="line"><span class="variable">$response</span> = <span class="variable">$fibonacci_rpc</span>-&gt;call(<span class="number">30</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot; [.] Got &quot;</span>, <span class="variable">$response</span>, <span class="string">&quot;\n&quot;</span>;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/php/" rel="tag"># php</a>
+              <a href="/tags/RabbitMQ/" rel="tag"># RabbitMQ</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/post/1d8035c6/" rel="prev" title="Github 密码暂时禁用问题">
+                  <i class="fa fa-chevron-left"></i> Github 密码暂时禁用问题
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/post/1255fdd2/" rel="next" title="CommonJS,AMD,CMD,ES6">
+                  CommonJS,AMD,CMD,ES6 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jiang wang</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">167k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:32</span>
+  </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+  
+
+
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"SJyyMLNz390B9X2k9tbsmUuU-gzGzoHsz","app_key":"OxRktB3EvJLfUzNDRR8MzIfa","server_url":null,"security":false}</script>
+  <script src="/js/third-party/statistics/lean-analytics.js"></script>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"jsogn","repo":"gitalk","client_id":"a3129e0de2949def44c3","client_secret":"cea4d50f199ac465d9c20195a4459ea36cbe00b0","admin_user":"jsogn","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"80ab333ee6b523b2d0750a31e1914146"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
