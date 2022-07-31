@@ -2440,4 +2440,38 @@
         <tag>javascript</tag>
       </tags>
   </entry>
+  <entry>
+    <title>mac pecl swoole openssl 错误</title>
+    <url>/post/ab17a67d/</url>
+    <content><![CDATA[<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/private/tmp/pear/temp/swoole/ext-src/php_swoole_private.h:84:2: error: <span class="string">&quot;Enable openssl support, require openssl library&quot;</span></span><br><span class="line"><span class="comment">#error &quot;Enable openssl support, require openssl library&quot;</span></span><br><span class="line"> ^</span><br><span class="line">In file included from /private/tmp/pear/temp/swoole/ext-src/php_swoole.cc:16:</span><br><span class="line">In file included from /private/tmp/pear/temp/swoole/ext-src/php_swoole_cxx.h:20:</span><br><span class="line">In file included from /private/tmp/pear/temp/swoole/ext-src/php_swoole_coroutine.h:22:</span><br><span class="line">In file included from /private/tmp/pear/temp/swoole/include/swoole_coroutine.h:22:</span><br><span class="line">In file included from /private/tmp/pear/temp/swoole/include/swoole_socket.h:33:</span><br><span class="line">/private/tmp/pear/temp/swoole/include/swoole_ssl.h:27:10: fatal error: <span class="string">&#x27;openssl/ssl.h&#x27;</span> file not found</span><br><span class="line"><span class="comment">#include &lt;openssl/ssl.h&gt;</span></span><br><span class="line">         ^~~~~~~~~~~~~~~</span><br><span class="line">2 errors generated.</span><br><span class="line">make: *** [ext-src/php_swoole.lo] Error 1</span><br><span class="line">ERROR: `make<span class="string">&#x27; failed</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">enable</span> openssl support? [no] : yes --with-openssl-dir=/usr/<span class="built_in">local</span>/opt/openssl</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>php</category>
+      </categories>
+      <tags>
+        <tag>php</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>npm install 卡住</title>
+    <url>/post/3a12d989/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><code>npm install</code> 安装缓慢失败解决方案</p>
+<span id="more"></span>
+
+<h2 id="镜像问题"><a href="#镜像问题" class="headerlink" title="镜像问题"></a>镜像问题</h2><p>更换成中国的镜像站地址</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npmmirror.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="GIT问题"><a href="#GIT问题" class="headerlink" title="GIT问题"></a>GIT问题</h2><p>更改git的git协议为https</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global url.<span class="string">&quot;https://&quot;</span>.insteadOf git://</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>javascript</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
 </search>
