@@ -29,28 +29,28 @@
   daovoice('update');
   </script>
 
-<meta name="description" content="前言有时，网站会被恶意入侵，可用Nginx做一些访问控制，加强一些网站安全性">
+<meta name="description" content="前言执行 git commit 时使用 emoji 为本次提交打上一个 “标签”, 使得此次 commit 的主要工作得以凸现，也能够使得其在整个提交历史中易于区分与查找。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nginx访问控制">
-<meta property="og:url" content="https://jiangwangblog.com/post/16692/index.html">
+<meta property="og:title" content="Git commit 表情符号">
+<meta property="og:url" content="https://jiangwangblog.com/post/2b9c5c01/index.html">
 <meta property="og:site_name" content="Jw Blog">
-<meta property="og:description" content="前言有时，网站会被恶意入侵，可用Nginx做一些访问控制，加强一些网站安全性">
+<meta property="og:description" content="前言执行 git commit 时使用 emoji 为本次提交打上一个 “标签”, 使得此次 commit 的主要工作得以凸现，也能够使得其在整个提交历史中易于区分与查找。">
 <meta property="og:locale">
-<meta property="article:published_time" content="2020-04-12T06:25:17.155Z">
-<meta property="article:modified_time" content="2020-04-12T06:34:43.631Z">
+<meta property="article:published_time" content="2022-09-03T18:48:25.062Z">
+<meta property="article:modified_time" content="2022-09-03T19:01:29.200Z">
 <meta property="article:author" content="jiang wang">
-<meta property="article:tag" content="nginx">
+<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://jiangwangblog.com/post/16692/">
+<link rel="canonical" href="https://jiangwangblog.com/post/2b9c5c01/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://jiangwangblog.com/post/16692/","path":"post/16692/","title":"Nginx访问控制"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-Hans","comments":true,"permalink":"https://jiangwangblog.com/post/2b9c5c01/","path":"post/2b9c5c01/","title":"Git commit 表情符号"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Nginx访问控制 | Jw Blog</title>
+<title>Git commit 表情符号 | Jw Blog</title>
   
 
 
@@ -156,7 +156,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E5%90%8D%E9%99%90%E5%88%B6"><span class="nav-number">2.</span> <span class="nav-text">扩展名限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95%E9%99%90%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">文件或目录限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%90%E5%88%B6IP%E8%AE%BF%E9%97%AE"><span class="nav-number">4.</span> <span class="nav-text">限制IP访问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A6%81%E6%AD%A2%E9%9D%9E%E6%B3%95%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90%E8%AE%BF%E9%97%AE"><span class="nav-number">5.</span> <span class="nav-text">禁止非法域名解析访问</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#commit-%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">commit 格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#emoji-%E6%8C%87%E5%8D%97"><span class="nav-number">3.</span> <span class="nav-text">emoji 指南</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -246,7 +246,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="https://jiangwangblog.com/post/16692/">
+    <link itemprop="mainEntityOfPage" href="https://jiangwangblog.com/post/2b9c5c01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -259,7 +259,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Nginx访问控制
+          Git commit 表情符号
         </h1>
 
         <div class="post-meta-container">
@@ -271,7 +271,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2020-04-12 14:25:17 / 修改时间：14:34:43" itemprop="dateCreated datePublished" datetime="2020-04-12T14:25:17+08:00">2020-04-12</time>
+      <time title="创建时间：2022-09-04 02:48:25 / 修改时间：03:01:29" itemprop="dateCreated datePublished" datetime="2022-09-04T02:48:25+08:00">2022-09-04</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -279,12 +279,12 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a>
+          <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
         </span>
     </span>
 
   
-    <span id="/post/16692/" class="post-meta-item leancloud_visitors" data-flag-title="Nginx访问控制" title="阅读次数">
+    <span id="/post/2b9c5c01/" class="post-meta-item leancloud_visitors" data-flag-title="Git commit 表情符号" title="阅读次数">
       <span class="post-meta-item-icon">
         <i class="far fa-eye"></i>
       </span>
@@ -297,7 +297,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
+      <span>1.2k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -315,47 +315,195 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>有时，网站会被恶意入侵，可用Nginx做一些访问控制，加强一些网站安全性</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>执行 git commit 时使用 emoji 为本次提交打上一个 “标签”, 使得此次 commit 的主要工作得以凸现，也能够使得其在整个提交历史中易于区分与查找。</p>
 <span id="more"></span>
 
-<h3 id="扩展名限制"><a href="#扩展名限制" class="headerlink" title="扩展名限制"></a>扩展名限制</h3><p>禁止访问指定目录下的程序</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location ~ ^/images/.*\.(php|py)$</span><br><span class="line">&#123;</span><br><span class="line">    deny all;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="commit-格式"><a href="#commit-格式" class="headerlink" title="commit 格式"></a>commit 格式</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git commit 时，提交信息遵循以下格式：</span><br><span class="line"></span><br><span class="line">:emoji1: :emoji2: 不超过 50 个字的摘要，首字母大写，使用祈使语气，句末不要加句号</span><br><span class="line"></span><br><span class="line">提交信息主体</span><br><span class="line"></span><br><span class="line">引用相关 issue 或 PR 编号 &lt;#110&gt;</span><br></pre></td></tr></table></figure>
 
-<p>禁止访问指定文件名程序</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location ~ ^/data/(attachment|avatar).*\.(php|py)$</span><br><span class="line">&#123;</span><br><span class="line">    deny all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>初次提交示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;:tada: Initialize Repo&quot;</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="emoji-指南"><a href="#emoji-指南" class="headerlink" title="emoji 指南"></a>emoji 指南</h2><table>
+<thead>
+<tr>
+<th>emoji</th>
+<th>emoji 代码</th>
+<th>commit 说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>🎉 (庆祝)</td>
+<td>:tada:</td>
+<td>初次提交</td>
+</tr>
+<tr>
+<td>🆕 (全新)</td>
+<td>:new:</td>
+<td>引入新功能</td>
+</tr>
+<tr>
+<td>🔖 (书签)</td>
+<td>:bookmark:</td>
+<td>发行/版本标签</td>
+</tr>
+<tr>
+<td>🐛 (bug)</td>
+<td>:bug:</td>
+<td>修复 bug</td>
+</tr>
+<tr>
+<td>🚑 (急救车)</td>
+<td>:ambulance:</td>
+<td>重要补丁</td>
+</tr>
+<tr>
+<td>🌐 (地球)</td>
+<td>:globe_with_meridians:</td>
+<td>国际化与本地化</td>
+</tr>
+<tr>
+<td>💄 (口红)</td>
+<td>:lipstick:</td>
+<td>更新 UI 和样式文件</td>
+</tr>
+<tr>
+<td>🎬 (场记板)</td>
+<td>:clapper:</td>
+<td>更新演示/示例</td>
+</tr>
+<tr>
+<td>🚨 (警车灯)</td>
+<td>:rotating_light:</td>
+<td>移除 linter 警告</td>
+</tr>
+<tr>
+<td>🔧 (扳手)</td>
+<td>:wrench:</td>
+<td>修改配置文件</td>
+</tr>
+<tr>
+<td>➕ (加号)</td>
+<td>:heavy_plus_sign:</td>
+<td>增加一个依赖</td>
+</tr>
+<tr>
+<td>➖ (减号)</td>
+<td>:heavy_minus_sign:</td>
+<td>减少一个依赖</td>
+</tr>
+<tr>
+<td>⬆️ (上升箭头)</td>
+<td>:arrow_up:</td>
+<td>升级依赖</td>
+</tr>
+<tr>
+<td>⬇️ (下降箭头)</td>
+<td>:arrow_down:</td>
+<td>降级依赖</td>
+</tr>
+<tr>
+<td>⚡ (闪电) 🐎 (赛马)</td>
+<td>:zap: :racehorse:</td>
+<td>提升性能</td>
+</tr>
+<tr>
+<td>📈 (上升趋势图)</td>
+<td>:chart_with_upwards_trend:</td>
+<td>添加分析或跟踪代码</td>
+</tr>
+<tr>
+<td>🚀 (火箭)</td>
+<td>:rocket:</td>
+<td>部署功能</td>
+</tr>
+<tr>
+<td>✅ (白色复选框)</td>
+<td>:white_check_mark:</td>
+<td>增加测试</td>
+</tr>
+<tr>
+<td>📝 (备忘录) 📖 (书)</td>
+<td>:memo: :book:</td>
+<td>撰写文档</td>
+</tr>
+<tr>
+<td>🔨 (锤子)</td>
+<td>:hammer:</td>
+<td>重大重构</td>
+</tr>
+<tr>
+<td>🎨 (调色板)</td>
+<td>:art:</td>
+<td>改进代码结构/代码格式</td>
+</tr>
+<tr>
+<td>🔥 (火焰)</td>
+<td>:fire:</td>
+<td>移除代码或文件</td>
+</tr>
+<tr>
+<td>✏️ (铅笔)</td>
+<td>:pencil2:</td>
+<td>修复 typo</td>
+</tr>
+<tr>
+<td>🚧 (施工)</td>
+<td>:construction:</td>
+<td>工作进行中</td>
+</tr>
+<tr>
+<td>🗑️ (垃圾桶)</td>
+<td>:wastebasket:</td>
+<td>废弃或删除</td>
+</tr>
+<tr>
+<td>♿ (轮椅)</td>
+<td>:wheelchair:</td>
+<td>可访问性</td>
+</tr>
+<tr>
+<td>👷 (工人)</td>
+<td>:construction_worker:</td>
+<td>添加 CI 构建系统</td>
+</tr>
+<tr>
+<td>💚 (绿心)</td>
+<td>:green_heart:</td>
+<td>修复 CI 构建问题</td>
+</tr>
+<tr>
+<td>🔒 (锁)</td>
+<td>:lock:</td>
+<td>修复安全问题</td>
+</tr>
+<tr>
+<td>🐳 (鲸鱼)</td>
+<td>:whale:</td>
+<td>Docker 相关工作</td>
+</tr>
+<tr>
+<td>🍎 (苹果)</td>
+<td>:apple:</td>
+<td>修复 macOS 下的问题</td>
+</tr>
+<tr>
+<td>🐧 (企鹅)</td>
+<td>:penguin:</td>
+<td>修复 Linux 下的问题</td>
+</tr>
+<tr>
+<td>🏁 (旗帜)</td>
+<td>:checkered_flag:</td>
+<td>修复 Windows 下的问题</td>
+</tr>
+<tr>
+<td>🔀 (交叉箭头)</td>
+<td>:twisted_rightwards_arrows:</td>
+<td>分支合并</td>
+</tr>
+</tbody></table>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>● <a target="_blank" rel="noopener" href="https://github.com/liuchengxu/git-commit-emoji-cn">https://github.com/liuchengxu/git-commit-emoji-cn</a></p>
 
-<h3 id="文件或目录限制"><a href="#文件或目录限制" class="headerlink" title="文件或目录限制"></a>文件或目录限制</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location ~ ^/(\.user.ini|\.htaccess|\.git|\.svn|\.project|LICENSE|README.md) &#123;</span><br><span class="line">    return 404;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>排除某个目录不受限制</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location ~ \.well-known&#123;</span><br><span class="line">    allow all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>禁止访问单个目录</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location ~ ^/static &#123;</span><br><span class="line">    deny all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>禁止访问多个目录，并返回指定状态码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location ~ ^/(static|js) &#123;</span><br><span class="line">    return 404;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="限制IP访问"><a href="#限制IP访问" class="headerlink" title="限制IP访问"></a>限制IP访问</h3><p>禁止目录访问，但允许某IP访问</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location ~ ^/mysql_loging/ &#123;</span><br><span class="line">    allow 192.168.0.4;</span><br><span class="line">    deny all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>限制IP或IP段访问</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    deny 192.168.0.4;</span><br><span class="line">    allow 192.168.1.0/16;</span><br><span class="line">    allow 10.0.0.0/24;</span><br><span class="line">    deny all;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>nginx做反向代理的时候也可以限制客户端IP</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if ( $remoteaddr = 10.0.0.7 ) &#123;</span><br><span class="line">    return 403;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if ( $remoteaddr = 218.247.17.130 ) &#123;</span><br><span class="line">    set $allow_access_root &#x27;ture&#x27;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>禁止某ip段访问并向浏览器输出一段文字（若有乱码,请在server中添加：charset utf-8;）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if ($remote_addr ~* ^211\.149\.(.*?)\.(.*?)$)&#123;</span><br><span class="line">return 404 &quot;黑名单用户，拒绝访问&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="禁止非法域名解析访问"><a href="#禁止非法域名解析访问" class="headerlink" title="禁止非法域名解析访问"></a>禁止非法域名解析访问</h3><p>让使用IP访问网站的用户，或恶意接卸域名的用户，收到501错误</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80 default_server;</span><br><span class="line">    server_name _;</span><br><span class="line">    return 501;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过301跳转主页</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80 default_server;</span><br><span class="line">    server_name _;</span><br><span class="line">    rewrite ^(.*) http://blog.dns.com/$1 permanent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>发现某域名恶意解析到公司的服务器IP，在server标签里添加以下代码即可，若有多个server要多处添加</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if ($host !~ ^www/.tag/.com$) &#123;</span><br><span class="line">    rewrite ^(.*) http://blog.mydns.vip$1 permanent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -364,21 +512,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/nginx/" rel="tag"># nginx</a>
+              <a href="/tags/git/" rel="tag"># git</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/post/52587/" rel="prev" title="平滑重启php-fpm">
-                  <i class="fa fa-chevron-left"></i> 平滑重启php-fpm
+                <a href="/post/3a12d989/" rel="prev" title="npm install 卡住">
+                  <i class="fa fa-chevron-left"></i> npm install 卡住
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/post/42883/" rel="next" title="vue配置跨域代理">
-                  vue配置跨域代理 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -443,7 +588,7 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
 
-<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"jsogn","repo":"gitalk","client_id":"a3129e0de2949def44c3","client_secret":"cea4d50f199ac465d9c20195a4459ea36cbe00b0","admin_user":"jsogn","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"a294e8869230c0acaaf6bdd95aee71d7"}</script>
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"jsogn","repo":"gitalk","client_id":"a3129e0de2949def44c3","client_secret":"cea4d50f199ac465d9c20195a4459ea36cbe00b0","admin_user":"jsogn","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"zh-CN","js":{"url":"https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/gitalk.min.js","integrity":"sha256-Pmj85ojLaPOWwRtlMJwmezB/Qg8BzvJp5eTzvXaYAfA="},"path_md5":"b9b2d5098111683894a3f287c0faaa6b"}</script>
 <script src="/js/third-party/comments/gitalk.js"></script>
 
 </body>

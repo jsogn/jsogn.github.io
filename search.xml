@@ -2474,4 +2474,203 @@
         <tag>javascript</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Git commit 表情符号</title>
+    <url>/post/2b9c5c01/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>执行 git commit 时使用 emoji 为本次提交打上一个 “标签”, 使得此次 commit 的主要工作得以凸现，也能够使得其在整个提交历史中易于区分与查找。</p>
+<span id="more"></span>
+
+<h2 id="commit-格式"><a href="#commit-格式" class="headerlink" title="commit 格式"></a>commit 格式</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">git commit 时，提交信息遵循以下格式：</span><br><span class="line"></span><br><span class="line">:emoji1: :emoji2: 不超过 50 个字的摘要，首字母大写，使用祈使语气，句末不要加句号</span><br><span class="line"></span><br><span class="line">提交信息主体</span><br><span class="line"></span><br><span class="line">引用相关 issue 或 PR 编号 &lt;#110&gt;</span><br></pre></td></tr></table></figure>
+
+<p>初次提交示例：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git commit -m <span class="string">&quot;:tada: Initialize Repo&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="emoji-指南"><a href="#emoji-指南" class="headerlink" title="emoji 指南"></a>emoji 指南</h2><table>
+<thead>
+<tr>
+<th>emoji</th>
+<th>emoji 代码</th>
+<th>commit 说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>🎉 (庆祝)</td>
+<td>:tada:</td>
+<td>初次提交</td>
+</tr>
+<tr>
+<td>🆕 (全新)</td>
+<td>:new:</td>
+<td>引入新功能</td>
+</tr>
+<tr>
+<td>🔖 (书签)</td>
+<td>:bookmark:</td>
+<td>发行/版本标签</td>
+</tr>
+<tr>
+<td>🐛 (bug)</td>
+<td>:bug:</td>
+<td>修复 bug</td>
+</tr>
+<tr>
+<td>🚑 (急救车)</td>
+<td>:ambulance:</td>
+<td>重要补丁</td>
+</tr>
+<tr>
+<td>🌐 (地球)</td>
+<td>:globe_with_meridians:</td>
+<td>国际化与本地化</td>
+</tr>
+<tr>
+<td>💄 (口红)</td>
+<td>:lipstick:</td>
+<td>更新 UI 和样式文件</td>
+</tr>
+<tr>
+<td>🎬 (场记板)</td>
+<td>:clapper:</td>
+<td>更新演示/示例</td>
+</tr>
+<tr>
+<td>🚨 (警车灯)</td>
+<td>:rotating_light:</td>
+<td>移除 linter 警告</td>
+</tr>
+<tr>
+<td>🔧 (扳手)</td>
+<td>:wrench:</td>
+<td>修改配置文件</td>
+</tr>
+<tr>
+<td>➕ (加号)</td>
+<td>:heavy_plus_sign:</td>
+<td>增加一个依赖</td>
+</tr>
+<tr>
+<td>➖ (减号)</td>
+<td>:heavy_minus_sign:</td>
+<td>减少一个依赖</td>
+</tr>
+<tr>
+<td>⬆️ (上升箭头)</td>
+<td>:arrow_up:</td>
+<td>升级依赖</td>
+</tr>
+<tr>
+<td>⬇️ (下降箭头)</td>
+<td>:arrow_down:</td>
+<td>降级依赖</td>
+</tr>
+<tr>
+<td>⚡ (闪电) 🐎 (赛马)</td>
+<td>:zap: :racehorse:</td>
+<td>提升性能</td>
+</tr>
+<tr>
+<td>📈 (上升趋势图)</td>
+<td>:chart_with_upwards_trend:</td>
+<td>添加分析或跟踪代码</td>
+</tr>
+<tr>
+<td>🚀 (火箭)</td>
+<td>:rocket:</td>
+<td>部署功能</td>
+</tr>
+<tr>
+<td>✅ (白色复选框)</td>
+<td>:white_check_mark:</td>
+<td>增加测试</td>
+</tr>
+<tr>
+<td>📝 (备忘录) 📖 (书)</td>
+<td>:memo: :book:</td>
+<td>撰写文档</td>
+</tr>
+<tr>
+<td>🔨 (锤子)</td>
+<td>:hammer:</td>
+<td>重大重构</td>
+</tr>
+<tr>
+<td>🎨 (调色板)</td>
+<td>:art:</td>
+<td>改进代码结构/代码格式</td>
+</tr>
+<tr>
+<td>🔥 (火焰)</td>
+<td>:fire:</td>
+<td>移除代码或文件</td>
+</tr>
+<tr>
+<td>✏️ (铅笔)</td>
+<td>:pencil2:</td>
+<td>修复 typo</td>
+</tr>
+<tr>
+<td>🚧 (施工)</td>
+<td>:construction:</td>
+<td>工作进行中</td>
+</tr>
+<tr>
+<td>🗑️ (垃圾桶)</td>
+<td>:wastebasket:</td>
+<td>废弃或删除</td>
+</tr>
+<tr>
+<td>♿ (轮椅)</td>
+<td>:wheelchair:</td>
+<td>可访问性</td>
+</tr>
+<tr>
+<td>👷 (工人)</td>
+<td>:construction_worker:</td>
+<td>添加 CI 构建系统</td>
+</tr>
+<tr>
+<td>💚 (绿心)</td>
+<td>:green_heart:</td>
+<td>修复 CI 构建问题</td>
+</tr>
+<tr>
+<td>🔒 (锁)</td>
+<td>:lock:</td>
+<td>修复安全问题</td>
+</tr>
+<tr>
+<td>🐳 (鲸鱼)</td>
+<td>:whale:</td>
+<td>Docker 相关工作</td>
+</tr>
+<tr>
+<td>🍎 (苹果)</td>
+<td>:apple:</td>
+<td>修复 macOS 下的问题</td>
+</tr>
+<tr>
+<td>🐧 (企鹅)</td>
+<td>:penguin:</td>
+<td>修复 Linux 下的问题</td>
+</tr>
+<tr>
+<td>🏁 (旗帜)</td>
+<td>:checkered_flag:</td>
+<td>修复 Windows 下的问题</td>
+</tr>
+<tr>
+<td>🔀 (交叉箭头)</td>
+<td>:twisted_rightwards_arrows:</td>
+<td>分支合并</td>
+</tr>
+</tbody></table>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>● <a href="https://github.com/liuchengxu/git-commit-emoji-cn">https://github.com/liuchengxu/git-commit-emoji-cn</a></p>
+]]></content>
+      <categories>
+        <category>git</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
 </search>
